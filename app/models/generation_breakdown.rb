@@ -1,0 +1,2 @@
+class GenerationBreakdown < ApplicationRecord
+end
