@@ -3,4 +3,11 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  root "main#index"
+
+  get "electricity-generation", to: "generation#index", as: :generation
+
+  get "diesel-savings", to: "savings#index", as: :savings
+
+  get "community-usage", to: "usage#index", as: :usage
 end
