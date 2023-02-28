@@ -12,4 +12,6 @@ Rails.application.routes.draw do
   get "community-usage", to: "usage#index", as: :usage
 
   get "about-page", to: "about#index", as: :about
+
+  get "battery-page", to: "battery#index", as: :battery
 end
