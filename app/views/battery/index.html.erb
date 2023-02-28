@@ -8,7 +8,10 @@
         </h5>
         <p class="card-text">
             <strong>Date: </strong><%= @current.timestamp %> <br>
-            <strong>State of Charge: </strong><%= @current.charge %>
+            <strong>State of Charge: </strong><%= @current.charge %> <br>
+            <strong>Charge one hour ago: </strong><%= @past.charge %> <br>
+            <strong>State of Battery: </strong><%= @state %>
+
         </p>
     </div>
     </div>
