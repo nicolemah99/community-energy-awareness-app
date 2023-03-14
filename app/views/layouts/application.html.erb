@@ -1,203 +1,191 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>CEA</title>
-    <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-    <%= yield(:head) %>
+	<head>
+		<title>CEA</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<%= csrf_meta_tags %>
+		<%= csp_meta_tag %>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+		<%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+		<%= javascript_importmap_tags %>
+		<%= yield(:head) %>
+		<link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
+		<link rel="icon" type="image/png" href="./assets/img/favicon.png">
+		<!--     Fonts and icons     -->
+		<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+		<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+		<!-- Nucleo Icons -->
+		<link href="theme/assets/css/nucleo-icons.css" rel="stylesheet" />
+		<!-- CSS Files -->
+		<link href="theme/assets/css/black-dashboard.css?v=1.1.1" rel="stylesheet" />
+		<!--   Core JS Files   -->
+		<script src="theme/assets/js/core/jquery.min.js"></script>
+		<script src="theme/assets/js/core/popper.min.js"></script>
+		<script src="theme/assets/js/core/bootstrap.min.js"></script>
+		<script src="theme/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+		<script src="theme/assets/js/plugins/moment.min.js"></script>
+		<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+		<script src="theme/assets/js/plugins/bootstrap-switch.js"></script>
+		<!--  Plugin for Sweet Alert -->
+		<script src="theme/assets/js/plugins/sweetalert2.min.js"></script>
+		<!--  Plugin for Sorting Tables -->
+		<script src="theme/assets/js/plugins/jquery.tablesorter.js"></script>
+		<!-- Forms Validations Plugin -->
+		<script src="theme/assets/js/plugins/jquery.validate.min.js"></script>
+		<!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+		<script src="theme/assets/js/plugins/jquery.bootstrap-wizard.js"></script>
+		<!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+		<script src="theme/assets/js/plugins/bootstrap-selectpicker.js"></script>
+		<!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+		<script src="theme/assets/js/plugins/bootstrap-datetimepicker.js"></script>
+		<!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
+		<script src="theme/assets/js/plugins/jquery.dataTables.min.js"></script>
+		<!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+		<script src="theme/assets/js/plugins/bootstrap-tagsinput.js"></script>
+		<!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+		<script src="theme/assets/js/plugins/jasny-bootstrap.min.js"></script>
+		<!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+		<script src="theme/assets/js/plugins/fullcalendar/fullcalendar.min.js"></script>
+		<script src="theme/assets/js/plugins/fullcalendar/daygrid.min.js"></script>
+		<script src="theme/assets/js/plugins/fullcalendar/timegrid.min.js"></script>
+		<script src="theme/assets/js/plugins/fullcalendar/interaction.min.js"></script>
+		<!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+		<script src="theme/assets/js/plugins/jquery-jvectormap.js"></script>
+		<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+		<script src="theme/assets/js/plugins/nouislider.min.js"></script>
+		<!-- Chart JS -->
+		<script src="theme/assets/js/plugins/chartjs.min.js"></script>
+		<!--  Notifications Plugin    -->
+		<script src="theme/assets/js/plugins/bootstrap-notify.js"></script>
+		<!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
+		<script src="theme/assets/js/black-dashboard.min.js?v=1.1.1"></script>
+		<!-- Black Dashboard DEMO methods, don't include it in your project! -->
+		<script src="theme/assets/demo/demo.js"></script>
+	</head>
+	<body class="sidebar-mini ">
+		<div class="wrapper">
+			<%= render partial: "shared/navbar3" %>
+			<%= yield %>
+			<%= render partial: "shared/footer" %>
+		</div>
+		<script>
+			$(document).ready(function() {
+			  $().ready(function() {
+			    $sidebar = $('.sidebar');
+			    $navbar = $('.navbar');
+			    $main_panel = $('.main-panel');
 
-  
-  <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="./assets/img/favicon.png">
-  <!--     Fonts and icons     -->
-  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
-  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-  <!-- Nucleo Icons -->
-  <link href="theme/assets/css/nucleo-icons.css" rel="stylesheet" />
-  <!-- CSS Files -->
-  <link href="theme/assets/css/black-dashboard.css?v=1.1.1" rel="stylesheet" />
+			    $full_page = $('.full-page');
 
-    <!--   Core JS Files   -->
-  <script src="theme/assets/js/core/jquery.min.js"></script>
-  <script src="theme/assets/js/core/popper.min.js"></script>
-  <script src="theme/assets/js/core/bootstrap.min.js"></script>
-  <script src="theme/assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-  <script src="theme/assets/js/plugins/moment.min.js"></script>
+			    $sidebar_responsive = $('body > .navbar-collapse');
+			    sidebar_mini_active = true;
+			    white_color = false;
 
-  <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
-  <script src="theme/assets/js/plugins/bootstrap-switch.js"></script>
+			    window_width = $(window).width();
 
-  <!--  Plugin for Sweet Alert -->
-  <script src="theme/assets/js/plugins/sweetalert2.min.js"></script>
-  
-  <!--  Plugin for Sorting Tables -->
-  <script src="theme/assets/js/plugins/jquery.tablesorter.js"></script>
-  <!-- Forms Validations Plugin -->
-  <script src="theme/assets/js/plugins/jquery.validate.min.js"></script>
-  <!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
-  <script src="theme/assets/js/plugins/jquery.bootstrap-wizard.js"></script>
-  <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
-  <script src="theme/assets/js/plugins/bootstrap-selectpicker.js"></script>
-  <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
-  <script src="theme/assets/js/plugins/bootstrap-datetimepicker.js"></script>
-  <!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
-  <script src="theme/assets/js/plugins/jquery.dataTables.min.js"></script>
-  <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
-  <script src="theme/assets/js/plugins/bootstrap-tagsinput.js"></script>
-  <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
-  <script src="theme/assets/js/plugins/jasny-bootstrap.min.js"></script>
-  <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
-  <script src="theme/assets/js/plugins/fullcalendar/fullcalendar.min.js"></script>
-  <script src="theme/assets/js/plugins/fullcalendar/daygrid.min.js"></script>
-  <script src="theme/assets/js/plugins/fullcalendar/timegrid.min.js"></script>
-  <script src="theme/assets/js/plugins/fullcalendar/interaction.min.js"></script>
-  <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
-  <script src="theme/assets/js/plugins/jquery-jvectormap.js"></script>
-  <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
-  <script src="theme/assets/js/plugins/nouislider.min.js"></script>
-
-  <!-- Chart JS -->
-  <script src="theme/assets/js/plugins/chartjs.min.js"></script>
-  <!--  Notifications Plugin    -->
-  <script src="theme/assets/js/plugins/bootstrap-notify.js"></script>
-  <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="theme/assets/js/black-dashboard.min.js?v=1.1.1"></script>
-  <!-- Black Dashboard DEMO methods, don't include it in your project! -->
-  <script src="theme/assets/demo/demo.js"></script>
-  </head>
-
-  <body class="sidebar-mini ">
-  <div class="wrapper">
-    <%= render partial: "shared/navbar3" %>
-
-      <%= yield %>
-      
-    <%= render partial: "shared/footer" %>
-
-  </div>
-  
-      <script>
-    $(document).ready(function() {
-      $().ready(function() {
-        $sidebar = $('.sidebar');
-        $navbar = $('.navbar');
-        $main_panel = $('.main-panel');
-
-        $full_page = $('.full-page');
-
-        $sidebar_responsive = $('body > .navbar-collapse');
-        sidebar_mini_active = true;
-        white_color = false;
-
-        window_width = $(window).width();
-
-        fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+			    fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
 
 
 
-        $('.fixed-plugin a').click(function(event) {
-          if ($(this).hasClass('switch-trigger')) {
-            if (event.stopPropagation) {
-              event.stopPropagation();
-            } else if (window.event) {
-              window.event.cancelBubble = true;
-            }
-          }
-        });
+			    $('.fixed-plugin a').click(function(event) {
+			      if ($(this).hasClass('switch-trigger')) {
+			        if (event.stopPropagation) {
+			          event.stopPropagation();
+			        } else if (window.event) {
+			          window.event.cancelBubble = true;
+			        }
+			      }
+			    });
 
-        $('.fixed-plugin .background-color span').click(function() {
-          $(this).siblings().removeClass('active');
-          $(this).addClass('active');
+			    $('.fixed-plugin .background-color span').click(function() {
+			      $(this).siblings().removeClass('active');
+			      $(this).addClass('active');
 
-          var new_color = $(this).data('color');
+			      var new_color = $(this).data('color');
 
-          if ($sidebar.length != 0) {
-            $sidebar.attr('data', new_color);
-          }
+			      if ($sidebar.length != 0) {
+			        $sidebar.attr('data', new_color);
+			      }
 
-          if ($main_panel.length != 0) {
-            $main_panel.attr('data', new_color);
-          }
+			      if ($main_panel.length != 0) {
+			        $main_panel.attr('data', new_color);
+			      }
 
-          if ($full_page.length != 0) {
-            $full_page.attr('filter-color', new_color);
-          }
+			      if ($full_page.length != 0) {
+			        $full_page.attr('filter-color', new_color);
+			      }
 
-          if ($sidebar_responsive.length != 0) {
-            $sidebar_responsive.attr('data', new_color);
-          }
-        });
+			      if ($sidebar_responsive.length != 0) {
+			        $sidebar_responsive.attr('data', new_color);
+			      }
+			    });
 
-        $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function() {
-          var $btn = $(this);
+			    $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function() {
+			      var $btn = $(this);
 
-          if (sidebar_mini_active == true) {
-            $('body').removeClass('sidebar-mini');
-            sidebar_mini_active = false;
-            blackDashboard.showSidebarMessage('Sidebar mini deactivated...');
-          } else {
-            $('body').addClass('sidebar-mini');
-            sidebar_mini_active = true;
-            blackDashboard.showSidebarMessage('Sidebar mini activated...');
-          }
+			      if (sidebar_mini_active == true) {
+			        $('body').removeClass('sidebar-mini');
+			        sidebar_mini_active = false;
+			        blackDashboard.showSidebarMessage('Sidebar mini deactivated...');
+			      } else {
+			        $('body').addClass('sidebar-mini');
+			        sidebar_mini_active = true;
+			        blackDashboard.showSidebarMessage('Sidebar mini activated...');
+			      }
 
-          // we simulate the window Resize so the charts will get updated in realtime.
-          var simulateWindowResize = setInterval(function() {
-            window.dispatchEvent(new Event('resize'));
-          }, 180);
+			      // we simulate the window Resize so the charts will get updated in realtime.
+			      var simulateWindowResize = setInterval(function() {
+			        window.dispatchEvent(new Event('resize'));
+			      }, 180);
 
-          // we stop the simulation of Window Resize after the animations are completed
-          setTimeout(function() {
-            clearInterval(simulateWindowResize);
-          }, 1000);
-        });
+			      // we stop the simulation of Window Resize after the animations are completed
+			      setTimeout(function() {
+			        clearInterval(simulateWindowResize);
+			      }, 1000);
+			    });
 
-        $('.switch-change-color input').on("switchChange.bootstrapSwitch", function() {
-          var $btn = $(this);
+			    $('.switch-change-color input').on("switchChange.bootstrapSwitch", function() {
+			      var $btn = $(this);
 
-          if (white_color == true) {
+			      if (white_color == true) {
 
-            $('body').addClass('change-background');
-            setTimeout(function() {
-              $('body').removeClass('change-background');
-              $('body').removeClass('white-content');
-            }, 900);
-            white_color = false;
-          } else {
+			        $('body').addClass('change-background');
+			        setTimeout(function() {
+			          $('body').removeClass('change-background');
+			          $('body').removeClass('white-content');
+			        }, 900);
+			        white_color = false;
+			      } else {
 
-            $('body').addClass('change-background');
-            setTimeout(function() {
-              $('body').removeClass('change-background');
-              $('body').addClass('white-content');
-            }, 900);
+			        $('body').addClass('change-background');
+			        setTimeout(function() {
+			          $('body').removeClass('change-background');
+			          $('body').addClass('white-content');
+			        }, 900);
 
-            white_color = true;
-          }
+			        white_color = true;
+			      }
 
 
-        });
+			    });
 
-        $('.light-badge').click(function() {
-          $('body').addClass('white-content');
-        });
+			    $('.light-badge').click(function() {
+			      $('body').addClass('white-content');
+			    });
 
-        $('.dark-badge').click(function() {
-          $('body').removeClass('white-content');
-        });
-      });
-    });
-  </script>
-  <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
-      demo.initChartPageCharts();
-    });
-  </script>
-  </body>
+			    $('.dark-badge').click(function() {
+			      $('body').removeClass('white-content');
+			    });
+			  });
+			});
+		</script>
+		<script>
+			$(document).ready(function() {
+			  // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
+			  demo.initChartPageCharts();
+			});
+		</script>
+	</body>
 </html>

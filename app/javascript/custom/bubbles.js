@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-	Highcharts.chart("container", {
+	Highcharts.chart("bubbleContainer", {
 		chart: {
 			type: "packedbubble",
 			height: "50%",
