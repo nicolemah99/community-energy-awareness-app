@@ -20,13 +20,16 @@
 <div class="battery p-4">
 	<div class="battery-head"></div>
 	<div class="battery-body">
-		<i class="fas fa-bolt"></i>
-        <% if @state %>
+        <% if @state=="Charging" %>
+            <i class="fas fa-bolt"></i>
             <div class="charge"></div>
-            <h3 class="battpercent"><%= @current.charge.round(1) %> %</h3>
-        <% else %>
+            <h3 class="battpercent mt-4"><%= @current.charge.round(1) %> %</h3>
+        <% elsif @state=="Discharging" %>
             <div class="discharge"></div>
-            <h3 class="text-center"><%= @current.charge.round(1) %> %</h3>
+            <h3 class="text-center mt-4"><%= @current.charge.round(1) %> %</h3>
+        <% else %>
+            <div class="nocharge"></div>
+            <h3 class="text-bottom mt-4"><%= @current.charge.round(1) %> %</h3>
         <% end %>
 	</div>
 </div>

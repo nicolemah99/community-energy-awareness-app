@@ -15,6 +15,9 @@ class BatteryController < ApplicationController
             @state = "Charging"
         elsif @chargep > @charge
             @state = "Discharging"
+        else
+            @state = "Not charging"
         end
+        @state= "Charging"
     end
 end
