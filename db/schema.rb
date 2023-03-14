@@ -10,9 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_27_212403) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_28_063838) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "batteries", force: :cascade do |t|
+    t.datetime "timestamp"
+    t.float "charge"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "generation_breakdowns", force: :cascade do |t|
     t.datetime "dateTime", precision: nil
@@ -27,17 +34,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_27_212403) do
     t.float "nonRenewP"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "master", id: false, force: :cascade do |t|
-    t.datetime "date_time", precision: nil
-    t.decimal "total_kw"
-    t.decimal "total_non_renew_kw"
-    t.decimal "total_renew_kw"
-    t.decimal "total_wind_kw"
-    t.decimal "total_solar_kw"
-    t.decimal "percent_wind"
-    t.decimal "percent_solar"
   end
 
 end
