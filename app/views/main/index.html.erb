@@ -22,7 +22,7 @@
 	</div>
 	<div class="row mt-3">
 		<!-- Map -->
-		<div class="col-sm-4 ml-auto">
+		<div class="col-sm-5 ml-auto">
 			<div class="card card-chart">
 				<div class="card-header">
 					<h5 class="card-category">Map</h5>
@@ -36,11 +36,11 @@
 			</div>
 		</div>
 		<!-- Temperature -->
-		<div class="col-sm-2 mr-auto">
+		<div class="col-sm-3 mr-auto">
 			<div class="card card-chart">
 				<div class="card-header">
 					<h5 class="card-category">Weather & Temperature</h5>
-					<h3 class="card-title"><i class="tim-icons icon-sound-wave text-primary "></i> 10,000</h3>
+					<h3 class="card-title"><i class="tim-icons icon-world text-primary "></i> 10,000</h3>
 				</div>
 				<div class="card-body">
 					<div class="chart-area">
@@ -51,19 +51,36 @@
 		</div>
 
 		<!-- Battery -->
-		<div class="col-sm-6 mr-auto">
+		<div class="col-sm-4 mr-auto">
 			<div class="card card-chart">
 				<div class="card-header">
 					<h5 class="card-category">Battery</h5>
-					<h3 class="card-title"><i class="tim-icons icon-send text-info "></i> 750,000€</h3>
+					<h3 class="card-title"><i class="tim-icons icon-wifi text-info "></i> <strong>State of Battery: </strong><%= @state %></h3>
 				</div>
 				<div class="card-body">
-					<div class="chart-area">
-						<canvas id="chartWithNumbersAndGrid"></canvas>
+					<div class="pl-5">
+						<strong>State of Charge: </strong><%= @currentB.charge %> <br>
+            			<strong>Charge one hour ago: </strong><%= @pastB.charge %> <br>
+					</div>
+					<div class="battery p-4">
+						<div class="battery-head"></div>
+							<div class="battery-body">
+        						<% if @state=="Charging" %>
+									<i class="fas fa-bolt"></i>
+            						<div class="charge"></div>
+            						<h3 class="pl-2 mt-4 z-index-3 position-absolute"><%= @currentB.charge.round(1) %> %</h3>
+        						<% elsif @state=="Discharging" %>
+            						<div class="discharge"></div>
+            						<h3 class="text-center mt-4"><%= @currentB.charge.round(1) %> %</h3>
+        						<% else %>
+            						<div class="nocharge"></div>
+            						<h3 class="text-center mt-3"><%= @currentB.charge.round(1) %> %</h3>
+        						<% end %>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 		<div class="row mt-5">
 			<!-- Electricity Generation Breakdown -->
 			<div class="col-md-6 ml-auto mr-auto">
