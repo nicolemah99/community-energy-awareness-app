@@ -69,7 +69,7 @@
     bottom: 0;
     border-radius: 14px;
     animation:battery-charge 6s linear infinite;
-    z-index: -1;
+    z-index: 0;
   }
 
   .discharge{
@@ -93,8 +93,6 @@
   }
 
   .battpercent{
-    z-index: 1;
+    z-index: 3;
     text-align: center;
-    top: 30%;
-    left: 38%;
   }
