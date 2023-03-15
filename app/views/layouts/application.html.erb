@@ -100,29 +100,6 @@
 			      }
 			    });
 
-			    $('.fixed-plugin .background-color span').click(function() {
-			      $(this).siblings().removeClass('active');
-			      $(this).addClass('active');
-
-			      var new_color = $(this).data('color');
-
-			      if ($sidebar.length != 0) {
-			        $sidebar.attr('data', new_color);
-			      }
-
-			      if ($main_panel.length != 0) {
-			        $main_panel.attr('data', new_color);
-			      }
-
-			      if ($full_page.length != 0) {
-			        $full_page.attr('filter-color', new_color);
-			      }
-
-			      if ($sidebar_responsive.length != 0) {
-			        $sidebar_responsive.attr('data', new_color);
-			      }
-			    });
-
 			    $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function() {
 			      var $btn = $(this);
 
@@ -147,13 +124,6 @@
 			      }, 1000);
 			    });
 
-			    $('.light-badge').click(function() {
-			      $('body').addClass('white-content');
-			    });
-
-			    $('.dark-badge').click(function() {
-			      $('body').removeClass('white-content');
-			    });
 			  });
 			});
 		</script>
