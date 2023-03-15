@@ -9,19 +9,20 @@
 	<h2 class="text-center">Kotzebue</h2>
 	<div class="row mt-3">
 		<!-- Last Updated -->
-		<div class="col-sm-3 ml-auto">
+		<div class="col-sm-3 ml-auto mr-auto">
 			<div class="card card-chart">
 				<div class="card-header">
 					<h5 class="card-category">Last Updated</h5>
 					<h3 class="card-title"><i class="tim-icons icon-watch-time text-primary "></i> <%= @current.dateTime %></h3>
 				</div>
 				<div class="card-body">
-						
 				</div>
 			</div>
 		</div>
+	</div>
+	<div class="row mt-3">
 		<!-- Map -->
-		<div class="col-sm-3">
+		<div class="col-sm-4 ml-auto">
 			<div class="card card-chart">
 				<div class="card-header">
 					<h5 class="card-category">Map</h5>
@@ -35,7 +36,7 @@
 			</div>
 		</div>
 		<!-- Temperature -->
-		<div class="col-sm-3 mr-auto">
+		<div class="col-sm-2 mr-auto">
 			<div class="card card-chart">
 				<div class="card-header">
 					<h5 class="card-category">Weather & Temperature</h5>
@@ -48,115 +49,56 @@
 				</div>
 			</div>
 		</div>
+		<!-- Battery -->
+		<div class="col-sm-6 mr-auto">
+			<div class="card card-chart">
+				<div class="card-header">
+					<h5 class="card-category">Battery</h5>
+					<h3 class="card-title"><i class="tim-icons icon-send text-info "></i> 750,000€</h3>
+				</div>
+				<div class="card-body">
+					<div class="chart-area">
+						<canvas id="chartWithNumbersAndGrid"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div class="row mt-5">
 			<!-- Electricity Generation Breakdown -->
-			<div class="col-md-5 ml-auto">
+			<div class="col-md-6 ml-auto mr-auto">
 				<div class="card card-chart">
 					<div class="card-header">
 						<h5 class="card-category">Electricity Generation</h5>
-						<h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-primary "></i> 10,000</h3>
+						<h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-primary "></i> Electricity Generation Breakdown</h3>
 					</div>
 					<div class="card-body">
 						<div id="bubbleContainer"></div>
 						<ul class="list-group">
-							<li class="list-group-item"> Date: <%= @current.dateTime %></li>
-							<li class="list-group-item">Total: <%= @current.total %> kw</li>
-							<li class="list-group-item">Non Renewables: <%= @current.nonRenew %> kw</li>
-							<li class="list-group-item">Renewables: <%=@current.renew %> kw</li>
-							<li class="list-group-item">Wind: <%= @current.wind %> kw</li>
-							<li class="list-group-item">Solar: <%= @current.solar %> kw</li>
-							<li class="list-group-item">Wind Percent: <%= @windP %>%</li>
-							<li class="list-group-item">Solar Percent: <%= @solarP %>%</li>
-							<li class="list-group-item">Renewables Percent: <%= @renewP %>%</li>
-							<li class="list-group-item">Non-Renewables Percent: <%= @nonRenewP %>%</li>
+							<li class="list-group-item">Total: <%= @current.total.round(0) %> kw</li>
+							<li id="DieselKW" value= "<%= @current.nonRenew.round(0) %>" class="list-group-item">Non Renewables: <%= @current.nonRenew.round(0) %> kw</li>
+							<li class="list-group-item">Renewables: <%=@current.renew.round(0) %> kw</li>
+							<li id="WindKW" value= "<%= @current.wind.round(0) %>" class="list-group-item">Wind: <%= @current.wind.round(0) %> kw</li>
+							<li id="SolarKW" value= "<%= @current.solar.round(0) %>" class="list-group-item">Solar: <%= @current.solar.round(0) %> kw</li>
+							<li id="WindP" value= "<%= @windP.round(0) %>" class="list-group-item">Wind Percent: <%= @windP %>%</li>
+							<li id="SolarP" value= "<%= @solarP.round(0) %>" class="list-group-item">Solar Percent: <%= @solarP %>%</li>
+							<li id="RenewP" value= "<%= @renewP.round(0) %>" class="list-group-item">Renewables Percent: <%= @renewP %>%</li>
+							<li id="NRenewP" value= "<%= @nonRenewP.round(0) %>" class="list-group-item">Non-Renewables Percent: <%= @nonRenewP.round(1) %> %</li>
 						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 ml-auto mr-auto">
+				<div class="card card-chart">
+					<div class="card-header">
+						<h5 class="card-category">Electricity Generation</h5>
+						<h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-primary "></i> Electricity Generation Breakdown</h3>
+					</div>
+					<div class="card-body">
+						<div>
+							<canvas id="doughnutContainer"></canvas>
+						</div>
 						<div class="chart-area">
 							<canvas id="chartSimpleWithGradient"></canvas>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- Battery -->
-			<div class="col-md-5 mr-auto">
-				<div class="card card-chart">
-					<div class="card-header">
-						<h5 class="card-category">Battery</h5>
-						<h3 class="card-title"><i class="tim-icons icon-send text-info "></i> 750,000€</h3>
-					</div>
-					<div class="card-body">
-						<div class="chart-area">
-							<canvas id="chartWithNumbersAndGrid"></canvas>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-5 ml-auto">
-				<div class="card card-chart">
-					<div class="card-header">
-						<h5 class="card-category">Gradient Bar Chart</h5>
-						<h3 class="card-title"><i class="tim-icons icon-shape-star text-danger "></i> 1,000,000£
-						</h3>
-					</div>
-					<div class="card-body">
-						<div class="chart-area">
-							<canvas id="BarChart"></canvas>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-5 mr-auto">
-				<div class="card card-chart">
-					<div class="card-header">
-						<h5 class="card-category">Multiple Bars Chart With Grid</h5>
-						<h3 class="card-title"><i class="tim-icons icon-time-alarm text-warning "></i> 130,000$</h3>
-					</div>
-					<div class="card-body">
-						<div class="chart-area">
-							<canvas id="MultipleBarsChart"></canvas>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-5 ml-auto">
-				<div class="card card-chart card-chart-pie">
-					<div class="card-header">
-						<h5 class="card-category">Simple Pie Chart</h5>
-					</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-6">
-								<div class="chart-area">
-									<canvas id="PieChart"></canvas>
-								</div>
-							</div>
-							<div class="col-6">
-								<h4 class="card-title"><i class="tim-icons  icon-trophy text-success "></i> 10.000$</h4>
-								<p class="category">A total of $54000</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-5 mr-auto">
-				<div class="card card-chart card-chart-pie">
-					<div class="card-header">
-						<h5 class="card-category">Multiple Pie Chart</h5>
-					</div>
-					<div class="card-body">
-						<div class="row">
-							<div class="col-6">
-								<div class="chart-area">
-									<canvas id="PieChartGradient"></canvas>
-								</div>
-							</div>
-							<div class="col-6">
-								<h4 class="card-title"><i class="tim-icons  icon-tag text-warning "></i> 130,000</h4>
-								<p class="category">Feedback from 20.000 users</p>
-							</div>
 						</div>
 					</div>
 				</div>
