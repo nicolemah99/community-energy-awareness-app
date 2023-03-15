@@ -1,11 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () {
-	Highcharts.chart("container", {
+	var windKW = this.getElementById("WindKW").value;
+	var solarKW = this.getElementById("SolarKW").value;
+	var dieselKW = this.getElementById("DieselKW").value;
+	var windP = this.getElementById("WindP").value;
+	var solarP = this.getElementById("SolarP").value;
+	var nRenewP = this.getElementById("NRenewP").value;
+	var renewP = this.getElementById("RenewP").value;
+	Highcharts.chart("bubbleContainer", {
 		chart: {
 			type: "packedbubble",
 			height: "50%",
 		},
 		title: {
-			text: "Electricity Generation Breakdown",
+			text: "",
 			align: "center",
 		},
 		tooltip: {
@@ -22,17 +29,12 @@ document.addEventListener("DOMContentLoaded", function () {
 					gravitationalConstant: 0.05,
 					splitSeries: true,
 					seriesInteraction: false,
-					dragBetweenSeries: true,
-					parentNodeLimit: true,
+					dragBetweenSeries: false,
+					parentNodeLimit: false,
 				},
 				dataLabels: {
 					enabled: true,
-					format: "{point.name}",
-					filter: {
-						property: "y",
-						operator: ">",
-						value: 250,
-					},
+					format: "{point.name} {point.percent}%",
 					style: {
 						color: "black",
 						textOutline: "none",
@@ -47,11 +49,13 @@ document.addEventListener("DOMContentLoaded", function () {
 				data: [
 					{
 						name: "Wind",
-						value: 7.2,
+						value: windKW,
+						percent: windP,
 					},
 					{
 						name: "Solar",
-						value: 8.1,
+						value: solarKW,
+						percent: solarP,
 					},
 				],
 			},
@@ -60,7 +64,8 @@ document.addEventListener("DOMContentLoaded", function () {
 				data: [
 					{
 						name: "Diesel",
-						value: 6.5,
+						value: dieselKW,
+						percent: nRenewP,
 					},
 				],
 			},
