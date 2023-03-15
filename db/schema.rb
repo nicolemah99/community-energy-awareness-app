@@ -36,4 +36,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_28_063838) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "master", id: false, force: :cascade do |t|
+    t.datetime "date_time", precision: nil
+    t.decimal "total_kw"
+    t.decimal "total_non_renew_kw"
+    t.decimal "total_renew_kw"
+    t.decimal "total_wind_kw"
+    t.decimal "total_solar_kw"
+    t.decimal "percent_wind"
+    t.decimal "percent_solar"
+  end
+
 end
