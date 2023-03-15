@@ -7,7 +7,5 @@ Rails.application.routes.draw do
 
   get "diesel-savings", to: "savings#index", as: :savings
 
-  get "community-usage", to: "usage#index", as: :usage
-
   get "about-page", to: "about#index", as: :about
 end
