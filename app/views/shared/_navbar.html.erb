@@ -1,33 +1,140 @@
-<nav class="navbar navbar-expand-lg bg-primary-subtle p-4">
-  <div class="container-fluid">
-  <%= link_to 'Community Energy Awareness', root_path, class:"navbar-brand" %>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <%= link_to "Home", root_path, class:"nav-link"%>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Breakdown", generation_path, class:"nav-link"%>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Diesel Savings", savings_path, class:"nav-link"%>
-        </li>
-        <li class="nav-item">
-        <%= link_to "Community Usage", usage_path, class:"nav-link"%>
-      </li>
-      <li class="nav-item">
-      <%= link_to "Battery", battery_path, class:"nav-link"%>
-      </li>
-      </ul>
-    </div>
-  </div>
-  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-    <li class="nav-item navbar-right">
-    <%= link_to 'About', about_path, class:"nav-link" %>
-    </li>
-  </ul>
-</nav>
-<br>
+    
+<div class="navbar-minimize-fixed">
+	<button class="minimize-sidebar btn btn-link btn-just-icon">
+		<i class="tim-icons icon-align-center visible-on-sidebar-regular text-muted"></i>
+		<i class="tim-icons icon-bullet-list-67 visible-on-sidebar-mini text-muted"></i>
+	</button>
+</div>
+<div class="sidebar" data="green">
+	<!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
+    -->
+	<div class="sidebar-wrapper">
+		<div class="logo">
+			<a href="javascript:void(0)" class="simple-text logo-mini">
+				ACEP
+			</a>
+			<a href="javascript:void(0)" class="simple-text logo-normal">
+				Alaska Center for Energy and Power
+			</a>
+		</div>
+		<ul class="nav">
+			<li>
+				<a data-toggle="collapse" href="#componentsExamples">
+					<i class="tim-icons icon-molecule-40"></i>
+					<p>
+						Components
+						<b class="caret"></b>
+					</p>
+				</a>
+				<div class="collapse" id="componentsExamples">
+					<ul class="nav">
+						<li>
+							<a data-toggle="collapse" aria-expanded="false" href="#multicollapse">
+								<span class="sidebar-mini-icon">MLT</span>
+								<span class="sidebar-normal"> Multi Level Collapse
+									<b class="caret"></b>
+								</span>
+							</a>
+							<div class="collapse" id="multicollapse">
+								<ul class="nav">
+									<li>
+										<a>
+											<span class="sidebar-mini-icon">E</span>
+											<span class="sidebar-normal"> Example </span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li>
+							<a href="../examples/components/buttons.html">
+								<span class="sidebar-mini-icon">B</span>
+								<span class="sidebar-normal"> Buttons </span>
+							</a>
+						</li>
+						<li>
+							<a href="../examples/components/grid.html">
+								<span class="sidebar-mini-icon">G</span>
+								<span class="sidebar-normal"> Grid System </span>
+							</a>
+						</li>
+						<li>
+							<a href="../examples/components/panels.html">
+								<span class="sidebar-mini-icon">P</span>
+								<span class="sidebar-normal"> Panels </span>
+							</a>
+						</li>
+						<li>
+							<a href="../examples/components/sweet-alert.html">
+								<span class="sidebar-mini-icon">SA</span>
+								<span class="sidebar-normal"> Sweet Alert </span>
+							</a>
+						</li>
+						<li>
+							<a href="../examples/components/notifications.html">
+								<span class="sidebar-mini-icon">N</span>
+								<span class="sidebar-normal"> Notifications </span>
+							</a>
+						</li>
+						<li>
+							<a href="../examples/components/icons.html">
+								<span class="sidebar-mini-icon">I</span>
+								<span class="sidebar-normal"> Icons </span>
+							</a>
+						</li>
+						<li>
+							<a href="../examples/components/typography.html">
+								<span class="sidebar-mini-icon">T</span>
+								<span class="sidebar-normal"> Typography </span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</li>
+			<li>
+				<a data-toggle="collapse" href="#formsExamples">
+					<i class="tim-icons icon-notes"></i>
+					<p>
+						Forms
+						<b class="caret"></b>
+					</p>
+				</a>
+				<div class="collapse" id="formsExamples">
+					<ul class="nav">
+						<li>
+							<a href="../examples/forms/regular.html">
+								<span class="sidebar-mini-icon">RF</span>
+								<span class="sidebar-normal"> Regular Forms </span>
+							</a>
+						</li>
+						<li>
+							<a href="../examples/forms/extended.html">
+								<span class="sidebar-mini-icon">EF</span>
+								<span class="sidebar-normal"> Extended Forms </span>
+							</a>
+						</li>
+						<li>
+							<a href="../examples/forms/validation.html">
+								<span class="sidebar-mini-icon">V</span>
+								<span class="sidebar-normal"> Validation Forms </span>
+							</a>
+						</li>
+						<li>
+							<a href="../examples/forms/wizard.html">
+								<span class="sidebar-mini-icon">W</span>
+								<span class="sidebar-normal"> Wizard </span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</li>
+			<li class="active">
+				<a href="../examples/charts.html">
+					<i class="tim-icons icon-chart-bar-32"></i>
+					<p>Charts</p>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>

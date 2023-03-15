@@ -64,10 +64,12 @@
 		<!-- Black Dashboard DEMO methods, don't include it in your project! -->
 		<script src="theme/assets/demo/demo.js"></script>
 	</head>
-	<body class="sidebar-mini ">
+	<body class="sidebar-mini white-content">
 		<div class="wrapper">
-			<%= render partial: "shared/navbar3" %>
-			<%= yield %>
+			<%= render partial: "shared/navbar" %>
+			<div class="main-panel" data="green">
+				<%= yield %>
+			</div>
 			<%= render partial: "shared/footer" %>
 		</div>
 		<script>
@@ -81,7 +83,6 @@
 
 			    $sidebar_responsive = $('body > .navbar-collapse');
 			    sidebar_mini_active = true;
-			    white_color = false;
 
 			    window_width = $(window).width();
 
@@ -144,31 +145,6 @@
 			      setTimeout(function() {
 			        clearInterval(simulateWindowResize);
 			      }, 1000);
-			    });
-
-			    $('.switch-change-color input').on("switchChange.bootstrapSwitch", function() {
-			      var $btn = $(this);
-
-			      if (white_color == true) {
-
-			        $('body').addClass('change-background');
-			        setTimeout(function() {
-			          $('body').removeClass('change-background');
-			          $('body').removeClass('white-content');
-			        }, 900);
-			        white_color = false;
-			      } else {
-
-			        $('body').addClass('change-background');
-			        setTimeout(function() {
-			          $('body').removeClass('change-background');
-			          $('body').addClass('white-content');
-			        }, 900);
-
-			        white_color = true;
-			      }
-
-
 			    });
 
 			    $('.light-badge').click(function() {
