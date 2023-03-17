@@ -7,11 +7,15 @@ class MainController < ApplicationController
         cdt = current_time.strftime "%2021-%m-%d %H:00:00"
         pdt = (current_time - (1.0/24)).strftime "%2021-%m-%d %H:00:00"
 
+        #generation breakdown
         @current = GenerationBreakdown.find_by dateTime: cdt
         @solarP = @current.solarP * 100
         @windP = @current.windP * 100
         @renewP = @current.renewP * 100
-        @nonRenewP = @current.nonRenewP * 100
+
+        @dieselTP = @current.nonRenewP * 100
+        @solarTP = @current.solar/@current.total * 100
+        @windTP = @current.wind/@current.total * 100
 
         # battery information
         @currentB = Battery.find_by timestamp: cdt

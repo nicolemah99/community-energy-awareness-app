@@ -2,14 +2,14 @@ document.addEventListener("DOMContentLoaded", function () {
 	var windKW = this.getElementById("WindKW").value;
 	var solarKW = this.getElementById("SolarKW").value;
 	var dieselKW = this.getElementById("DieselKW").value;
-	var windP = this.getElementById("WindP").value;
-	var solarP = this.getElementById("SolarP").value;
-	var nRenewP = this.getElementById("NRenewP").value;
-	var renewP = this.getElementById("RenewP").value;
+	var windP = this.getElementById("WindTP").dataset.percent;
+	var solarP = this.getElementById("SolarTP").dataset.percent;
+	var dieselP = this.getElementById("DieselTP").dataset.percent;
+	console.log(solarP);
+
 	Highcharts.chart("bubbleContainer", {
 		chart: {
 			type: "packedbubble",
-			height: "50%",
 		},
 		title: {
 			text: "",
@@ -27,10 +27,9 @@ document.addEventListener("DOMContentLoaded", function () {
 				zMax: 1000,
 				layoutAlgorithm: {
 					gravitationalConstant: 0.05,
-					splitSeries: true,
-					seriesInteraction: false,
+					seriesInteraction: true,
 					dragBetweenSeries: false,
-					parentNodeLimit: false,
+					parentNodeLimit: true,
 				},
 				dataLabels: {
 					enabled: true,
@@ -45,7 +44,8 @@ document.addEventListener("DOMContentLoaded", function () {
 		},
 		series: [
 			{
-				name: "Renewables",
+				//Renewables Series
+				name: "Renewables", 
 				data: [
 					{
 						name: "Wind",
@@ -60,12 +60,13 @@ document.addEventListener("DOMContentLoaded", function () {
 				],
 			},
 			{
+				//Non-Renewables Series
 				name: "Non-Renewables",
 				data: [
 					{
 						name: "Diesel",
 						value: dieselKW,
-						percent: nRenewP,
+						percent: dieselP,
 					},
 				],
 			},
