@@ -15,7 +15,7 @@ class MainController < ApplicationController
 
         @solarTP = (@current.solar/@current.total * 100).round(1)
         @windTP = (@current.wind/@current.total * 100).round(1)
-        @dieselTP = 100 - @solarTP - @windTP #rounded to make 100%
+        @dieselTP = (100 - @solarTP - @windTP).round(1) #rounded to make 100%
 
         # battery information
         @currentB = Battery.find_by timestamp: cdt

@@ -4,6 +4,7 @@
 	<script src="https://code.highcharts.com/highcharts-more.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+	<link href="app/javascript/custom/bubbles.js" rel="stylesheet">
 <% end %>
 <div class="content">
 	<h2 class="text-center">Kotzebue</h2>
@@ -49,7 +50,6 @@
 				</div>
 			</div>
 		</div>
-
 		<!-- Battery -->
 		<div class="col-sm-4 mr-auto">
 			<div class="card card-chart">
@@ -60,27 +60,27 @@
 				<div class="card-body">
 					<div class="pl-5">
 						<strong>State of Charge: </strong><%= @currentB.charge %> <br>
-            			<strong>Charge one hour ago: </strong><%= @pastB.charge %> <br>
+						<strong>Charge one hour ago: </strong><%= @pastB.charge %> <br>
 					</div>
 					<div class="battery p-4">
 						<div class="battery-head"></div>
-							<div class="battery-body">
-        						<% if @state=="Charging" %>
-									<i class="fas fa-bolt"></i>
-            						<div class="charge"></div>
-            						<h3 class="pl-2 mt-4 z-index-3 position-absolute"><%= @currentB.charge.round(1) %> %</h3>
-        						<% elsif @state=="Discharging" %>
-            						<div class="discharge"></div>
-            						<h3 class="text-center mt-4"><%= @currentB.charge.round(1) %> %</h3>
-        						<% else %>
-            						<div class="nocharge"></div>
-            						<h3 class="text-center mt-3"><%= @currentB.charge.round(1) %> %</h3>
-        						<% end %>
-							</div>
+						<div class="battery-body">
+							<% if @state=="Charging" %>
+								<i class="fas fa-bolt"></i>
+								<div class="charge"></div>
+								<h3 class="pl-2 mt-4 z-index-3 position-absolute"><%= @currentB.charge.round(1) %> %</h3>
+							<% elsif @state=="Discharging" %>
+								<div class="discharge"></div>
+								<h3 class="text-center mt-4"><%= @currentB.charge.round(1) %> %</h3>
+							<% else %>
+								<div class="nocharge"></div>
+								<h3 class="text-center mt-3"><%= @currentB.charge.round(1) %> %</h3>
+							<% end %>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 		<div class="row mt-5">
 			<!-- Electricity Generation Breakdown -->
 			<div class="col-md-6 ml-auto mr-auto">
@@ -91,6 +91,97 @@
 					</div>
 					<div class="card-body">
 						<div id="bubbleContainer"></div>
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-header">
+									<h4 class="card-title">Simple Table</h4>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table">
+											<thead class="text-primary">
+												<tr>
+													<th class="text-center">
+														#
+													</th>
+													<th>
+														Name
+													</th>
+													<th>
+														Job Position
+													</th>
+													<th class="text-center">
+														Since
+													</th>
+													<th class="text-right">
+														Salary
+													</th>
+													<th class="text-right">
+														Actions
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td class="text-center">
+														<div class="photo">
+															<img src="../../assets/img/tania.jpg" alt="Table image">
+														</div>
+													</td>
+													<td>
+														Andrew Mike
+													</td>
+													<td>
+														Develop
+													</td>
+													<td class="text-center">
+														2013
+													</td>
+													<td class="text-right">
+														€ 99,225
+													</td>
+													<td class="text-right">
+														<button type="button" rel="tooltip" class="btn btn-success btn-link btn-sm btn-icon " data-original-title="Tooltip on top" title="Refresh">
+															<i class="tim-icons icon-refresh-01"></i>
+														</button>
+														<button type="button" rel="tooltip" class="btn btn-danger btn-link btn-sm " data-original-title="Tooltip on top" title="Delete">
+															<i class="tim-icons icon-simple-remove"></i>
+														</button>
+													</td>
+												</tr>
+												<tr>
+													<td class="text-center">
+														<div class="photo">
+															<img src="../../assets/img/robi.jpg" alt="Table image">
+														</div>
+													</td>
+													<td>
+														John Doe
+													</td>
+													<td>
+														Design
+													</td>
+													<td class="text-center">
+														2012
+													</td>
+													<td class="text-right">
+														€ 89,241
+													</td>
+													<td class="text-right">
+														<button type="button" rel="tooltip" class="btn btn-success btn-link btn-sm btn-icon " data-original-title="Tooltip on top" title="Refresh">
+															<i class="tim-icons icon-refresh-01"></i>
+														</button>
+														<button type="button" rel="tooltip" class="btn btn-danger btn-link btn-sm " data-original-title="Tooltip on top" title="Delete">
+															<i class="tim-icons icon-simple-remove"></i>
+														</button>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
 						<ul class="list-group">
 							<li class="list-group-item">Total: <%= @current.total.round(0) %> kw</li>
 							<li id="DieselKW" value= "<%= @current.nonRenew.round(0) %>" class="list-group-item">Non Renewables: <%= @current.nonRenew.round(0) %> kw</li>
