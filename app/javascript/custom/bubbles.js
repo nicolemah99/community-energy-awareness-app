@@ -47,13 +47,13 @@ document.addEventListener("DOMContentLoaded", function () {
 				},
 				dataLabels: {
 					enabled: true,
-					format: "{point.name} {point.percent}",
+					useHTML: true,
+					format: "{point.name}<br>{point.percent}",
 					style: {
 						color: "black",
 						textOutline: "none",
-						fontWeight: "bold",
-						fontSize:'14px',
-						padding: '2px',
+						fontSize:'1.25vmax',
+						fontHeight: '1.25vmin',
 						
 					},
 				},
