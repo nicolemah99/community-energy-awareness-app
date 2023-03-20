@@ -17,6 +17,9 @@ class MainController < ApplicationController
         @windTP = (@current.wind/@current.total * 100).round(1)
         @dieselTP = (100 - @solarTP - @windTP).round(1) #rounded to make 100%
 
+        #updatedTime
+        @lastUpdated = convertTime(@current)
+        
         # battery information
         @currentB = Battery.find_by timestamp: cdt
         @pastB = Battery.find_by timestamp: pdt
@@ -31,4 +34,31 @@ class MainController < ApplicationController
             @state = "Not charging"
         end
     end
+
+    #convert to 12hr clock
+    def convertTime(time) 
+        hour = time.dateTime.strftime("%H").to_i
+        if hour == 0
+            updatedHour = 12
+            meridiem = "am"
+
+        elsif hour < 12
+            updatedHour = hour.to_i
+            meridiem = "am"
+
+        elsif hour == 12
+            updatedHour = 12
+            meridiem = "pm"
+
+        elsif 12< hour and hour < 24
+            updatedHour = hour - 12
+            meridiem = "pm"
+        else
+            return "An error occured determining the time."
+        end
+
+        return time.dateTime.strftime("%B %d, %Y at #{updatedHour}:00#{meridiem}")
+
+    end
+
 end
