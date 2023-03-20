@@ -56,8 +56,7 @@ class MainController < ApplicationController
         else
             return "An error occured determining the time."
         end
-
-        return time.dateTime.strftime("%B %d, %Y at #{updatedHour}:00#{meridiem}")
+        return time.dateTime.strftime("%B #{time.dateTime.day.ordinalize}, %Y at #{updatedHour}:00#{meridiem} AKST")
 
     end
 
