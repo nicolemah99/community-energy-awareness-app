@@ -5,6 +5,7 @@
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <% end %>
+
 <div class="content">
 	<h2 class="text-center">Kotzebue</h2>
 	<div class="row mt-3">
@@ -49,7 +50,6 @@
 				</div>
 			</div>
 		</div>
-
 		<!-- Battery -->
 		<div class="col-sm-4 mr-auto">
 			<div class="card card-chart">
@@ -60,27 +60,27 @@
 				<div class="card-body">
 					<div class="pl-5">
 						<strong>State of Charge: </strong><%= @currentB.charge %> <br>
-            			<strong>Charge one hour ago: </strong><%= @pastB.charge %> <br>
+						<strong>Charge one hour ago: </strong><%= @pastB.charge %> <br>
 					</div>
 					<div class="battery p-4">
 						<div class="battery-head"></div>
-							<div class="battery-body">
-        						<% if @state=="Charging" %>
-									<i class="fas fa-bolt"></i>
-            						<div class="charge"></div>
-            						<h3 class="pl-2 mt-4 z-index-3 position-absolute"><%= @currentB.charge.round(1) %> %</h3>
-        						<% elsif @state=="Discharging" %>
-            						<div class="discharge"></div>
-            						<h3 class="text-center mt-4"><%= @currentB.charge.round(1) %> %</h3>
-        						<% else %>
-            						<div class="nocharge"></div>
-            						<h3 class="text-center mt-3"><%= @currentB.charge.round(1) %> %</h3>
-        						<% end %>
-							</div>
+						<div class="battery-body">
+							<% if @state=="Charging" %>
+								<i class="fas fa-bolt"></i>
+								<div class="charge"></div>
+								<h3 class="pl-2 mt-4 z-index-3 position-absolute"><%= @currentB.charge.round(1) %> %</h3>
+							<% elsif @state=="Discharging" %>
+								<div class="discharge"></div>
+								<h3 class="text-center mt-4"><%= @currentB.charge.round(1) %> %</h3>
+							<% else %>
+								<div class="nocharge"></div>
+								<h3 class="text-center mt-3"><%= @currentB.charge.round(1) %> %</h3>
+							<% end %>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 		<div class="row mt-5">
 			<!-- Electricity Generation Breakdown -->
 			<div class="col-md-6 ml-auto mr-auto">
@@ -97,10 +97,12 @@
 							<li class="list-group-item">Renewables: <%=@current.renew.round(0) %> kw</li>
 							<li id="WindKW" value= "<%= @current.wind.round(0) %>" class="list-group-item">Wind: <%= @current.wind.round(0) %> kw</li>
 							<li id="SolarKW" value= "<%= @current.solar.round(0) %>" class="list-group-item">Solar: <%= @current.solar.round(0) %> kw</li>
-							<li id="WindP" value= "<%= @windP.round(0) %>" class="list-group-item">Wind Percent: <%= @windP %>%</li>
-							<li id="SolarP" value= "<%= @solarP.round(0) %>" class="list-group-item">Solar Percent: <%= @solarP %>%</li>
+							<li id="WindP" value= "<%= @windP.round(0) %>" class="list-group-item">Wind Percent of Renewables: <%= @windP %>%</li>
+							<li id="SolarP" value= "<%= @solarP.round(0) %>" class="list-group-item">Solar Percent of Renewables: <%= @solarP %>%</li>
 							<li id="RenewP" value= "<%= @renewP.round(0) %>" class="list-group-item">Renewables Percent: <%= @renewP %>%</li>
-							<li id="NRenewP" value= "<%= @nonRenewP.round(0) %>" class="list-group-item">Non-Renewables Percent: <%= @nonRenewP.round(1) %> %</li>
+							<li id="DieselTP" data-percent="<%= @dieselTP %>" class="list-group-item">Total Diesel Percent: <%= @dieselTP.round(1) %> %</li>
+							<li id="SolarTP" data-percent="<%= @solarTP %>" class="list-group-item">Total solar Percent: <%= @solarTP.round(1) %> %</li>
+							<li id="WindTP" data-percent="<%= @windTP %>" class="list-group-item">Total wind Percent: <%= @windTP.round(1) %> %</li>
 						</ul>
 					</div>
 				</div>

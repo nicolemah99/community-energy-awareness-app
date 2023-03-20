@@ -15,10 +15,14 @@
   max-width: 500px;
 }
 
+.highcharts-data-label span {
+    text-align: center;
+}
+
 .highcharts-data-table caption {
   padding: 1em 0;
   font-size: 1.2em;
-  color: #000000;
+  color: #f1f7ff;
 }
 
 .highcharts-data-table th {
