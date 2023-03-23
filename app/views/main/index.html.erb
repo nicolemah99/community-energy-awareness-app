@@ -114,45 +114,32 @@
 										<td></td>
 										<td></td>
 										<td>Diesel</td>
-										<td><%= @current.nonRenew.round(0) %></td>
-										<td><%= @dieselTP.round(1) %></td>
+										<td id="DieselKW" value=<%= @current.nonRenew.round(0) %> ><%= @current.nonRenew.round(0) %></td>
+										<td id="DieselTP" data-percent="<%= @dieselTP %>"><%= @dieselTP.round(1) %></td>
 									</tr>
 									<tr>
 										<td></td>
 										<td colspan="2">Renewables</td>
 										<td><%=@current.renew.round(0) %></td>
-										<td><%= @renewP %></td>
+										<td id="RenewP" value= "<%= @renewP.round(0) %>"><%= @renewP %></td>
 									</tr>
 									<tr>
 										<td></td>
 										<td></td>
 										<td>Wind</td>
-										<td><%= @current.wind.round(0) %></td>
-										<td><%= @windTP.round(1) %></td>
+										<td id="WindKW" value= <%= @current.wind.round(0) %>><%= @current.wind.round(0) %></td>
+										<td id="WindTP" data-percent="<%= @windTP %>"><%= @windTP.round(1) %></td>
 									</tr>
 									<tr>
 										<td></td>
 										<td></td>
 										<td>Solar</td>
-										<td><%= @current.solar.round(0) %></td>
-										<td><%= @solarTP.round(1) %></td>
+										<td id="SolarKW" value= "<%= @current.solar.round(0) %>"><%= @current.solar.round(0) %></td>
+										<td id="SolarTP" data-percent="<%= @solarTP %>"><%= @solarTP.round(1) %></td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
-						<ul class="list-group">
-							<li class="list-group-item">Total: <%= @current.total.round(0) %> kw</li>
-							<li id="DieselKW" value= "<%= @current.nonRenew.round(0) %>" class="list-group-item">Non Renewables: <%= @current.nonRenew.round(0) %> kw</li>
-							<li class="list-group-item">Renewables: <%=@current.renew.round(0) %> kw</li>
-							<li id="WindKW" value= "<%= @current.wind.round(0) %>" class="list-group-item">Wind: <%= @current.wind.round(0) %> kw</li>
-							<li id="SolarKW" value= "<%= @current.solar.round(0) %>" class="list-group-item">Solar: <%= @current.solar.round(0) %> kw</li>
-							<li id="WindP" value= "<%= @windP.round(0) %>" class="list-group-item">Wind Percent of Renewables: <%= @windP %>%</li>
-							<li id="SolarP" value= "<%= @solarP.round(0) %>" class="list-group-item">Solar Percent of Renewables: <%= @solarP %>%</li>
-							<li id="RenewP" value= "<%= @renewP.round(0) %>" class="list-group-item">Renewables Percent: <%= @renewP %>%</li>
-							<li id="DieselTP" data-percent="<%= @dieselTP %>" class="list-group-item">Total Diesel Percent: <%= @dieselTP.round(1) %> %</li>
-							<li  class="list-group-item">Total solar Percent: <%= @solarTP.round(1) %> %</li>
-							<li id="WindTP" data-percent="<%= @windTP %>" class="list-group-item">Total wind Percent: <%= @windTP.round(1) %> %</li>
-						</ul>
 					</div>
 				</div>
 			</div>
