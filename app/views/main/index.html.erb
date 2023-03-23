@@ -105,5 +105,26 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-lg-6">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">Diesel Savings</h5>
+                <h3 class="card-title"><i class="tim-icons icon-money-coins text-success"></i> Diesel Savings </h3>
+              </div>
+              <div class="card-body">
+			  	'Savings this year was: <%=  @monthsavingArray[@months-1].round(0) %> $'
+				  <div id="monthsavingArray" value='<%= @monthsavingArray[@months-1] %>'>  </div>
+				  <div id="fmonthsavingArray" value='<%= @monthsavingArray[@months-2] %>'>  </div>
+				  <div class="chart-area">
+					  <canvas id="savingschart"></canvas>
+				  </div>
+              </div>
+            </div>
+          </div>
 		</div>
 	</div>
+	
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  
+ 

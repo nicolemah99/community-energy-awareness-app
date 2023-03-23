@@ -12,6 +12,7 @@ class MainController < ApplicationController
         @windP = @current.windP * 100
         @renewP = @current.renewP * 100
         @nonRenewP = @current.nonRenewP * 100
+        @curr_savings = @current.year_total_non_renew
 
         # battery information
         @currentB = Battery.find_by timestamp: cdt
@@ -26,5 +27,23 @@ class MainController < ApplicationController
         else
             @state = "Not charging"
         end
+
+        # diesel savings
+        price = 5.00
+        @monthsavingArray = Array.new
+        @months = current_time.month
+        i = 0
+
+        while i < @months do
+            savingsdate = current_time.strftime "%2021-#{i+1}-01 00:00:00"
+            @currentS = GenerationBreakdown.find_by dateTime: savingsdate
+            savings = @currentS.year_total_non_renew * price
+            @monthsavingArray.push savings
+            i = i + 1
+        end
+        @monthsavingArray.push (@curr_savings*price)
+
+        @heyArray = [1,2,3,4]     
+
     end
 end
