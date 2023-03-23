@@ -1,16 +1,14 @@
-var data = this.getElementById("monthsavingArray").value;
-var data2 = this.getElementById("fmonthsavingArray").value;
-alert(data, data2)
-const datass = [ data, data2 ]
+
+
 const ctx = document.getElementById('savingschart');
-const lables = ['January', 'February']
+const lables = ['January', 'February','March', 'Apirl']
 	new Chart(ctx, {
 	  type: 'line',
 	  data: {
 		labels: lables,
 		datasets: [{
-		  label: 'Dollar savings',
-		  data: datass,
+		  label: '$ Diesel savings',
+		  data: [1,26,44,31],
 		  borderWidth: 1
 		}]
 	  },
@@ -25,7 +23,7 @@ const lables = ['January', 'February']
     
 
 
-
+/* 
 
 const chart = new Chart(testingchart, {
     type: 'line',
@@ -43,4 +41,4 @@ const chart = new Chart(testingchart, {
             }
         }
     }
-});
+}); */

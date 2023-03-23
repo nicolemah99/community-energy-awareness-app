@@ -33,17 +33,31 @@ class MainController < ApplicationController
         @monthsavingArray = Array.new
         @months = current_time.month
         i = 0
+        @collected = GenerationBreakdown.all()
 
-        while i < @months do
-            savingsdate = current_time.strftime "%2021-#{i+1}-01 00:00:00"
-            @currentS = GenerationBreakdown.find_by dateTime: savingsdate
-            savings = @currentS.year_total_non_renew * price
-            @monthsavingArray.push savings
-            i = i + 1
+
+        @savingsdate = []
+        @savings = []
+        
+        # cycle through all dates
+        @collected.each do |obs|
+            #reading_time = obs.dateTime.strftime "%2021-%m-%d %H:00:00"
+            reading_time = obs.dateTime.to_i * 1000
+            @savingsdate.push reading_time
+            savings_temp = {:x => reading_time, :y => obs.year_total_non_renew}
+            @savings.push savings_temp
         end
-        @monthsavingArray.push (@curr_savings*price)
 
-        @heyArray = [1,2,3,4]     
+        # while i < @months do
+        #     savingsdate = current_time.strftime "%2021-#{i+1}-01 00:00:00"
+        #     @currentS = GenerationBreakdown.find_by dateTime: savingsdate
+        #     savings = @currentS.year_total_non_renew * price
+        #     @monthsavingArray.push savings
+        #     i = i + 1
+        # end
+        # @monthsavingArray.push (@curr_savings*price)
+
+        # @heyArray = [1,2,3,4]     
 
     end
 end

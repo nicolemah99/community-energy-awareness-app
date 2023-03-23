@@ -112,19 +112,50 @@
                 <h3 class="card-title"><i class="tim-icons icon-money-coins text-success"></i> Diesel Savings </h3>
               </div>
               <div class="card-body">
-			  	'Savings this year was: <%=  @monthsavingArray[@months-1].round(0) %> $'
-				  <div id="monthsavingArray" value='<%= @monthsavingArray[@months-1] %>'>  </div>
-				  <div id="fmonthsavingArray" value='<%= @monthsavingArray[@months-2] %>'>  </div>
+			  	
 				  <div class="chart-area">
-					  <canvas id="savingschart"></canvas>
+					  <canvas id="myChart"></canvas>
 				  </div>
               </div>
             </div>
           </div>
 		</div>
 	</div>
+	<%=  @hey %> 
+	<canvas id="example" width="400" height="400"></canvas>
 	
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  
+
+	
+	<script>
+
+	var ctx = document.getElementById('myChart');
+	var scatterChart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: <%= @savingsdate %>,
+			datasets: [{
+				label: '$ Diesel Savings',
+				data: <%= @savings.to_json.html_safe %>,
+				borderWidth: 1
+			}]
+		},
+		options: {
+			scales: {
+				xAxes: [{
+					type: 'time',
+					time: {
+						parser: 'X',
+						tooltipFormat: 'MMM Do, \'YY'
+					},
+				}]
+			}
+		}
+	});
+	
+	
+
+	
+	</script>
  
