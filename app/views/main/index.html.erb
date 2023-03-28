@@ -104,20 +104,20 @@
 										<td><%= @current.total.round(0) %></td>
 										<td>100</td>
 									</tr>
-									<tr>
+									<tr class="NonRenew">
 										<td></td>
-										<td colspan="2">Non Renewables</td>
+										<td colspan="2" >Non Renewables</td>
 										<td><%= @current.nonRenew.round(0) %></td>
 										<td><%= @dieselTP.round(1) %></td>
 									</tr>
 									<tr>
 										<td></td>
 										<td></td>
-										<td>Diesel</td>
+										<td style="display:flex;align-items:center;"><div class="Diesel"></div>Diesel</td>
 										<td id="DieselKW" value=<%= @current.nonRenew.round(0) %> ><%= @current.nonRenew.round(0) %></td>
 										<td id="DieselTP" data-percent="<%= @dieselTP %>"><%= @dieselTP.round(1) %></td>
 									</tr>
-									<tr>
+									<tr class="Renew">
 										<td></td>
 										<td colspan="2">Renewables</td>
 										<td><%=@current.renew.round(0) %></td>
@@ -126,14 +126,14 @@
 									<tr>
 										<td></td>
 										<td></td>
-										<td>Wind</td>
+										<td style="display:flex;align-items:center;"><div class="Wind"></div>Wind</td>
 										<td id="WindKW" value= <%= @current.wind.round(0) %>><%= @current.wind.round(0) %></td>
 										<td id="WindTP" data-percent="<%= @windTP %>"><%= @windTP.round(1) %></td>
 									</tr>
 									<tr>
 										<td></td>
 										<td></td>
-										<td>Solar</td>
+										<td style="display:flex;align-items:center;"><div class="Solar"></div>Solar</td>
 										<td id="SolarKW" value= "<%= @current.solar.round(0) %>"><%= @current.solar.round(0) %></td>
 										<td id="SolarTP" data-percent="<%= @solarTP %>"><%= @solarTP.round(1) %></td>
 									</tr>

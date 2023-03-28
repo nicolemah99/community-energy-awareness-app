@@ -1,0 +1,23 @@
+.Wind{
+    background-color: rgba(0, 149, 255, 0.7);
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.Solar{
+    background-color: rgba(253, 217, 13, 0.7);
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.Diesel{
+    background-color: rgba(139, 127, 0, 0.7);
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
