@@ -4,6 +4,12 @@
 	<script src="https://code.highcharts.com/highcharts-more.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+	<script>
+		var ele = document.getElementById('container');
+		if (ele) {
+		    ele.style.visibility = "visible";
+		}
+	</script>
 <% end %>
 <div class="content">
 	<h1 class="text-center">Kotzebue Electric Association</h1>
@@ -129,7 +135,7 @@
 									<td></td>
 									<td colspan="2">Renewables</td>
 									<td><%=@current.renew.round(0) %></td>
-									<td id="RenewP" value= "<%= @renewP.round(0) %>"><%= @renewP %></td>
+									<td id="RenewP" value= "<%= @renewP.round(0) %>"><%= @renewP.round(1) %></td>
 								</tr>
 								<tr>
 									<td></td>
@@ -167,6 +173,9 @@
 					<h3 class="card-title"><i class="tim-icons icon-components text-primary "></i> Community Usage Chart</h3>
 				</div>
 				<div class="card-body">
+					<div id="container">
+						<div id="element"></div>
+					</div>
 				</div>
 			</div>
 		</div>
