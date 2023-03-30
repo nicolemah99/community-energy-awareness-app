@@ -112,8 +112,6 @@
                 <h3 class="card-title"><i class="tim-icons icon-money-coins text-success"></i> Diesel Savings </h3>
               </div>
               <div class="card-body">
-			  <div hidden id="savingsdate"><%= @savingsdate %></div>
-			  <div hidden id="savings"><%= @savings.to_json.html_safe %></div>
 				  <div class="chart-area pb-4">
 					  <canvas id="savingschart"></canvas>
 					  <input onchange="filterData()" type="date" id="startdate" value="2021-01-01"
@@ -126,13 +124,6 @@
           </div>
 		</div>
 	</div>
-	<%=  @savings.to_json.html_safe %> 
-	<canvas id="example" width="400" height="400"></canvas>
-	
-   
-	<div>
-  <canvas id="myChart"></canvas>
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 

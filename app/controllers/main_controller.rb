@@ -34,7 +34,7 @@ class MainController < ApplicationController
         @monthsavingArray = Array.new
         @months = current_time.month
         i = 0
-        @collected = GenerationBreakdown.all()
+        @collected = GenerationBreakdown.where(dateTime: "2021-01-01 00:00:00"..cdt)
 
 
         @savingsdate = []
@@ -43,38 +43,18 @@ class MainController < ApplicationController
         # cycle through all dates
         @collected.each do |obs|
             
-            #reading_time = obs.dateTime.to_i*1000
-            # @savingsdate.push reading_time
-            # dollar_savings = (obs.year_total_non_renew/kwHpergallon)*dieselprice
-            # savings_temp = {:x => reading_time, :y => dollar_savings}
-            # @savings.push savings_temp
-
             reading_time = obs.dateTime.strftime('%Y-%m-%d %H:%M')
-            @savingsdate.push reading_time
+            # day and month 
+            reading_time_formatted = obs.dateTime.strftime("%e %b")
+            @savingsdate.push reading_time_formatted
             dollar_savings = (obs.year_total_non_renew/kwHpergallon)*dieselprice
-            savings_temp = {:x => reading_time, :y => dollar_savings}
+            savings_temp = {:x => reading_time_formatted, :y => dollar_savings}
             @savings.push savings_temp
             #@savings.push dollar_savings
 
         end
+        gon.completesavingdates = @savingsdate
         gon.completesavings = @savings
-        # while i < @months do
-        #     savingsdate = current_time.strftime "%2021-#{i+1}-01 00:00:00"
-        #     @currentS = GenerationBreakdown.find_by dateTime: savingsdate
-        #     savings = @currentS.year_total_non_renew * price
-        #     @monthsavingArray.push savings
-        #     i = i + 1
-        # end
-        # @monthsavingArray.push (@curr_savings*price)
-
-        # @heyArray = [1,2,3,4]     
-        t = Time.at(1609459200)
-        @hey = t
-
-        yayaya = DateTime.now()
-        @halla = yayaya
-
-        #.strftime('%Y-%m-%d %H:%M')
 
     end
 end

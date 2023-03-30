@@ -1,65 +1,47 @@
 
-
-//const labels = document.getElementById("savingsdate").innerHTML;
-//const datapoints = document.getElementById("savings").innerHTML;
+const labels = gon.completesavingdates
 const datapoints = gon.completesavings
 
-console.log(datapoints)
-console.log(datapoints)
-const fakeData = [
-    {"x":"2022-01-01 12:00", "y":22},
-    {"x":"2022-01-02 13:00", "y":23},
-    {"x":"2022-01-03 09:00", "y":30}
-]
-console.log(fakeData)
+// const fakeData = [
+//     {"x":"2022-01-01 12:00", "y":22},
+//     {"x":"2022-01-02 13:00", "y":23},
+//     {"x":"2022-01-03 09:00", "y":30}
+// ]
 
-// const data = {
-//     labels: labels,
-//     datasets: [{
-//         label: '$ Diesel Savings',
-//         data: datapoints,
-//         borderWidth: 0.5
-//     }]
-// }
+
+
+
 const data = {
+    labels: labels,
     datasets: [{
         label: '$ Diesel Savings',
-        //data: datapoints,
-        data: fakeData,
-        borderWidth: 0.5
+        data: datapoints,
+        borderWidth: 0.1,
     }],
 };
 const config = {
     type: 'line',
     data: data,
     options: {
+        responsive: true,
+        maintainAspectRatio: false,
         scales: {
-            // xAxes:{
-            //     type: 'time',
-            //     time: {
-            //         unit: 'day', 
-            //         parser: 'yyyy-MM-dd HH:mm'
-            //     }
-            // }
-            // xAxes: {
-            //     type: 'time',
-            //     time: {
-            //         unit: 'day',
-            //         parser: 'yyyy-MM-dd'
-            //     }
-            //      },
-            // //      adapters: {
-            // //          date: {
-            // //              locale: de     
-            // //         }
-            
-            // // },
-            // yAxes: {
-            //     beginAtZero: true
-            // }
+            x: {
+                title: {
+                  display: true,
+                  text: 'Date'
+                }
+              },
+            y: {
+                title: {
+                  display: true,
+                  text: 'Dollar'
+                }
+              }
         }
         }
 };
+
 
 const ctx = new Chart(document.getElementById('savingschart'), config);
 
