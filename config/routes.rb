@@ -5,7 +5,4 @@ Rails.application.routes.draw do
   # root "articles#index"
   root "main#index"
 
-  get "diesel-savings", to: "savings#index", as: :savings
-
-  get "about-page", to: "about#index", as: :about
 end
