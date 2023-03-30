@@ -6,6 +6,7 @@ class MainController < ApplicationController
         current_time = DateTime.now
         cdt = current_time.strftime "%2021-%m-%d %H:00:00"
         pdt = (current_time - (1.0/24)).strftime "%2021-%m-%d %H:00:00"
+        
 
         #generation breakdown
         @current = GenerationBreakdown.find_by dateTime: cdt
@@ -20,6 +21,13 @@ class MainController < ApplicationController
         #updatedTime
         @lastUpdated = convertTime(@current)
         
+        # Community Usage
+        start_of_day = current_time.strftime "%2021-%m-%d 00:00:00"
+        end_of_day= current_time.strftime "%2021-%m-%d 23:00:00"
+        #can access in Javascript files
+        gon.hourly_kwh_usage = GenerationBreakdown.where(dateTime: start_of_day..end_of_day).select(:total, :id).order(:id)
+
+
         # battery information
         @currentB = Battery.find_by timestamp: cdt
         @pastB = Battery.find_by timestamp: pdt
@@ -34,6 +42,7 @@ class MainController < ApplicationController
             @state = "Not charging"
         end
     end
+
 
     #convert to 12hr clock
     def convertTime(time) 
