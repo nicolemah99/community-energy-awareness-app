@@ -14,7 +14,7 @@ var heatmapData = [
      [null,null]];
 
 const hourly_kwh = gon.hourly_kwh_usage
-hours_per_meridiem = 12
+var hours_per_meridiem = 12
 
 //PM row
 for (let i = 0; i < hours_per_meridiem; i++){
@@ -54,10 +54,13 @@ var heatmap = new ej.heatmap.HeatMap({
             labels: ['PM', 'AM'],
         },
         renderingMode: 'SVG',
+        //Might want to change these values based on monthly or seasonaly maxs
         paletteSettings:{
-            palette: [{ startValue: 1500, endValue:2000, minColor: '#FFFFDA', maxColor:'#EDF8B6' },
-            { startValue: 2000, endValue:2500, minColor: '#CAE8B4', maxColor:'#78D1BD' },
-            { startValue: 2500, endValue:3000, minColor: '#36BCC6', maxColor:'#208FC6' },
+            palette: [{ startValue: 1800, endValue:2100, minColor: '#FFFFDA', maxColor:'#EDF8B6' },
+            { startValue: 2100, endValue:2500, minColor: '#CAE8B4', maxColor:'#78D1BD' },
+            { startValue: 2500, endValue:2775, minColor: '#36BCC6', maxColor:'#208FC6' },
+            { startValue: 2775, endValue:3000, minColor: '#208FC6', maxColor:'#000080' },
+            { startValue: 3000, endValue:3200, minColor: '#000080', maxColor:'#152238' }
             ],
             type: 'Gradient'
         },

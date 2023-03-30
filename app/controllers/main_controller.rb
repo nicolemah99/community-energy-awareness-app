@@ -6,7 +6,6 @@ class MainController < ApplicationController
         current_time = DateTime.now
         cdt = current_time.strftime "%2021-%m-%d %H:00:00"
         pdt = (current_time - (1.0/24)).strftime "%2021-%m-%d %H:00:00"
-        
 
         #generation breakdown
         @current = GenerationBreakdown.find_by dateTime: cdt
