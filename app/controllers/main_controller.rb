@@ -27,9 +27,10 @@ class MainController < ApplicationController
         else
             @state = "Not charging"
         end
-
+        # 12-14 kwH per gallon
         # diesel savings
-        price = 5.00
+        kwHpergallon = 13.00
+        dieselprice = 5.00
         @monthsavingArray = Array.new
         @months = current_time.month
         i = 0
@@ -41,13 +42,22 @@ class MainController < ApplicationController
         
         # cycle through all dates
         @collected.each do |obs|
-            #reading_time = obs.dateTime.strftime "%2021-%m-%d %H:00:00"
-            reading_time = obs.dateTime.to_i * 1000
-            @savingsdate.push reading_time
-            savings_temp = {:x => reading_time, :y => obs.year_total_non_renew}
-            @savings.push savings_temp
-        end
+            
+            #reading_time = obs.dateTime.to_i*1000
+            # @savingsdate.push reading_time
+            # dollar_savings = (obs.year_total_non_renew/kwHpergallon)*dieselprice
+            # savings_temp = {:x => reading_time, :y => dollar_savings}
+            # @savings.push savings_temp
 
+            reading_time = obs.dateTime.strftime('%Y-%m-%d %H:%M')
+            @savingsdate.push reading_time
+            dollar_savings = (obs.year_total_non_renew/kwHpergallon)*dieselprice
+            savings_temp = {:x => reading_time, :y => dollar_savings}
+            @savings.push savings_temp
+            #@savings.push dollar_savings
+
+        end
+        gon.completesavings = @savings
         # while i < @months do
         #     savingsdate = current_time.strftime "%2021-#{i+1}-01 00:00:00"
         #     @currentS = GenerationBreakdown.find_by dateTime: savingsdate
@@ -58,6 +68,13 @@ class MainController < ApplicationController
         # @monthsavingArray.push (@curr_savings*price)
 
         # @heyArray = [1,2,3,4]     
+        t = Time.at(1609459200)
+        @hey = t
+
+        yayaya = DateTime.now()
+        @halla = yayaya
+
+        #.strftime('%Y-%m-%d %H:%M')
 
     end
 end
