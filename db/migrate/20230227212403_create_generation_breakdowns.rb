@@ -11,7 +11,6 @@ class CreateGenerationBreakdowns < ActiveRecord::Migration[7.0]
       t.float :solarP
       t.float :renewP
       t.float :nonRenewP
-
       t.timestamps
     end
   end
