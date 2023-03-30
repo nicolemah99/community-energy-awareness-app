@@ -4,9 +4,16 @@
 	<script src="https://code.highcharts.com/highcharts-more.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+	<script>
+		var ele = document.getElementById('container');
+		if (ele) {
+		    ele.style.visibility = "visible";
+		}
+	</script>
 <% end %>
-<div class="content">
+<div "class="content">
 	<h1 class="text-center">Kotzebue Electric Association</h1>
+	<!--Row 1 Start-->
 	<div class="row mt-3">
 		<!-- Last Updated -->
 		<div class="col mx-auto">
@@ -18,6 +25,8 @@
 			</div>
 		</div>
 	</div>
+	<!--Row 1 End-->
+	<!--Row 2 Start-->
 	<div class="row mt-3">
 		<!-- Map -->
 		<div class="col-sm-5 ml-auto">
@@ -79,67 +88,75 @@
 				</div>
 			</div>
 		</div>
-		<div class="row mt-5">
-			<!-- Electricity Generation Breakdown -->
-			<div class="col-md-6 ml-auto mr-auto">
-				<div class="card card-chart">
-					<div class="card-header">
-						<h5 class="card-category">Electricity Generation</h5>
-						<h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-primary "></i> Electricity Generation Breakdown</h3>
-					</div>
-					<div class="card-body">
-						<div id="bubbleContainer"></div>
-						<div class="breakdownTable">
-							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th scope="col" colspan="3"></th>
-										<th scope="col">kWh</th>
-										<th scope="col">Percentage</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td colspan="3"><strong>TOTAL</strong></td>
-										<td><%= @current.total.round(0) %></td>
-										<td>100</td>
-									</tr>
-									<tr class="NonRenew">
-										<td></td>
-										<td colspan="2" >Non Renewables</td>
-										<td><%= @current.nonRenew.round(0) %></td>
-										<td><%= @dieselTP.round(1) %></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td style="display:flex;align-items:center;"><div class="Diesel"></div>Diesel</td>
-										<td id="DieselKW" value=<%= @current.nonRenew.round(0) %> ><%= @current.nonRenew.round(0) %></td>
-										<td id="DieselTP" data-percent="<%= @dieselTP %>"><%= @dieselTP.round(1) %></td>
-									</tr>
-									<tr class="Renew">
-										<td></td>
-										<td colspan="2">Renewables</td>
-										<td><%=@current.renew.round(0) %></td>
-										<td id="RenewP" value= "<%= @renewP.round(0) %>"><%= @renewP %></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td style="display:flex;align-items:center;"><div class="Wind"></div>Wind</td>
-										<td id="WindKW" value= <%= @current.wind.round(0) %>><%= @current.wind.round(0) %></td>
-										<td id="WindTP" data-percent="<%= @windTP %>"><%= @windTP.round(1) %></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td style="display:flex;align-items:center;"><div class="Solar"></div>Solar</td>
-										<td id="SolarKW" value= "<%= @current.solar.round(0) %>"><%= @current.solar.round(0) %></td>
-										<td id="SolarTP" data-percent="<%= @solarTP %>"><%= @solarTP.round(1) %></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+	</div>
+	<!--Row 2 End-->
+	<!--Row 3 Start-->
+	<div class="row mt-5">
+		<!-- Electricity Generation Breakdown -->
+		<div class="col-md-6 ml-auto mr-auto">
+			<div class="card card-chart">
+				<div class="card-header">
+					<h5 class="card-category">Electricity Generation</h5>
+					<h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-primary "></i> Electricity Generation Breakdown</h3>
+				</div>
+				<div class="card-body">
+					<div id="bubbleContainer"></div>
+					<div class="breakdownTable">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th scope="col" colspan="3"></th>
+									<th scope="col">kWh</th>
+									<th scope="col">Percentage</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="3"><strong>TOTAL</strong></td>
+									<td><%= @current.total.round(0) %></td>
+									<td>100</td>
+								</tr>
+								<tr class="NonRenew">
+									<td></td>
+									<td colspan="2" >Non Renewables</td>
+									<td><%= @current.nonRenew.round(0) %></td>
+									<td><%= @dieselTP.round(1) %></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td style="display:flex;align-items:center;">
+										<div class="Diesel"></div>
+										Diesel</td>
+									<td id="DieselKW" value=<%= @current.nonRenew.round(0) %> ><%= @current.nonRenew.round(0) %></td>
+									<td id="DieselTP" data-percent="<%= @dieselTP %>"><%= @dieselTP.round(1) %></td>
+								</tr>
+								<tr class="Renew">
+									<td></td>
+									<td colspan="2">Renewables</td>
+									<td><%=@current.renew.round(0) %></td>
+									<td id="RenewP" value= "<%= @renewP.round(0) %>"><%= @renewP.round(1) %></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td style="display:flex;align-items:center;">
+										<div class="Wind"></div>
+										Wind</td>
+									<td id="WindKW" value= <%= @current.wind.round(0) %>><%= @current.wind.round(0) %></td>
+									<td id="WindTP" data-percent="<%= @windTP %>"><%= @windTP.round(1) %></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td style="display:flex;align-items:center;">
+										<div class="Solar"></div>
+										Solar</td>
+									<td id="SolarKW" value= "<%= @current.solar.round(0) %>"><%= @current.solar.round(0) %></td>
+									<td id="SolarTP" data-percent="<%= @solarTP %>"><%= @solarTP.round(1) %></td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
@@ -161,6 +178,26 @@
             </div>
           </div>
 		</div>
+	</div>
+	<!--Row 3 End-->
+	<!--Row 4 Start-->
+	<div class="row mt-5">
+		<!-- Community Usage Chart -->
+		<div class="col ml-auto mr-auto">
+			<div class="card card-chart">
+				<div class="card-header">
+					<h5 class="card-category">Community</h5>
+					<h3 class="card-title"><i class="tim-icons icon-components text-primary "></i> Community Usage Chart</h3>
+				</div>
+				<div class="card-body">
+			
+					<div id="container">
+						<div id="heatmap"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--Row 4 End-->
 	</div>
 </div>
 

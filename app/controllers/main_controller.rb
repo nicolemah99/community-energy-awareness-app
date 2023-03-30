@@ -22,6 +22,13 @@ class MainController < ApplicationController
         #updatedTime
         @lastUpdated = convertTime(@current)
         
+        # Community Usage
+        start_of_day = current_time.strftime "%2021-%m-%d 00:00:00"
+        end_of_day= current_time.strftime "%2021-%m-%d 23:00:00"
+        #can access in Javascript files
+        gon.hourly_kwh_usage = GenerationBreakdown.where(dateTime: start_of_day..end_of_day).select(:total, :id).order(:id)
+
+
         # battery information
         @currentB = Battery.find_by timestamp: cdt
         @pastB = Battery.find_by timestamp: pdt
@@ -65,6 +72,7 @@ class MainController < ApplicationController
         gon.completesavings = @savings
 
     end
+
 
     #convert to 12hr clock
     def convertTime(time) 
