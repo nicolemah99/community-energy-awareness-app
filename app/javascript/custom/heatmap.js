@@ -1,23 +1,23 @@
 ej.base.registerLicense('Mgo+DSMBaFt+QHFqVkFrWE5GfkBAXWFKblV8QWtTelhgFChNYlxTR3ZcQFRiQH5XdkVlW3lY;Mgo+DSMBPh8sVXJ1S0d+X1ZPckBAVXxLflF1VWVTe1Z6cVNWACFaRnZdQV1gS3dSf0VnWX9Yc31T;ORg4AjUWIQA/Gnt2VFhhQlJDfVtdX2tWfFN0RnNfdVp4flBAcDwsT3RfQF5jSnxad0xjXX9ednFUQA==;MTU0MjM0N0AzMjMxMmUzMTJlMzMzN0hOZmxLN1VYQmI0Nnl0TzJQRWtFVEpDZnVwaHdMNkNqcFh1cVRoNFdXc1E9;MTU0MjM0OEAzMjMxMmUzMTJlMzMzN2RHaXo5RkhhWWhnd2x6T2MwRkxORE9PK0RLOVhublg3V1plNHZUeUZQbnM9;NRAiBiAaIQQuGjN/V0d+XU9HcVRGQmFBYVF2R2BJeVR0fF9DZkwxOX1dQl9gSX1Rf0RqWXtecHNVQmY=;MTU0MjM1MEAzMjMxMmUzMTJlMzMzN0tZcm05UktTdE9KdHFNQkdRdlloNHFGSEVRQTBqbURaV1FGUExoODZhN0U9;MTU0MjM1MUAzMjMxMmUzMTJlMzMzN0tWTUZxWnA5dzZGenVHdmc4eGpwL1NQb2h5NFEySTF1bXpYdi9uUXB1ZHc9;Mgo+DSMBMAY9C3t2VFhhQlJDfVtdX2tWfFN0RnNfdVp4flBAcDwsT3RfQF5jSnxad0xjXX9ed3FdQA==;MTU0MjM1M0AzMjMxMmUzMTJlMzMzN2kxcndseGVxWkdCT2xocHBaL212dmxNSlc3U2RQbUxtSXFHVlBvWENYY0U9;MTU0MjM1NEAzMjMxMmUzMTJlMzMzN2thQVc0TDBtM3JmUnB2WVFYNHRrN2FvSDQvMVVNQUkrdjV2REpSNjZLMjQ9;MTU0MjM1NUAzMjMxMmUzMTJlMzMzN0tZcm05UktTdE9KdHFNQkdRdlloNHFGSEVRQTBqbURaV1FGUExoODZhN0U9');
 var heatmapData = [
-     [73, 39, 26, 39, 94, 0],
-     [93, 58, 53, 38, 26, 68],
-     [99, 28, 22, 4, 66, 90],
-     [14, 26, 97, 69, 69, 3],
-     [7, 46, 47, 47, 88, 6],
-     [41, 55, 73, 23, 3, 79],
-     [56, 69, 21, 86, 3, 33],
-     [45, 7, 53, 81, 95, 79],
-     [60, 77, 74, 68, 88, 51],
-     [25, 25, 10, 12, 78, 14],
-     [25, 56, 55, 58, 12, 82],
-     [74, 33, 88, 23, 86, 59]];
+     [5, 39],
+     [93, 58],
+     [99, 28],
+     [14, 26],
+     [7, 46],
+     [41, 55],
+     [56, 69],
+     [45, 7],
+     [60, 77],
+     [25, 25],
+     [25, 56],
+     [74, 33]];
 
 var heatmap = new ej.heatmap.HeatMap({
      titleSettings: {
-            text: 'Sales Revenue per Employee (in 1000 US$)',
+            text: 'Community Electricity Usage (kWh)',
             textStyle: {
-                size: '15px',
+                size: '20px',
                 fontWeight: '500',
                 fontStyle: 'Normal',
                 fontFamily: 'Segoe UI'
@@ -25,19 +25,50 @@ var heatmap = new ej.heatmap.HeatMap({
         },
          cellSettings: {
             showLabel: true,
+            format: '{value} kWh',
+            border:{
+                width:0
+            }
         },
         xAxis: {
-            labels: ['Nancy', 'Andrew', 'Janet', 'Margaret', 'Steven', 
-                        'Michael', 'Robert', 'Laura', 'Anne', 'Paul', 'Karin',   'Mario'],
+            labels: ['12-1', '1-2', '2-3', '3-4', '4-5', 
+                        '5-6', '6-7', '7-8', '8-9', '9-10', '10-11', '11-12'],
+            opposedPosition: true,
         },
         yAxis: {
-            labels: ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'],
+            labels: ['PM', 'AM'],
+        },
+        renderingMode: 'SVG',
+        paletteSettings:{
+            palette: [{ startValue: 5, endValue:40, minColor: '#FFFFDA', maxColor:'#EDF8B6' },
+            { startValue: 40, endValue:70, minColor: '#CAE8B4', maxColor:'#78D1BD' },
+            { startValue: 70, endValue:100, minColor: '#36BCC6', maxColor:'#208FC6' },
+            ],
+            type: 'Gradient'
+        },
+        tooltipSettings:{
+            fill: '#265259',
+            textStyle: {
+                color: '#FFFFFF',
+                size: '12px'
+            },
+            border:{
+                width:1,
+                color: '#98BABF'
+            }
+        },
+        tooltipRender: function (args) {
+            args.content = ['From ' + args.xLabel + ' ' + args.yLabel +', '+ args.value + 'kWh were used.'];
         },
      dataSource: heatmapData, 
       legendSettings: {
-            position: 'Right',
+            position: 'Top',
             showLabel: true,
-            height: "150"
+            height: "75",
+            labelFormat: '{value} kWh',
+            title: {
+                text: 'Kilowatt Hour'
+            },
         },
         showTooltip:true,  
         
