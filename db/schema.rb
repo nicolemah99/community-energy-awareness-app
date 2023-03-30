@@ -37,4 +37,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_18_014114) do
     t.float "year_total_non_renew"
   end
 
+  create_table "master", id: false, force: :cascade do |t|
+    t.datetime "date_time", precision: nil
+    t.decimal "total_kw"
+    t.decimal "total_non_renew_kw"
+    t.decimal "total_renew_kw"
+    t.decimal "total_wind_kw"
+    t.decimal "total_solar_kw"
+    t.decimal "percent_wind"
+    t.decimal "percent_solar"
+  end
+
 end
