@@ -65,8 +65,8 @@
 				</div>
 				<div class="card-body">
 					<div class="pl-5">
-						<strong>State of Charge: </strong><%= @currentB.charge %> <br>
-						<strong>Charge one hour ago: </strong><%= @pastB.charge %> <br>
+						<strong>State of Charge: </strong><%= @currentB.charge.round(2) %> <br>
+            			<strong>Charge one hour ago: </strong><%= @pastB.charge.round(2) %> <br>
 					</div>
 					<div class="battery p-4">
 						<div class="battery-head">
@@ -160,6 +160,23 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-lg-6">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">Diesel Savings</h5>
+                <h3 class="card-title"><i class="tim-icons icon-money-coins text-success"></i> Diesel Savings </h3>
+              </div>
+              <div class="card-body">
+				  <div class="chart-area pb-4">
+					  <canvas id="savingschart"></canvas>
+					  <input onchange="filterData()" type="date" id="startdate" value="2021-01-01"
+					  min="2021-01-01" max="2021-12-31">
+					  <input onchange="filterData()" type="date" id="enddate" value="2021-12-31"
+					  min="2021-01-01" max="2021-12-31">
+				  </div>
+              </div>
+            </div>
+          </div>
 		</div>
 	</div>
 	<!--Row 3 End-->
@@ -183,3 +200,4 @@
 		<!--Row 4 End-->
 	</div>
 </div>
+
