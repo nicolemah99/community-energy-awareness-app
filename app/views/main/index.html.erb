@@ -20,7 +20,7 @@
 			<div class="card">
 				<div class="card-header" style="text-align:center">
 					<h5 class="card-category">Last Updated</h5>
-					<h3 class="card-title"><i class="tim-icons icon-watch-time text-primary "></i> <%= @lastUpdated %></h3>
+					<h3 class="card-title"><i class="tim-icons icon-watch-time text-primary "></i> <%= @last_updated %></h3>
 				</div>
 			</div>
 		</div>
@@ -61,7 +61,7 @@
 				</div>
 				<div class="card-body">
 					<div class="pl-5">
-						<strong>State of Charge: </strong><%= @currentB.charge.round(2) %> <br>
+						<strong>State of Charge: </strong><%= @current_record_battery.charge.round(2) %> <br>
 						<strong>Charge one hour ago: </strong><%= @pastB.charge.round(2) %> <br>
 					</div>
 					<div class="battery p-4">
@@ -71,13 +71,13 @@
 							<% if @state=="Charging" %>
 								<i class="fas fa-bolt"></i>
 								<div class="charge"></div>
-								<h3 class="pl-2 mt-4 z-index-3 position-absolute"><%= @currentB.charge.round(1) %> %</h3>
+								<h3 class="pl-2 mt-4 z-index-3 position-absolute"><%= @current_record_battery.charge.round(1) %> %</h3>
 							<% elsif @state=="Discharging" %>
 								<div class="discharge"></div>
-								<h3 class="text-center mt-4"><%= @currentB.charge.round(1) %> %</h3>
+								<h3 class="text-center mt-4"><%= @current_record_battery.charge.round(1) %> %</h3>
 							<% else %>
 								<div class="nocharge"></div>
-								<h3 class="text-center mt-3"><%= @currentB.charge.round(1) %> %</h3>
+								<h3 class="text-center mt-3"><%= @current_record_battery.charge.round(1) %> %</h3>
 							<% end %>
 						</div>
 					</div>
@@ -109,14 +109,14 @@
 							<tbody>
 								<tr>
 									<td colspan="3"><strong>TOTAL</strong></td>
-									<td><%= @current.total.round(0) %></td>
-									<td>100</td>
+									<td><%= @total_kwh %></td>
+									<td>100.00</td>
 								</tr>
 								<tr class="NonRenew">
 									<td></td>
 									<td colspan="2" >Non Renewables</td>
-									<td><%= @current.nonRenew.round(0) %></td>
-									<td><%= @dieselTP.round(1) %></td>
+									<td><%= @non_renew_kwh %></td>
+									<td><%= @non_renew_percent %></td>
 								</tr>
 								<tr>
 									<td></td>
@@ -124,14 +124,14 @@
 									<td style="display:flex;align-items:center;">
 										<div class="Diesel"></div>
 										Diesel</td>
-									<td id="DieselKW" value=<%= @current.nonRenew.round(0) %> ><%= @current.nonRenew.round(0) %></td>
-									<td id="DieselTP" data-percent="<%= @dieselTP %>"><%= @dieselTP.round(1) %></td>
+									<td id="DieselKW" value=<%= @diesel_kwh %> ><%= @diesel_kwh %></td>
+									<td id="DieselP" data-percent="<%= @diesel_percent %>"><%= @diesel_percent %></td>
 								</tr>
 								<tr class="Renew">
 									<td></td>
 									<td colspan="2">Renewables</td>
-									<td><%=@current.renew.round(0) %></td>
-									<td id="RenewP" value= "<%= @renewP.round(0) %>"><%= @renewP.round(1) %></td>
+									<td><%=@renew_kwh %></td>
+									<td><%= @renew_percent %></td>
 								</tr>
 								<tr>
 									<td></td>
@@ -139,8 +139,8 @@
 									<td style="display:flex;align-items:center;">
 										<div class="Wind"></div>
 										Wind</td>
-									<td id="WindKW" value= <%= @current.wind.round(0) %>><%= @current.wind.round(0) %></td>
-									<td id="WindTP" data-percent="<%= @windTP %>"><%= @windTP.round(1) %></td>
+									<td id="WindKW" value= <%= @wind_kwh %>><%= @wind_kwh %></td>
+									<td id="WindP" data-percent="<%= @wind_percent %>"><%= @wind_percent %></td>
 								</tr>
 								<tr>
 									<td></td>
@@ -148,8 +148,8 @@
 									<td style="display:flex;align-items:center;">
 										<div class="Solar"></div>
 										Solar</td>
-									<td id="SolarKW" value= "<%= @current.solar.round(0) %>"><%= @current.solar.round(0) %></td>
-									<td id="SolarTP" data-percent="<%= @solarTP %>"><%= @solarTP.round(1) %></td>
+									<td id="SolarKW" value= "<%= @solar_kwh %>"><%= @solar_kwh %></td>
+									<td id="SolarP" data-percent="<%= @solar_percent %>"><%= @solar_percent %></td>
 								</tr>
 							</tbody>
 						</table>
