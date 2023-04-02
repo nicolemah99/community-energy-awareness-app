@@ -1,15 +1,15 @@
 document.addEventListener("DOMContentLoaded", function () {
-	var windKW = parseInt(this.getElementById("WindKW").getAttribute('value'));
-	var solarKW = parseInt(this.getElementById("SolarKW").getAttribute('value'));
-	var dieselKW = parseInt(this.getElementById("DieselKW").getAttribute('value'));
-	var windP = this.getElementById("WindTP").dataset.percent;
-	var solarP = this.getElementById("SolarTP").dataset.percent;
-	var dieselP = this.getElementById("DieselTP").dataset.percent;
+	var windKW = gon.wind_kwh;
+	var solarKW = gon.solar_kwh;
+	var dieselKW = gon.diesel_kwh;
+	var windP = gon.wind_percent;
+	var solarP = gon.solar_percent;
+	var dieselP = gon.diesel_percent;
 
 	Highcharts.chart("bubbleContainer", {
 		chart: {
 			type: "packedbubble",
-			height: "100%",
+			height: "70%",
 			styleMode: true,
 		},
 		legend: {
@@ -51,8 +51,8 @@ document.addEventListener("DOMContentLoaded", function () {
 					style: {
 						color: "black",
 						textOutline: "none",
-						fontSize:'1.25vmax',
-						fontHeight: '1.25vmin',
+						fontSize:'1vmax',
+						fontHeight: '1vmin',
 						
 					},
 				},
