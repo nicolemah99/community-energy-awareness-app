@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	Highcharts.chart("bubbleContainer", {
 		chart: {
 			type: "packedbubble",
-			height: "100%",
+			height: "70%",
 			styleMode: true,
 		},
 		legend: {
@@ -51,8 +51,8 @@ document.addEventListener("DOMContentLoaded", function () {
 					style: {
 						color: "black",
 						textOutline: "none",
-						fontSize:'1.25vmax',
-						fontHeight: '1.25vmin',
+						fontSize:'1vmax',
+						fontHeight: '1vmin',
 						
 					},
 				},

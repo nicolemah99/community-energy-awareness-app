@@ -7,7 +7,7 @@ class MainController < ApplicationController
         current_hour = current_time.strftime "%2021-%m-%d %H:00:00"
         past_hour = (current_time - (1.0/24)).strftime "%2021-%m-%d %H:00:00"
 
-        # Generation Breakdown
+        ## Generation Breakdown
         @current_record_breakdown = GenerationBreakdown.find_by dateTime: current_hour
         @total_kwh = @current_record_breakdown.total.round(1)
         @renew_kwh = @current_record_breakdown.renew.round(1)
@@ -22,18 +22,16 @@ class MainController < ApplicationController
         @diesel_percent = gon.diesel_percent = (@non_renew_kwh / @total_kwh * 100).round(2)
 
         @curr_savings = @current_record_breakdown.year_total_non_renew
-        
-        #updatedTime
         @last_updated = convertTime(@current_record_breakdown)
         
-        # Community Usage
+        ## Community Usage
         start_of_day = current_time.strftime "%2021-%m-%d 00:00:00"
-        end_of_day= current_time.strftime "%2021-%m-%d 23:00:00"
+        end_of_day = current_time.strftime "%2021-%m-%d 23:00:00"
         #can access in Javascript files
         gon.hourly_kwh_usage = GenerationBreakdown.where(dateTime: start_of_day..end_of_day).select(:total, :id).order(:id)
 
-
-        # Battery Information
+        
+        ## Battery Information
         @current_record_battery = Battery.find_by timestamp: current_hour
         @pastB = Battery.find_by timestamp: past_hour
         @charge = @current_record_battery.charge
