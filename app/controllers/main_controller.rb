@@ -11,15 +11,15 @@ class MainController < ApplicationController
         @current_record_breakdown = GenerationBreakdown.find_by dateTime: current_hour
         @total_kwh = @current_record_breakdown.total.round(1)
         @renew_kwh = @current_record_breakdown.renew.round(1)
-        @solar_kwh = @current_record_breakdown.solar.round(1)
-        @wind_kwh = @current_record_breakdown.wind.round(1)
-        @non_renew_kwh = @diesel_kwh = @current_record_breakdown.nonRenew.round(1)
+        @solar_kwh = gon.solar_kwh = @current_record_breakdown.solar.round(1)
+        @wind_kwh = gon.wind_kwh = @current_record_breakdown.wind.round(1)
+        @non_renew_kwh = @diesel_kwh = gon.diesel_kwh = @current_record_breakdown.nonRenew.round(1)
 
         @renew_percent = (@renew_kwh / @total_kwh * 100).round(2)
         @non_renew_percent = (@non_renew_kwh / @total_kwh * 100).round(2)
-        @solar_percent = (@solar_kwh / @total_kwh * 100).round(2)
-        @wind_percent = (@wind_kwh / @total_kwh * 100).round(2)
-        @diesel_percent = (@non_renew_kwh / @total_kwh * 100).round(2)
+        @solar_percent = gon.solar_percent = (@solar_kwh / @total_kwh * 100).round(2)
+        @wind_percent = gon.wind_percent = (@wind_kwh / @total_kwh * 100).round(2)
+        @diesel_percent = gon.diesel_percent = (@non_renew_kwh / @total_kwh * 100).round(2)
 
         @curr_savings = @current_record_breakdown.year_total_non_renew
         

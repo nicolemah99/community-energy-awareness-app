@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
-	var windKW = parseInt(this.getElementById("WindKW").getAttribute('value'));
-	var solarKW = parseInt(this.getElementById("SolarKW").getAttribute('value'));
-	var dieselKW = parseInt(this.getElementById("DieselKW").getAttribute('value'));
-	var windP = this.getElementById("WindP").dataset.percent;
-	var solarP = this.getElementById("SolarP").dataset.percent;
-	var dieselP = this.getElementById("DieselP").dataset.percent;
+	var windKW = gon.wind_kwh;
+	var solarKW = gon.solar_kwh;
+	var dieselKW = gon.diesel_kwh;
+	var windP = gon.wind_percent;
+	var solarP = gon.solar_percent;
+	var dieselP = gon.diesel_percent;
 
 	Highcharts.chart("bubbleContainer", {
 		chart: {
