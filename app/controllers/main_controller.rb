@@ -28,7 +28,7 @@ class MainController < ApplicationController
         start_of_day = current_time.strftime "%2021-%m-%d 00:00:00"
         end_of_day = current_time.strftime "%2021-%m-%d 23:00:00"
         #can access in Javascript files
-        gon.hourly_kwh_usage = GenerationBreakdown.where(dateTime: start_of_day..end_of_day).select(:total, :id).order(:id)
+        gon.hourly_kwh_usage = GenerationBreakdown.where(dateTime: start_of_day..current_hour).select(:total, :id).order(:id)
 
         
         ## Battery Information
