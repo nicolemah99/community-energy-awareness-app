@@ -33,45 +33,38 @@ class MainController < ApplicationController
         
         ## Battery Information
         @current_record_battery = Battery.find_by timestamp: current_hour
-        @pastB = Battery.find_by timestamp: past_hour
-        @charge = @current_record_battery.charge
-        @chargep = @pastB.charge
+        @past_hour_record_battery = Battery.find_by timestamp: past_hour
+        current_charge = @current_record_battery.charge
+        past_charge = @past_hour_record_battery.charge
 
-        if @chargep < @charge
+        if past_charge < current_charge
             @state = "Charging"
-        elsif @chargep > @charge
+        elsif past_charge > current_charge
             @state = "Discharging"
         else
             @state = "Not charging"
         end
+
         # 12-14 kwH per gallon
-        # diesel savings
-        kwHpergallon = 13.00
-        dieselprice = 5.00
-        @monthsavingArray = Array.new
-        @months = current_time.month
-        i = 0
-        @collected = GenerationBreakdown.where(dateTime: "2021-01-01 00:00:00"..current_hour)
-
-
-        @savingsdate = []
-        @savings = []
+        ## Diesel savings
+        kwh_per_gallon = 13.00
+        diesel_price = 5.00
+        @savings_date = []
+        savings_date_and_amount = []
+        collected_data = GenerationBreakdown.where(dateTime: "2021-01-01 00:00:00"..current_hour)
         
         # cycle through all dates
-        @collected.each do |obs|
-            
-            reading_time = obs.dateTime.strftime('%Y-%m-%d %H:%M')
+        collected_data.each do |record|
             # day and month 
-            reading_time_formatted = obs.dateTime.strftime("%e %b")
-            @savingsdate.push reading_time_formatted
-            dollar_savings = (obs.year_total_non_renew/kwHpergallon)*dieselprice
-            savings_temp = {:x => reading_time_formatted, :y => dollar_savings}
-            @savings.push savings_temp
-            #@savings.push dollar_savings
+            reading_time = record.dateTime.strftime("%e %b")
+            @savings_date.push reading_time
+            dollar_savings = (record.year_total_non_renew/kwh_per_gallon)*diesel_price
+            savings_formatted = {:x => reading_time, :y => dollar_savings}
+            savings_date_and_amount.push savings_formatted
 
         end
-        gon.completesavingdates = @savingsdate
-        gon.completesavings = @savings
+        gon.completesavingdates = @savings_date
+        gon.completesavings = savings_date_and_amount
 
     end
 
