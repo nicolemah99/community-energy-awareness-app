@@ -38,11 +38,11 @@ class MainController < ApplicationController
         past_charge = @past_hour_record_battery.charge
 
         if past_charge < current_charge
-            @state = "Charging"
+            @battery_state = "Charging"
         elsif past_charge > current_charge
-            @state = "Discharging"
+            @battery_state = "Discharging"
         else
-            @state = "Not charging"
+            @battery_state = "Not charging"
         end
 
         # 12-14 kwH per gallon
