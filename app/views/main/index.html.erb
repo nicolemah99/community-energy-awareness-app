@@ -162,7 +162,7 @@
 			<div class="card card-chart">
 				<div class="card-header">
 					<h5 class="card-category">Diesel Savings</h5>
-					<h3 class="card-title"><i class="tim-icons icon-money-coins text-success"></i> Diesel Savings </h3>
+					<h3 class="card-title"><i class="tim-icons icon-money-coins text-success"></i>Diesel Savings </h3>
 				</div>
 				<div class="card-body">
 					<div class="chart-area pb-4">
@@ -171,6 +171,33 @@
 					  min="2021-01-01" max="2021-12-31">
 						<input onchange="filterData()" type="date" id="enddate" value="2021-12-31"
 					  min="2021-01-01" max="2021-12-31">
+					</div>
+					<div class="savingstable">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th scope="col" colspan="3">Month</th>
+									<th scope="col">Dollars</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="3"><strong>TOTAL</strong></td>
+									<td><%= number_with_precision(@dollar_savings, :precision => 1, :delimiter => ', ') %></td>
+								</tr>
+								<tr class="NonRenew">
+									<td></td>
+									<td colspan="2" >Non Renewables</td>
+									<td><%= @non_renew_kwh %></td>
+								</tr>
+								
+								<tr class="Renew">
+									<td></td>
+									<td colspan="2">Renewables</td>
+									<td><%=@hey %></td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
