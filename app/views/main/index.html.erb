@@ -62,7 +62,7 @@
 				<div class="card-body">
 					<div class="pl-5">
 						<strong>State of Charge: </strong><%= @current_record_battery.charge.round(2) %> <br>
-						<strong>Charge one hour ago: </strong><%= @pastB.charge.round(2) %> <br>
+						<strong>Charge one hour ago: </strong><%= @past_hour_record_battery.charge.round(2) %> <br>
 					</div>
 					<div class="battery p-4">
 						<div class="battery-head">
@@ -157,6 +157,7 @@
 				</div>
 			</div>
 		</div>
+		<!-- Diesel Savings -->
 		<div class="col-lg-6">
 			<div class="card card-chart">
 				<div class="card-header">
