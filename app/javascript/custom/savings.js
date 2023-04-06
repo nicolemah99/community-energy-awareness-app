@@ -1,3 +1,4 @@
+Chart.defaults.font.size = 14;
 
 const labels = gon.completesavingdates
 const datapoints = gon.completesavings
@@ -7,7 +8,8 @@ const data = {
     datasets: [{
         label: '$ Diesel Savings',
         data: datapoints,
-        borderWidth: 0.1,
+        borderWidth: 2.5,
+        fill: true,
     }],
 };
 const config = {
@@ -15,6 +17,8 @@ const config = {
     data: data,
     options: {
         responsive: true,
+        pointRadius: 0,
+        pointHoverRadius: 3,
         maintainAspectRatio: false,
         scales: {
             x: {

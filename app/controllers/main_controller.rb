@@ -50,30 +50,24 @@ class MainController < ApplicationController
         ## Diesel savings
         kwh_per_gallon = 13.00
         diesel_price = 5.00
-        @monthly_savings = []
         @savings_date = []
         savings_date_and_amount = []
         collected_data = GenerationBreakdown.where(dateTime: "2021-01-01 00:00:00"..current_hour)
-        
-        @hey = "Fack wrong"
-        hello = current_time.end_of_month.strftime "2021-%m-%d %H:00:00"
-        if hello == "2021-04-30 23:00:00"
-            @hey = "Worked"
-        end
+        current_month = Date.today.strftime("%m")
+        @current_month_str = Date.today.strftime("%B")
+        # Value when we get real time data
+        #@current_year = Date.today.strftime("%Y")
+        @current_year = "2021"
 
-        # cycle through all dates
+        # current monthly savings
+        current_month_data = GenerationBreakdown.where(dateTime: "2021-#{current_month}-01 00:00:00"..current_hour)
+        current_month_kwh_savings = (current_month_data.last().year_total_non_renew) - (current_month_data.first().year_total_non_renew)
+        @current_month_dollar_savings = (current_month_kwh_savings/kwh_per_gallon)*diesel_price
+
+        # cycle through all dates - data for the savings chart
         collected_data.each do |record|
             # day and month 
             reading_time = record.dateTime.strftime("%e %b")
-            comare_time = record.dateTime.end_of_month("%e %b")
-            
-            #month_end = record.end_of_month
-            #reading_time = record.dateTime.strftime "2021-%m-%d %H:00:00"
-            # if reading_time == record.dateTime.end_of_month.strftime "2021-%m-%d %H:00:00"
-            #     @hey = current_time.end_of_month.strftime "2021-%m-%d %H:00:00"
-            #     @test.push @hey
-            # end
-            #reading_time = record.dateTime.strftime("%m-%d-%Y")
             @savings_date.push reading_time
             @dollar_savings = (record.year_total_non_renew/kwh_per_gallon)*diesel_price
             savings_formatted = {:x => reading_time, :y => @dollar_savings}
