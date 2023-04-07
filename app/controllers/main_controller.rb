@@ -33,14 +33,15 @@ class MainController < ApplicationController
 
         
         ## Battery Information
-        @current_record_battery = Battery.find_by timestamp: current_hour
-        @past_hour_record_battery = Battery.find_by timestamp: past_hour
-        current_charge = @current_record_battery.charge
-        past_charge = @past_hour_record_battery.charge
+        current_record_battery = Battery.find_by timestamp: current_hour
+        past_hour_record_battery = Battery.find_by timestamp: past_hour
+        #rounding to make charge lay within 0.1 when deciding the state
+        @current_charge = current_record_battery.charge.round(1)
+        @past_charge = past_hour_record_battery.charge.round(1)
 
-        if past_charge < current_charge
+        if @past_charge < @current_charge
             @state = "Charging"
-        elsif past_charge > current_charge
+        elsif @past_charge > @current_charge
             @state = "Discharging"
         else
             @state = "Not charging"
@@ -55,6 +56,7 @@ class MainController < ApplicationController
         collected_data = GenerationBreakdown.where(dateTime: "2021-01-01 00:00:00"..current_hour)
         current_month = Date.today.strftime("%m")
         @current_month_str = Date.today.strftime("%B")
+        @current_day = Date.today.strftime("%d")
         # Value when we get real time data
         #@current_year = Date.today.strftime("%Y")
         @current_year = "2021"
@@ -63,6 +65,11 @@ class MainController < ApplicationController
         current_month_data = GenerationBreakdown.where(dateTime: "2021-#{current_month}-01 00:00:00"..current_hour)
         current_month_kwh_savings = (current_month_data.last().year_total_non_renew) - (current_month_data.first().year_total_non_renew)
         @current_month_dollar_savings = (current_month_kwh_savings/kwh_per_gallon)*diesel_price
+
+        #daily savings
+        current_daily_data = GenerationBreakdown.where(dateTime: "2021-#{current_month}-#{@current_day} 00:00:00"..current_hour)
+        current_daily_kwh_savings = (current_daily_data.last().year_total_non_renew) - (current_daily_data.first().year_total_non_renew)
+        @current_daily_dollar_savings = (current_daily_kwh_savings/kwh_per_gallon)*diesel_price
 
         # cycle through all dates - data for the savings chart
         collected_data.each do |record|

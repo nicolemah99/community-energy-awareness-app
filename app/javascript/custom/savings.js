@@ -3,6 +3,10 @@ Chart.defaults.font.size = 14;
 const labels = gon.completesavingdates
 const datapoints = gon.completesavings
 
+var maxvalue = datapoints[datapoints.length-1].y
+var maxticks = (Math.round(maxvalue/100000)*100000) + 200000
+
+
 const data = {
     labels: labels,
     datasets: [{
@@ -31,7 +35,8 @@ const config = {
                 title: {
                   display: true,
                   text: 'Dollar'
-                }
+                },
+                max: maxticks 
               }
         }
         }

@@ -61,8 +61,8 @@
 				</div>
 				<div class="card-body">
 					<div class="pl-5">
-						<strong>State of Charge: </strong><%= @current_record_battery.charge.round(2) %> <br>
-						<strong>Charge one hour ago: </strong><%= @past_hour_record_battery.charge.round(2) %> <br>
+						<strong>State of Charge: </strong><%= @current_charge %> <br>
+						<strong>Charge one hour ago: </strong><%= @past_charge %> <br>
 					</div>
 					<div class="battery p-4">
 						<div class="battery-head">
@@ -71,13 +71,13 @@
 							<% if @state=="Charging" %>
 								<i class="fas fa-bolt"></i>
 								<div class="charge"></div>
-								<h3 class="pl-2 mt-4 z-index-3 position-absolute"><%= @current_record_battery.charge.round(1) %> %</h3>
+								<h3 class="pl-2 mt-4 z-index-3 position-absolute"><%= @current_charge %> %</h3>
 							<% elsif @state=="Discharging" %>
 								<div class="discharge"></div>
-								<h3 class="text-center mt-4"><%= @current_record_battery.charge.round(1) %> %</h3>
+								<h3 class="text-center mt-4"><%= @current_charge %> %</h3>
 							<% else %>
 								<div class="nocharge"></div>
-								<h3 class="text-center mt-3"><%= @current_record_battery.charge.round(1) %> %</h3>
+								<h3 class="text-center mt-3"><%= @current_charge %> %</h3>
 							<% end %>
 						</div>
 					</div>
@@ -186,6 +186,11 @@
 									<td></td>
 									<td colspan="2">This month - <%= @current_month_str %></td>
 									<td><%= number_with_precision(@current_month_dollar_savings, :precision => 1, :delimiter => ', ') %></td>
+								</tr>
+								<tr class="CurDay">
+									<td></td>
+									<td colspan="2">Today - <%= @current_day %></td>
+									<td><%= number_with_precision(@current_daily_dollar_savings, :precision => 1, :delimiter => ', ') %></td>
 								</tr>
 							</tbody>
 						</table>
