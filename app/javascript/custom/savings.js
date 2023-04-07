@@ -1,15 +1,6 @@
 
-const labels = gon.completesavingdates
-const datapoints = gon.completesavings
-
-// const fakeData = [
-//     {"x":"2022-01-01 12:00", "y":22},
-//     {"x":"2022-01-02 13:00", "y":23},
-//     {"x":"2022-01-03 09:00", "y":30}
-// ]
-
-
-
+const labels = gon.complete_savings_dates
+const datapoints = gon.complete_savings
 
 const data = {
     labels: labels,
