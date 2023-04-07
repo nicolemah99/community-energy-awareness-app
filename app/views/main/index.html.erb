@@ -29,19 +29,19 @@
 	<!--Row 2 Start-->
 	<div class="row mt-3">
 		<!-- Map -->
-		<div class="col-sm-5 ml-auto">
+		<div class="col-sm ml-auto">
 			<div class="card card-chart">
 				<div class="card-header">
 					<h5 class="card-category">Map</h5>
 					<h3 class="card-title"><i class="tim-icons icon-square-pin text-primary "></i> Kotzebue, Alaska</h3>
 				</div>
 				<div class="card-body">
-					<h1>THERMOGRAPHIC API MAP HERE</h1>
+					<div id="windy"></div>
 				</div>
 			</div>
 		</div>
 		<!-- Temperature -->
-		<div class="col-sm-3 mr-auto">
+		<div class="col-sm mr-auto">
 			<div class="card card-chart">
 				<div class="card-header">
 					<h5 class="card-category">Weather & Temperature</h5>
@@ -53,7 +53,7 @@
 			</div>
 		</div>
 		<!-- Battery -->
-		<div class="col-sm-4 mr-auto">
+		<div class="col-sm mr-auto">
 			<div class="card card-chart">
 				<div class="card-header">
 					<h5 class="card-category">Battery</h5>
@@ -114,9 +114,9 @@
 								</tr>
 								<tr class="NonRenew">
 									<td></td>
-									<td colspan="2" >Non Renewables</td>
-									<td><%= @non_renew_kwh %></td>
-									<td><%= @non_renew_percent %></td>
+									<td colspan="2" ><strong>Non Renewables</strong></td>
+									<td><strong><%= @non_renew_kwh %></strong></td>
+									<td><strong><%= @non_renew_percent %></strong></td>
 								</tr>
 								<tr>
 									<td></td>
@@ -129,9 +129,9 @@
 								</tr>
 								<tr class="Renew">
 									<td></td>
-									<td colspan="2">Renewables</td>
-									<td><%=@renew_kwh %></td>
-									<td><%= @renew_percent %></td>
+									<td colspan="2"><strong>Renewables</strong></td>
+									<td><strong><%=@renew_kwh %></strong></td>
+									<td><strong><%= @renew_percent %></strong></td>
 								</tr>
 								<tr>
 									<td></td>

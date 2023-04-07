@@ -13,20 +13,18 @@ var heatmapData = [
      [null,null],
      [null,null]];
 
+
 const hourly_kwh = gon.hourly_kwh_usage
 var hours_per_meridiem = 12
 
-//PM row
-for (let i = 0; i < hours_per_meridiem; i++){
-     heatmapData[i][1] = Math.round(hourly_kwh[i].total)
+for (let i = 0; i < hourly_kwh.length; i++){
+    if (i < 12){
+        heatmapData[i][1] = Math.round(hourly_kwh[i].total)
+    }
+    else {
+            heatmapData[i-hours_per_meridiem][0] = Math.round(hourly_kwh[i].total)
+        }
 }
-
-//AM row
-for (let i = 0; i < hours_per_meridiem; i++){
-     heatmapData[i][0] = Math.round(hourly_kwh[i+hours_per_meridiem].total)
-}
-
-console.log(heatmapData);
 
 var heatmap = new ej.heatmap.HeatMap({
      titleSettings: {
@@ -52,8 +50,8 @@ var heatmap = new ej.heatmap.HeatMap({
             }
         },
         xAxis: {
-            labels: ['12-1', '1-2', '2-3', '3-4', '4-5', 
-                        '5-6', '6-7', '7-8', '8-9', '9-10', '10-11', '11-12'],
+            labels: ['1', '2', '3', '4', '5', 
+                        '6', '7', '8', '9', '10', '11', '12'],
             opposedPosition: true,
             textStyle: {
                 size: '16px',
