@@ -38,7 +38,7 @@ var heatmap = new ej.heatmap.HeatMap({
         },
          cellSettings: {
             showLabel: true,
-            format: '{value}',
+            format: `{value}`,
             border:{
                 width:0
             },
@@ -50,8 +50,8 @@ var heatmap = new ej.heatmap.HeatMap({
             }
         },
         xAxis: {
-            labels: ['1', '2', '3', '4', '5', 
-                        '6', '7', '8', '9', '10', '11', '12'],
+            labels: ['12-1', '1-2', '2-3', '3-4', '4-5', 
+                        '5-6', '6-7', '7-8', '8-9', '9-10', '10-11', '11-12'],
             opposedPosition: true,
             textStyle: {
                 size: '16px',
@@ -109,3 +109,18 @@ var heatmap = new ej.heatmap.HeatMap({
         showTooltip:true,  
         
 }, '#heatmap');
+
+function kwh_usage(kwh){
+    console.log(kwh)
+    let kwh_int = parseInt(kwh,10)
+    console.log(kwh_int)
+    let low = 2100
+    let high = 2700
+    if (kwh < low){
+        return "Low"
+    } else if (low < kwh < high ){
+        return "Average"
+    } else{
+        return "High"
+    }
+};
