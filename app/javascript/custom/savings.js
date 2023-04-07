@@ -1,6 +1,6 @@
 
-const labels = gon.completesavingdates
-const datapoints = gon.completesavings
+const labels = gon.complete_savings_dates
+const datapoints = gon.complete_savings
 
 const data = {
     labels: labels,
