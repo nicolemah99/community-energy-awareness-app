@@ -1,3 +1,6 @@
+body{
+    font-family: "Poppins"
+}
 .Wind{
     background-color: rgba(0, 149, 255, 0.7);
     width: 15px;
@@ -25,4 +28,24 @@
 #windy {
     width: 100%;
     height: 300px;
+}
+
+#heatmap_Legend_Label0{
+    font-family: "Poppins"
+}
+
+#heatmap_Legend_Label1{
+    font-family: "Poppins"
+}
+
+#heatmap_Legend_Label2{
+    font-family: "Poppins"
+}
+
+#heatmap_Legend_Label3{
+    font-family: "Poppins"
+}
+
+#heatmap_Legend_Label4{
+    font-family: "Poppins"
 }
