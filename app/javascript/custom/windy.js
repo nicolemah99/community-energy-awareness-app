@@ -6,7 +6,7 @@ const options = {
     verbose: true,
 
     // Optional: Initial state of the map
-    lat: 66.8969,
+    lat: 66.989,
     lon: -162.5931,
     zoom: 8,
 };
@@ -22,7 +22,7 @@ windyInit(options, windyAPI => {
     setInterval(() => {
         i = i === 3 ? 0 : i + 1;
         store.set('overlay', overlays[i]);
-    }, 5000);
+    }, 10000);
 
     // Observe the most important broadcasts
     broadcast.on('paramsChanged', params => {
@@ -31,15 +31,6 @@ windyInit(options, windyAPI => {
 
     broadcast.on('redrawFinished', params => {
         console.log('Map was rendered:', params);
-    });
-    const { map } = windyAPI;
-    // .map is instance of Leaflet map
-    picker.on('pickerOpened', ({ lat, lon, values, overlay }) => {
-        // -> 48.4, 14.3, [ U,V, ], 'wind'
-        console.log('opened', lat, lon, values, overlay);
-
-        const windObject = utils.wind2obj(values);
-        console.log(windObject);
     });
 
     picker.on('pickerMoved', ({ lat, lon, values, overlay }) => {
