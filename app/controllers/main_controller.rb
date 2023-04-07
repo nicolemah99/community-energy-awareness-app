@@ -31,7 +31,10 @@ class MainController < ApplicationController
 
         ## Community Usage Feature
         start_of_day = current_time.strftime "%2021-%m-%d 00:00:00"
-        end_of_day = current_time.strftime "%2021-%m-%d 23:00:00"
+        ### FOR 1 OFF PROBLEM??
+        yesterday = Time.now - 86400 # (1 day in seconds)
+        yesterday = yesterday.strftime "2021-%m-%d 23:00:00"
+
         gon.hourly_kwh_usage = GenerationBreakdown.where(dateTime: start_of_day..current_hour).select(:total, :id).order(:id)
 
         
