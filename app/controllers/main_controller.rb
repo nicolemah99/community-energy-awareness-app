@@ -16,7 +16,7 @@ class MainController < ApplicationController
         #Query database for data from the current hour
         @current_record_breakdown = GenerationBreakdown.find_by dateTime: current_hour
         @total_kwh = @current_record_breakdown.total.round(1)
-        @renew_kwh = @current_record_breakdown.renew.round(1)
+        @renew_kwh = gon.renew_kwh = @current_record_breakdown.renew.round(1)
         @solar_kwh = gon.solar_kwh = @current_record_breakdown.solar.round(1)
         @wind_kwh = gon.wind_kwh = @current_record_breakdown.wind.round(1)
         @non_renew_kwh = @diesel_kwh = gon.diesel_kwh = @current_record_breakdown.nonRenew.round(1)

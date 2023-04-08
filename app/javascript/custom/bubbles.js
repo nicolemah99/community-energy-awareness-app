@@ -1,10 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
-	var windKW = gon.wind_kwh;
-	var solarKW = gon.solar_kwh;
-	var dieselKW = gon.diesel_kwh;
-	var windP = gon.wind_percent;
-	var solarP = gon.solar_percent;
-	var dieselP = gon.diesel_percent;
+	var wind_kwh = gon.wind_kwh;
+	var solar_kwh = gon.solar_kwh;
+	var diesel_kwh = gon.diesel_kwh;
+	var wind_percent = gon.wind_percent;
+	var solar_percent = gon.solar_percent;
+	var diesel_percent = gon.diesel_percent;
 
 	Highcharts.chart("bubbleContainer", {
 		chart: {
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
 				color: "{point.color}",
 				useSimulation: true,
 				layoutAlgorithm: {
-					gravitationalConstant: 0.05,
+					gravitationalvarant: 0.05,
 					seriesInteraction: true,
 					splitSeries:true,
 					dragBetweenSeries: false,
@@ -66,14 +66,14 @@ document.addEventListener("DOMContentLoaded", function () {
 				data: [
 					{
 						name: "Wind",
-						value: windKW,
-						percent: `${windP} %`,
+						value: wind_kwh,
+						percent: `${wind_percent} %`,
 						color: "#0096FF",
 					},
 					{
 						name: "Solar",
-						value: solarKW,
-						percent: `${solarP} %`,
+						value: solar_kwh,
+						percent: `${solar_percent} %`,
 						color: "#FDDA0D",
 					},
 				],
@@ -85,8 +85,8 @@ document.addEventListener("DOMContentLoaded", function () {
 				data: [
 					{
 						name: "Diesel",
-						value: dieselKW,
-						percent: `${dieselP} %`,
+						value: diesel_kwh,
+						percent: `${diesel_percent} %`,
 						color: "#8B8000",
 					},
 				],

@@ -1,4 +1,11 @@
-const ctx = document.getElementById('doughnutChart');
+document.addEventListener("DOMContentLoaded", function(){
+const category_sources = document.getElementById('doughnutChart');
+const renew_kwh = gon.renew_kwh;
+const non_renew_kwh = gon.diesel_kwh;
+var wind_kwh = gon.wind_kwh;
+var solar_kwh = gon.solar_kwh;
+var diesel_kwh = gon.diesel_kwh;
+
 const data = {
   labels: [
     'Renewables',
@@ -6,7 +13,7 @@ const data = {
   ],
   datasets: [{
     label: 'kWh',
-    data: [300, 50],
+    data: [renew_kwh, non_renew_kwh],
     backgroundColor: [
       '#4F7942',
       '#808080'
@@ -15,14 +22,23 @@ const data = {
   }]
 };
 
-const config = {
+const config_category_sources = {
   type: 'doughnut',
   data: data,
+  options: {
+    layout: {
+            padding: {
+                bottom: 20
+            }
+        },
+    responsive: true,
+    maintainAspectRatio: true,
+  }
 };
 
-new Chart(ctx, config);
+new Chart(category_sources, config_category_sources);
 
-const ctx2 = document.getElementById('doughnutChart2');
+const all_sources = document.getElementById('doughnutChart2');
 const data2 = {
   labels: [
     'Solar',
@@ -31,7 +47,7 @@ const data2 = {
   ],
   datasets: [{
     label: 'kWh',
-    data: [300, 50, 100],
+    data: [solar_kwh, wind_kwh, diesel_kwh],
     backgroundColor: [
       '#FDDA0D',
       '#0096FF',
@@ -41,9 +57,23 @@ const data2 = {
   }]
 };
 
-const config2 = {
+const config_category_sources_all_sources = {
   type: 'doughnut',
   data: data2,
+  options: {
+    layout: {
+            padding: {
+                bottom: 20
+            }
+        },
+    responsive: true,
+    maintainAspectRatio: true,
+  }
 };
 
-new Chart(ctx2, config2);
+new Chart(all_sources, config_category_sources_all_sources);
+all_sources.canvas.parentNode.style.height = '400px';
+});
+
+
+

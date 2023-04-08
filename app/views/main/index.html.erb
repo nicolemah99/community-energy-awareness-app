@@ -4,6 +4,7 @@
 	<script src="https://code.highcharts.com/highcharts-more.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script>
 		var ele = document.getElementById('container');
 		if (ele) {
@@ -89,7 +90,7 @@
 	<!--Row 3 Start-->
 	<div class="row mt-3">
 		<!-- Electricity Generation Breakdown Bubbles -->
-		<div class="col-md-6 ml-auto mr-auto">
+		<!-- <div class="col-md-6 ml-auto mr-auto">
 			<div class="card card-chart">
 				<div class="card-header">
 					<h5 class="card-category">Electricity Generation</h5>
@@ -156,75 +157,79 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<!-- Electricity Generation Breakdown Doughnut -->
-		<div class="col-md-6 ml-auto mr-auto">
+		<div class="col-md ml-auto mr-auto">
 			<div class="card card-chart">
 				<div class="card-header">
 					<h5 class="card-category">Electricity Generation</h5>
 					<h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-primary "></i> Electricity Generation Breakdown</h3>
 				</div>
 				<div class="card-body">
-					<div id="doughnutCharts" class="chart-area pb-4">
-						<canvas id="doughnutChart"></canvas>
-						<canvas id="doughnutChart2"></canvas>
-					</div>
-					<div class="breakdownTable">
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th scope="col" colspan="3"></th>
-									<th scope="col">kWh</th>
-									<th scope="col">Percentage</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td colspan="3"><strong>TOTAL</strong></td>
-									<td><%= @total_kwh %></td>
-									<td>100.00</td>
-								</tr>
-								<tr class="NonRenew">
-									<td></td>
-									<td colspan="2" ><strong>Non Renewables</strong></td>
-									<td><strong><%= @non_renew_kwh %></strong></td>
-									<td><strong><%= @non_renew_percent %></strong></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td style="display:flex;align-items:center;">
-										<div class="Diesel"></div>
-										Diesel</td>
-									<td><%= @diesel_kwh %></td>
-									<td><%= @diesel_percent %></td>
-								</tr>
-								<tr class="Renew">
-									<td></td>
-									<td colspan="2"><strong>Renewables</strong></td>
-									<td><strong><%=@renew_kwh %></strong></td>
-									<td><strong><%= @renew_percent %></strong></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td style="display:flex;align-items:center;">
-										<div class="Wind"></div>
-										Wind</td>
-									<td><%= @wind_kwh %></td>
-									<td><%= @wind_percent %></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td style="display:flex;align-items:center;">
-										<div class="Solar"></div>
-										Solar</td>
-									<td><%= @solar_kwh %></td>
-									<td><%= @solar_percent %></td>
-								</tr>
-							</tbody>
-						</table>
+					<div id="doughbut-card-body">
+						<div class="doughnut-charts">
+							<canvas id="doughnutChart"></canvas>
+						</div>
+						<div class="doughnut-charts">
+							<canvas id="doughnutChart2"></canvas>
+						</div>
+						<div class="breakdownTable">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th scope="col" colspan="3"></th>
+										<th scope="col">kWh</th>
+										<th scope="col">Percentage</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td colspan="3"><strong>TOTAL</strong></td>
+										<td><%= @total_kwh %></td>
+										<td>100.00</td>
+									</tr>
+									<tr class="NonRenew">
+										<td></td>
+										<td colspan="2" ><strong>Non Renewables</strong></td>
+										<td><strong><%= @non_renew_kwh %></strong></td>
+										<td><strong><%= @non_renew_percent %></strong></td>
+									</tr>
+									<tr>
+										<td></td>
+										<td></td>
+										<td style="display:flex;align-items:center;">
+											<div class="Diesel"></div>
+											Diesel</td>
+										<td><%= @diesel_kwh %></td>
+										<td><%= @diesel_percent %></td>
+									</tr>
+									<tr class="Renew">
+										<td></td>
+										<td colspan="2"><strong>Renewables</strong></td>
+										<td><strong><%=@renew_kwh %></strong></td>
+										<td><strong><%= @renew_percent %></strong></td>
+									</tr>
+									<tr>
+										<td></td>
+										<td></td>
+										<td style="display:flex;align-items:center;">
+											<div class="Wind"></div>
+											Wind</td>
+										<td><%= @wind_kwh %></td>
+										<td><%= @wind_percent %></td>
+									</tr>
+									<tr>
+										<td></td>
+										<td></td>
+										<td style="display:flex;align-items:center;">
+											<div class="Solar"></div>
+											Solar</td>
+										<td><%= @solar_kwh %></td>
+										<td><%= @solar_percent %></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -263,7 +268,7 @@
 					<h3 class="card-title"><i class="tim-icons icon-components text-primary "></i> Community Usage Chart</h3>
 				</div>
 				<div class="card-body">
-						<div id="heatmap"></div>
+					<div id="heatmap"></div>
 				</div>
 			</div>
 		</div>

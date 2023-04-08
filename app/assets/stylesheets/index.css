@@ -49,7 +49,52 @@ body{
 #heatmap_Legend_Label4{
     font-family: "Poppins"
 }
-#doughnutCharts{
+
+
+/* Large Screen */
+@media screen and (min-width: 1124px) {
+  #doughbut-card-body {
+    height: auto; 
     display: flex;
-    justify-content: space-around;
+    direction: row;
+    justify-content: space-evenly;
+  }
+  .doughnut-charts{
+    height: 300px;;
 }
+}
+
+/* Medium Screen */
+@media screen and (min-width: 576px) and (max-width: 1124px) {
+  #doughbut-card-body {
+    height: auto; /* Set the height to 1000px for screens up to 1124px wide */
+    display: flex;
+    direction: column;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+  .doughnut-charts{
+    height: 300px;
+}
+    .breakdownTable{
+        width: 100%;
+    }
+}
+
+/* Small Screen */
+@media screen and (max-width: 576px) {
+  #doughbut-card-body {
+    height: auto; /* Set the height to 1000px for screens up to 1124px wide */
+    display: flex;
+    direction: column;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+  .doughnut-charts{
+    height: 300px;;
+}
+ .breakdownTable{
+        width: 100%;
+    }
+}
+
