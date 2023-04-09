@@ -4,7 +4,7 @@ const labels = gon.completesavingdates
 const datapoints = gon.completesavings
 
 var maxvalue = datapoints[datapoints.length-1].y
-var maxticks = (Math.round(maxvalue/100000)*100000) + 200000
+var maxticks = (Math.round(maxvalue/100000)*100000) + 100000
 
 
 const data = {
@@ -36,7 +36,8 @@ const config = {
                   display: true,
                   text: 'Dollar'
                 },
-                max: maxticks 
+                max: maxticks,
+                beginAtZero: true
               }
         }
         }
