@@ -50,6 +50,9 @@ body{
     font-family: "Poppins"
 }
 
+.doughnut-charts{
+    height: 300px;
+}
 
 /* Large Screen */
 @media screen and (min-width: 1124px) {
@@ -59,13 +62,14 @@ body{
     direction: row;
     justify-content: space-evenly;
   }
-  .doughnut-charts{
-    height: 300px;;
-}
+
+.breakdownTable{
+        width: 40%;
+    }
 }
 
-/* Medium Screen */
-@media screen and (min-width: 576px) and (max-width: 1124px) {
+/* Small-Medium Screen */
+@media screen and (max-width: 1124px) {
   #doughbut-card-body {
     height: auto; /* Set the height to 1000px for screens up to 1124px wide */
     display: flex;
@@ -73,28 +77,10 @@ body{
     flex-wrap: wrap;
     justify-content: space-evenly;
   }
-  .doughnut-charts{
-    height: 300px;
-}
+
     .breakdownTable{
         width: 100%;
     }
 }
 
-/* Small Screen */
-@media screen and (max-width: 576px) {
-  #doughbut-card-body {
-    height: auto; /* Set the height to 1000px for screens up to 1124px wide */
-    display: flex;
-    direction: column;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-  }
-  .doughnut-charts{
-    height: 300px;;
-}
- .breakdownTable{
-        width: 100%;
-    }
-}
 

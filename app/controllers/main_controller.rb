@@ -36,7 +36,6 @@ class MainController < ApplicationController
         yesterday = yesterday.strftime "2021-%m-%d 23:00:00"
 
         gon.hourly_kwh_usage = GenerationBreakdown.where(dateTime: start_of_day..current_hour).select(:total, :id).order(:id)
-
         
         ## Battery Information Feature
         @current_record_battery = Battery.find_by timestamp: current_hour
@@ -72,7 +71,6 @@ class MainController < ApplicationController
         gon.complete_savings = savings_date_and_amount
 
     end
-
 
     def calculatePercentage(numerator, denominator)
         percent = ((numerator/denominator) * 100).round(2)
