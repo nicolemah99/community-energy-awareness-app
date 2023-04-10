@@ -8,14 +8,14 @@ class MainController < ApplicationController
     
     def index
         current_time = DateTime.now
-        current_hour = current_time.strftime "%2021-%m-%d %H:00:00"
+        current_hour = current_time.strftime "2021-%m-%d %H:00:00"
         past_hour = (Time.parse(current_hour) - 60 * 60).strftime "%2021-%m-%d %H:00:00"
         @last_updated = current_time.strftime("%B #{current_time.day.ordinalize}, %Y at %l:00 %P AKST")
 
         ## Generation Breakdown Feature
 
         #Query database for data from the current hour
-        @current_record_breakdown = GenerationBreakdown.find_by dateTime: current_hour
+        @current_record_breakdown = GenerationBreakdown.find_by dateTime: past_hour
         @total_kwh = @current_record_breakdown.total.round(1)
         @renew_kwh = gon.renew_kwh = @current_record_breakdown.renew.round(1)
         @solar_kwh = gon.solar_kwh = @current_record_breakdown.solar.round(1)
@@ -32,11 +32,7 @@ class MainController < ApplicationController
 
         ## Community Usage Feature
         start_of_day = current_time.strftime "%2021-%m-%d 00:00:00"
-        ### FOR 1 OFF PROBLEM??
-        yesterday = Time.now - 86400 # (1 day in seconds)
-        yesterday = yesterday.strftime "2021-%m-%d 23:00:00"
-
-        gon.hourly_kwh_usage = GenerationBreakdown.where(dateTime: start_of_day..current_hour).select(:total, :id).order(:id)
+        gon.hourly_kwh_usage = GenerationBreakdown.where(dateTime: start_of_day..past_hour).select(:total, :id).order(:id)
         
         ## Battery Information Feature
         current_record_battery = Battery.find_by timestamp: current_hour
@@ -56,7 +52,7 @@ class MainController < ApplicationController
         ## Diesel Savings Feature
         @savings_dates = []
         savings_date_and_amount = []
-        collected_data = GenerationBreakdown.where(dateTime: "2021-01-01 00:00:00"..current_hour)
+        collected_data = GenerationBreakdown.where(dateTime: "2021-01-01 00:00:00"..past_hour)
         @curr_savings = @current_record_breakdown.year_total_non_renew
         
         # cycle through all dates
@@ -76,16 +72,16 @@ class MainController < ApplicationController
         # current monthly savings
         current_month = Date.today.strftime("%m")
         @current_month_str = Date.today.strftime("%B")
-        current_month_data = GenerationBreakdown.where(dateTime: "2021-#{current_month}-01 00:00:00"..current_hour)
+        current_month_data = GenerationBreakdown.where(dateTime: "2021-#{current_month}-01 00:00:00"..past_hour)
         current_month_kwh_savings = (current_month_data.last().year_total_non_renew) - (current_month_data.first().year_total_non_renew)
         @current_month_dollar_savings = (current_month_kwh_savings/KWH_PER_GALLON)*DIESEL_PRICE
 
         #daily savings
         @current_day = Date.today.strftime("%d")
-        current_daily_data = GenerationBreakdown.where(dateTime: "2021-#{current_month}-#{@current_day} 00:00:00"..current_hour)
+        current_daily_data = GenerationBreakdown.where(dateTime: "2021-#{current_month}-#{@current_day} 00:00:00"..past_hour)
         current_daily_kwh_savings = (current_daily_data.last().year_total_non_renew) - (current_daily_data.first().year_total_non_renew)
         @current_daily_dollar_savings = (current_daily_kwh_savings/KWH_PER_GALLON)*DIESEL_PRICE
-
+        @day_format = current_time.strftime("%B #{current_time.day.ordinalize}")
 
     end
 
