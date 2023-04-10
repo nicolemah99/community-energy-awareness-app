@@ -1,13 +1,19 @@
+Chart.defaults.font.size = 15;
 
 const labels = gon.complete_savings_dates
 const datapoints = gon.complete_savings
+
+var maxvalue = datapoints[datapoints.length-1].y
+var maxticks = (Math.round(maxvalue/100000)*100000) + 100000
+
 
 const data = {
     labels: labels,
     datasets: [{
         label: '$ Diesel Savings',
         data: datapoints,
-        borderWidth: 0.1,
+        borderWidth: 2.5,
+        fill: true,
     }],
 };
 const config = {
@@ -15,6 +21,8 @@ const config = {
     data: data,
     options: {
         responsive: true,
+        pointRadius: 0,
+        pointHoverRadius: 5,
         maintainAspectRatio: false,
         scales: {
             x: {
@@ -27,7 +35,11 @@ const config = {
                 title: {
                   display: true,
                   text: 'Dollar'
-                }
+                },
+                beginAtZero: true,
+                ticks: {
+                  stepSize: 100000
+              }
               }
         }
         }

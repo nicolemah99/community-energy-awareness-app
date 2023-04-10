@@ -64,8 +64,8 @@ class MainController < ApplicationController
             # day and month 
             reading_time = record.dateTime.strftime("%e %b")
             @savings_dates.push reading_time
-            dollar_savings = (record.year_total_non_renew / KWH_PER_GALLON) * DIESEL_PRICE
-            savings_formatted = {:x => reading_time, :y => dollar_savings}
+            @dollar_savings = (record.year_total_non_renew / KWH_PER_GALLON) * DIESEL_PRICE
+            savings_formatted = {:x => reading_time, :y => @dollar_savings}
             savings_date_and_amount.push savings_formatted
         end
         gon.complete_savings_dates = @savings_dates
@@ -80,13 +80,13 @@ class MainController < ApplicationController
         @current_month_str = Date.today.strftime("%B")
         current_month_data = GenerationBreakdown.where(dateTime: "2021-#{current_month}-01 00:00:00"..current_hour)
         current_month_kwh_savings = (current_month_data.last().year_total_non_renew) - (current_month_data.first().year_total_non_renew)
-        @current_month_dollar_savings = (current_month_kwh_savings/kwh_per_gallon)*diesel_price
+        @current_month_dollar_savings = (current_month_kwh_savings/KWH_PER_GALLON)*DIESEL_PRICE
 
         #daily savings
         @current_day = Date.today.strftime("%d")
         current_daily_data = GenerationBreakdown.where(dateTime: "2021-#{current_month}-#{@current_day} 00:00:00"..current_hour)
         current_daily_kwh_savings = (current_daily_data.last().year_total_non_renew) - (current_daily_data.first().year_total_non_renew)
-        @current_daily_dollar_savings = (current_daily_kwh_savings/kwh_per_gallon)*diesel_price
+        @current_daily_dollar_savings = (current_daily_kwh_savings/KWH_PER_GALLON)*DIESEL_PRICE
 
 
     end
