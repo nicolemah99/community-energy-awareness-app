@@ -16,13 +16,13 @@ windyInit(options, windyAPI => {
     // windyAPI is ready, and contain 'map', 'store',
     // 'picker' and other usefull stuff
     const { store, broadcast, picker } = windyAPI;
-    const overlays = ['rain','wind', 'temp', 'clouds'];
+    const overlays = ['wind', 'temp'];
     let i = 0;
 
     setInterval(() => {
-        i = i === 3 ? 0 : i + 1;
+        i = i === 1 ? 0 : i + 1;
         store.set('overlay', overlays[i]);
-    }, 5000);
+    }, 8000);
 
     // Observe the most important broadcasts
     broadcast.on('paramsChanged', params => {
