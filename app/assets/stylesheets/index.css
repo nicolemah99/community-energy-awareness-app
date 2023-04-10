@@ -25,8 +25,7 @@ body{
     margin-right: 5px;
 }
 
-#windy {
-    width: 100%;
+#windy{
     height: 300px;
 }
 
@@ -81,6 +80,12 @@ body{
     .breakdownTable{
         width: 100%;
     }
+}
+
+.info-button{
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 

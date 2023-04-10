@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function(){
+
 const category_sources = document.getElementById('doughnutChart');
 const renew_kwh = gon.renew_kwh;
 const non_renew_kwh = gon.diesel_kwh;
@@ -72,8 +72,7 @@ const config_category_sources_all_sources = {
 };
 
 new Chart(all_sources, config_category_sources_all_sources);
-all_sources.canvas.parentNode.style.height = '400px';
-});
+
 
 
 

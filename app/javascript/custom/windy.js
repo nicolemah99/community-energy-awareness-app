@@ -1,6 +1,6 @@
 const options = {
     // Required: API key
-    key: 'OrhQTxAkTWCA0JCNZQJp8N9Z2NidJOCd', // REPLACE WITH YOUR KEY !!!
+    key: 'OrhQTxAkTWCA0JCNZQJp8N9Z2NidJOCd',
 
     // Put additional console output
     verbose: true,
@@ -20,9 +20,9 @@ windyInit(options, windyAPI => {
     let i = 0;
 
     setInterval(() => {
-        i = i === 2 ? 0 : i + 1;
+        i = i === 1 ? 0 : i + 1;
         store.set('overlay', overlays[i]);
-    }, 10000);
+    }, 8000);
 
     // Observe the most important broadcasts
     broadcast.on('paramsChanged', params => {

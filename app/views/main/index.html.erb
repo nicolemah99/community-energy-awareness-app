@@ -4,19 +4,12 @@
 	<script src="https://code.highcharts.com/highcharts-more.js"></script>
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<script>
-		var ele = document.getElementById('container');
-		if (ele) {
-		    ele.style.visibility = "visible";
-		}
-	</script>
 <% end %>
 <div "class="content">
 	<h1 class="text-center">Kotzebue Electric Association</h1>
 	<!--Row 1 Start-->
 	<div class="row mt-3">
-		<!-- Last Updated -->
+		<!-- Last Updated Time -->
 		<div class="col mx-auto">
 			<div class="card">
 				<div class="card-header" style="text-align:center">
@@ -30,7 +23,7 @@
 	<!--Row 2 Start-->
 	<div class="row mt-3">
 		<!-- Map -->
-		<div class="col-sm ml-auto">
+		<div class="col-sm">
 			<div class="card card-chart">
 				<div class="card-header">
 					<h5 class="card-category">Map</h5>
@@ -41,24 +34,12 @@
 				</div>
 			</div>
 		</div>
-		<!-- Temperature -->
-		<div class="col-sm mr-auto">
-			<div class="card card-chart">
-				<div class="card-header">
-					<h5 class="card-category">Weather & Temperature</h5>
-					<h3 class="card-title"><i class="tim-icons icon-world text-primary "></i> 10,000</h3>
-				</div>
-				<div class="card-body">
-					<h1>WEATHER & WIND PROFILE API HERE</h1>
-				</div>
-			</div>
-		</div>
 		<!-- Battery -->
-		<div class="col-sm mr-auto">
+		<div class="col-sm">
 			<div class="card card-chart">
 				<div class="card-header">
 					<h5 class="card-category">Battery</h5>
-					<h3 class="card-title"><i class="tim-icons icon-wifi text-info "></i> <strong>State of Battery: </strong><%= @battery_state %></h3>
+					<h3 class="card-title"><i class="tim-icons icon-wifi text-info "></i>State of Battery: <strong><%= @battery_state %> </strong></h3>
 				</div>
 				<div class="card-body">
 					<div class="pl-5">
@@ -82,35 +63,37 @@
 							<% end %>
 						</div>
 					</div>
-					<!-- Button trigger modal -->
-					<div class="pl-2">
+				</div>
+				<!-- Button trigger modal -->
+				<div class="p-2 info-button">
 					<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#batteryModal">
-						View more
+						Learn More
 					</button>
-					</div>
-
-					<!-- Modal -->
-					<div class="modal fade" id="batteryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				</div>
+				<!-- Modal -->
+				<div class="modal fade" id="batteryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 					<div class="modal-dialog">
 						<div class="modal-content">
-						<div class="modal-header">
-							<h1 class="modal-title fs-5" id="batteryModalLabel">Battery Information</h1>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						</div>
-						<div class="modal-body">
-							Kotzebue produces energy from the renewable energy sources solar, and wind power. The amount of energy produced
-							is dependent on the wind speed and how sunny it is. This means that there some times is an excess production of energy, 
-							and this is stored in a lithium-ion battery. 
-							<br><br>In this figure you can show how much the battery currently is charged, and if it is charging or
-							discharging.
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
-						</div>
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="batteryModalLabel">Battery Information</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<p>
+									Kotzebue produces energy from the renewable energy sources solar, and wind power. The amount of energy produced
+									is dependent on the wind speed and how sunny it is. This means that there some times is an excess production of energy, 
+									and this is stored in a lithium-ion battery. 
+									<br>
+									<br>
+									In this figure you can show how much the battery currently is charged, and if it is charging or
+									discharging.
+								</p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+							</div>
 						</div>
 					</div>
-				</div>
-					
 				</div>
 			</div>
 		</div>
@@ -118,105 +101,6 @@
 	<!--Row 2 End-->
 	<!--Row 3 Start-->
 	<div class="row mt-3">
-		<!-- Electricity Generation Breakdown Bubbles -->
-		<!-- <div class="col-md-6 ml-auto mr-auto">
-			<div class="card card-chart">
-				<div class="card-header">
-					<h5 class="card-category">Electricity Generation</h5>
-					<h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-primary "></i> Electricity Generation Breakdown</h3>
-				</div>
-				<div class="card-body">
-					<div id="bubbleContainer"></div>
-					<div class="breakdownTable">
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th scope="col" colspan="3"></th>
-									<th scope="col">kWh</th>
-									<th scope="col">Percentage</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td colspan="3"><strong>TOTAL</strong></td>
-									<td><%= @total_kwh %></td>
-									<td>100.00</td>
-								</tr>
-								<tr class="NonRenew">
-									<td></td>
-									<td colspan="2" ><strong>Non Renewables</strong></td>
-									<td><strong><%= @non_renew_kwh %></strong></td>
-									<td><strong><%= @non_renew_percent %></strong></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td style="display:flex;align-items:center;">
-										<div class="Diesel"></div>
-										Diesel</td>
-									<td><%= @diesel_kwh %></td>
-									<td><%= @diesel_percent %></td>
-								</tr>
-								<tr class="Renew">
-									<td></td>
-									<td colspan="2"><strong>Renewables</strong></td>
-									<td><strong><%=@renew_kwh %></strong></td>
-									<td><strong><%= @renew_percent %></strong></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td style="display:flex;align-items:center;">
-										<div class="Wind"></div>
-										Wind</td>
-									<td><%= @wind_kwh %></td>
-									<td><%= @wind_percent %></td>
-								</tr>
-								<tr>
-									<td></td>
-									<td></td>
-									<td style="display:flex;align-items:center;">
-										<div class="Solar"></div>
-										Solar</td>
-									<td><%= @solar_kwh %></td>
-									<td><%= @solar_percent %></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<!-- Button trigger modal -->
-				<div class="p-2">
-					<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#batteryModal">
-						View more
-					</button>
-				</div>
-
-				<!-- Modal -->
-				<div class="modal fade" id="electricityGenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="electricityGenModalLabel">Electricity Generation</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						Kotzebue Electric Association (KEA) currently produces power from diesel, solar, and wind power, and saves eccess energy in a lithium-ion battery.
-						Currently 25% of the energy usage in Kotzebue is produced by renewable energy sources, and KEA has a goal of increasing this
-						to 50% within the next 5 years.
-						<br>
-						<br><strong>Wind Power</strong><br>
-						KEA started generating wind power in 1997, using the first generation “utility-scale” wind turbines.
-						
-
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
-					</div>
-					</div>
-				</div>
-			</div>
-		</div> -->
 		<!-- Electricity Generation Breakdown Doughnut -->
 		<div class="col-md ml-auto mr-auto">
 			<div class="card card-chart">
@@ -291,6 +175,37 @@
 						</div>
 					</div>
 				</div>
+				<!-- Button trigger modal -->
+				<div class="p-2 info-button">
+					<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#electricityGenModal">
+						Learn More
+					</button>
+				</div>
+				<!-- Modal -->
+				<div class="modal fade" id="electricityGenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="electricityGenModalLabel">Electricity Generation</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<p>
+									Kotzebue Electric Association (KEA) currently produces power from diesel, solar, and wind power, and saves eccess energy in a lithium-ion battery.
+									Currently 25% of the energy usage in Kotzebue is produced by renewable energy sources, and KEA has a goal of increasing this
+									to 50% within the next 5 years.
+									<br>
+									<br>
+									<strong>Wind Power</strong><br>
+									KEA started generating wind power in 1997, using the first generation “utility-scale” wind turbines.
+								</p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -307,38 +222,39 @@
 				<div class="card-body">
 					<div class="chart-area pb-4">
 						<canvas id="savingschart"></canvas>
-						<input onchange="filterData()" type="date" id="startdate" value="2021-01-01"
-					  min="2021-01-01" max="2021-12-31">
-						<input onchange="filterData()" type="date" id="enddate" value="2021-12-31"
-					  min="2021-01-01" max="2021-12-31">
+						<input onchange="filterData()" type="date" id="startdate" value="2021-01-01" min="2021-01-01" max="2021-12-31">
+						<input onchange="filterData()" type="date" id="enddate" value="2021-12-31" min="2021-01-01" max="2021-12-31">
 					</div>
 				</div>
 				<!-- Button trigger modal -->
-				<div class="p-2">
-					<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#batteryModal">
-						View more
+				<div class="p-2 info-button">
+					<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#savingsModal">
+						Learn More
 					</button>
 				</div>
-
 				<!-- Modal -->
 				<div class="modal fade" id="savingsModal" tabindex="-1" aria-labelledby="savingsModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="savingsModalLabel">Diesel Savings</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-					Kotzebue Electric Association (KEA) has been on the cutting edge of using renewable energy since the early 1990s.
-					By introducing the renewable energy sources solar and wind power, they have reduced the amount of diesel needed to generate energy.
-					The introduction of wind power in Kotzebue displaces 250,000 to 300,000 gallons of diesel fuel every year (that’s about 20% of annual power needs).
-					The excess renewable energy is saved in the battery, which displaces 25, 000 gallons of heating fuel every year. <br><br>
-					By changing from non-renewable energy sources to renewables the cost of producing electricity goes down. This results in money savings that goes towards the community
-					and development in other areas. It also decreases the home electricity bills for KEA members.
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
-					</div>
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="savingsModalLabel">Diesel Savings</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<p>
+									Kotzebue Electric Association (KEA) has been on the cutting edge of using renewable energy since the early 1990s.
+									By introducing the renewable energy sources solar and wind power, they have reduced the amount of diesel needed to generate energy.
+									The introduction of wind power in Kotzebue displaces 250,000 to 300,000 gallons of diesel fuel every year (that’s about 20% of annual power needs).
+									The excess renewable energy is saved in the battery, which displaces 25, 000 gallons of heating fuel every year. <br>
+									<br>
+									By changing from non-renewable energy sources to renewables the cost of producing electricity goes down. This results in money savings that goes towards the community
+									and development in other areas. It also decreases the home electricity bills for KEA members.
+								</p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -358,32 +274,31 @@
 					<div id="heatmap"></div>
 				</div>
 				<!-- Button trigger modal -->
-				<div class="p-2">
+				<div class="p-2 info-button">
 					<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#batteryModal">
-						View more
+						Learn More
 					</button>
 				</div>
-
 				<!-- Modal -->
 				<div class="modal fade" id="usageModal" tabindex="-1" aria-labelledby="usageModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="usageModalLabel">Community Usage</h1>
-						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						Kotzebue Electric Association (KEA) is monitoring the electricity consumption and generation in Kotzebue.
-						The chart represents the consumption for the community today. The color represents the degree of usage with an 
-						hour interval. 
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
-					</div>
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h1 class="modal-title fs-5" id="usageModalLabel">Community Usage</h1>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								Kotzebue Electric Association (KEA) is monitoring the electricity consumption and generation in Kotzebue.
+								The chart represents the consumption for the community today. The color represents the degree of usage with an 
+								hour interval. 
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!--Row 5 End-->
 	</div>
-</div>
+	<!--Row 5 End-->
