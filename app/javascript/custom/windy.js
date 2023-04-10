@@ -1,6 +1,6 @@
 const options = {
     // Required: API key
-    key: 'OrhQTxAkTWCA0JCNZQJp8N9Z2NidJOCd', // REPLACE WITH YOUR KEY !!!
+    key: 'OrhQTxAkTWCA0JCNZQJp8N9Z2NidJOCd',
 
     // Put additional console output
     verbose: true,
@@ -16,13 +16,13 @@ windyInit(options, windyAPI => {
     // windyAPI is ready, and contain 'map', 'store',
     // 'picker' and other usefull stuff
     const { store, broadcast, picker } = windyAPI;
-    const overlays = ['wind', 'temp'];
+    const overlays = ['rain','wind', 'temp', 'clouds'];
     let i = 0;
 
     setInterval(() => {
-        i = i === 2 ? 0 : i + 1;
+        i = i === 3 ? 0 : i + 1;
         store.set('overlay', overlays[i]);
-    }, 10000);
+    }, 5000);
 
     // Observe the most important broadcasts
     broadcast.on('paramsChanged', params => {
