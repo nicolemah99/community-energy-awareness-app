@@ -88,4 +88,6 @@ body{
     top: 0;
 }
 
-
+.savings-chart-area {
+    height: 300px;
+}

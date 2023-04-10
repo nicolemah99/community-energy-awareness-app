@@ -43,7 +43,7 @@
 				</div>
 				<div class="card-body">
 					<div class="pl-5">
-						<strong>State of Charge: </strong><%= @current_charge %> <br>
+						<strong>Current state of Charge: </strong><%= @current_charge %> <br>
 						<strong>Charge one hour ago: </strong><%= @past_charge %> <br>
 					</div>
 					<div class="battery p-4">
@@ -220,35 +220,34 @@
 					<h3 class="card-title"><i class="tim-icons icon-money-coins text-success"></i>Diesel Savings </h3>
 				</div>
 				<div class="card-body">
-					<div class="chart-area pb-4 ">
+				<div class="row mt-3">
+					<div class="savings-chart-area pb-4 col-lg-8">
 						<canvas id="savingschart"></canvas>
 					</div>
-					<div class="savingstable">
+					<div class="savingstable col-lg-4">
 						<table class="table table-hover">
 							<thead>
 								<tr>
 									<th scope="col" colspan="3">Period</th>
-									<th scope="col">Dollars</th>
+									<th scope="col">Dollar Savings</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<td></td>
-									<td colspan="2">This year - <%= @current_year %></td>
+									<td colspan="3">This year - <%= @current_year %></td>
 									<td><%= number_with_precision(@dollar_savings, :precision => 1, :delimiter => ', ') %></td>
 								</tr>
 								<tr class="CurMonth">
-									<td></td>
-									<td colspan="2">This month - <%= @current_month_str %></td>
+									<td colspan="3">This month - <%= @current_month_str %></td>
 									<td><%= number_with_precision(@current_month_dollar_savings, :precision => 1, :delimiter => ', ') %></td>
 								</tr>
 								<tr class="CurDay">
-									<td></td>
-									<td colspan="2">Today - <%= @current_day %></td>
+									<td colspan="3">Today - <%= @current_day %></td>
 									<td><%= number_with_precision(@current_daily_dollar_savings, :precision => 1, :delimiter => ', ') %></td>
 								</tr>
 							</tbody>
 						</table>
+					</div>
 					</div>
 				</div>
 				<!-- Button trigger modal -->

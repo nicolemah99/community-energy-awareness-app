@@ -71,9 +71,7 @@ class MainController < ApplicationController
         gon.complete_savings_dates = @savings_dates
         gon.complete_savings = savings_date_and_amount
 
-        # Value when we get real time data
-        #@current_year = Date.today.strftime("%Y")
-        @current_year = "2021"
+        @current_year = Date.today.strftime("%Y")
 
         # current monthly savings
         current_month = Date.today.strftime("%m")
