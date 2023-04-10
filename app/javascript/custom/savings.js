@@ -22,7 +22,7 @@ const config = {
     options: {
         responsive: true,
         pointRadius: 0,
-        pointHoverRadius: 3,
+        pointHoverRadius: 5,
         maintainAspectRatio: false,
         scales: {
             x: {
@@ -36,8 +36,11 @@ const config = {
                   display: true,
                   text: 'Dollar'
                 },
+                beginAtZero: true,
                 max: maxticks,
-                beginAtZero: true
+                ticks: {
+                  stepSize: 100000
+              }
               }
         }
         }
