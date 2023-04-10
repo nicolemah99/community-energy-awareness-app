@@ -21,10 +21,10 @@
 	</div>
 	<!--Row 1 End-->
 	<!--Row 2 Start-->
-	<div class="row mt-3 table-col">
+	<div class="row mt-3">
 		<!-- Map -->
-		<div class="col-sm ml-auto">
-			<div class="card card-chart table-cell">
+		<div class="col-sm">
+			<div class="card card-chart">
 				<div class="card-header">
 					<h5 class="card-category">Map</h5>
 					<h3 class="card-title"><i class="tim-icons icon-square-pin text-primary "></i> Kotzebue, Alaska</h3>
@@ -35,11 +35,11 @@
 			</div>
 		</div>
 		<!-- Battery -->
-		<div class="col-sm mr-auto">
-			<div class="card card-chart table-cell">
+		<div class="col-sm">
+			<div class="card card-chart">
 				<div class="card-header">
 					<h5 class="card-category">Battery</h5>
-					<h3 class="card-title"><i class="tim-icons icon-wifi text-info "></i> <strong>State of Battery: </strong><%= @battery_state %></h3>
+					<h3 class="card-title"><i class="tim-icons icon-wifi text-info "></i>State of Battery: <strong><%= @battery_state %> </strong></h3>
 				</div>
 				<div class="card-body">
 					<div class="pl-5">
@@ -65,9 +65,9 @@
 					</div>
 				</div>
 				<!-- Button trigger modal -->
-				<div class="pl-2">
+				<div class="p-2 info-button">
 					<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#batteryModal">
-						View more
+						Learn More
 					</button>
 				</div>
 				<!-- Modal -->
@@ -176,9 +176,9 @@
 					</div>
 				</div>
 				<!-- Button trigger modal -->
-				<div class="p-2">
+				<div class="p-2 info-button">
 					<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#electricityGenModal">
-						View more
+						Learn More
 					</button>
 				</div>
 				<!-- Modal -->
@@ -227,9 +227,9 @@
 					</div>
 				</div>
 				<!-- Button trigger modal -->
-				<div class="p-2">
+				<div class="p-2 info-button">
 					<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#savingsModal">
-						View more
+						Learn More
 					</button>
 				</div>
 				<!-- Modal -->
@@ -274,9 +274,9 @@
 					<div id="heatmap"></div>
 				</div>
 				<!-- Button trigger modal -->
-				<div class="p-2">
+				<div class="p-2 info-button">
 					<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#batteryModal">
-						View more
+						Learn More
 					</button>
 				</div>
 				<!-- Modal -->

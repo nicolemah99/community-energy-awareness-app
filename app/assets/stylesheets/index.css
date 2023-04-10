@@ -25,17 +25,8 @@ body{
     margin-right: 5px;
 }
 
-.table-col{
-    display: table;
-    width: 100%;
-}
-
-.table-cell{
-    display: table-cell;
-}
-
 #windy{
-    height: 350px;
+    height: 300px;
 }
 
 #heatmap_Legend_Label0{
@@ -89,6 +80,12 @@ body{
     .breakdownTable{
         width: 100%;
     }
+}
+
+.info-button{
+    position: absolute;
+    right: 0;
+    top: 0;
 }
 
 
