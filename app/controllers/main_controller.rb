@@ -52,7 +52,7 @@ class MainController < ApplicationController
         ## Diesel Savings Feature
         @savings_dates = []
         savings_date_and_amount = []
-        collected_data = GenerationBreakdown.where(dateTime: "2021-01-01 00:00:00"..current_hour)
+        collected_data = GenerationBreakdown.where(dateTime: "2021-01-01 00:00:00"..past_hour)
         @curr_savings = @current_record_breakdown.year_total_non_renew
         
         # cycle through all dates
@@ -67,21 +67,21 @@ class MainController < ApplicationController
         gon.complete_savings_dates = @savings_dates
         gon.complete_savings = savings_date_and_amount
 
-        @current_year = "2021"
+        @current_year = Date.today.strftime("%Y")
 
         # current monthly savings
         current_month = Date.today.strftime("%m")
-        @current_month_str = Date.today.strftime("%B, 2021")
-        current_month_data = GenerationBreakdown.where(dateTime: "2021-#{current_month}-01 00:00:00"..current_hour)
+        @current_month_str = Date.today.strftime("%B")
+        current_month_data = GenerationBreakdown.where(dateTime: "2021-#{current_month}-01 00:00:00"..past_hour)
         current_month_kwh_savings = (current_month_data.last().year_total_non_renew) - (current_month_data.first().year_total_non_renew)
         @current_month_dollar_savings = (current_month_kwh_savings/KWH_PER_GALLON)*DIESEL_PRICE
 
         #daily savings
         @current_day = Date.today.strftime("%d")
-        current_daily_data = GenerationBreakdown.where(dateTime: "2021-#{current_month}-#{@current_day} 00:00:00"..current_hour)
+        current_daily_data = GenerationBreakdown.where(dateTime: "2021-#{current_month}-#{@current_day} 00:00:00"..past_hour)
         current_daily_kwh_savings = (current_daily_data.last().year_total_non_renew) - (current_daily_data.first().year_total_non_renew)
         @current_daily_dollar_savings = (current_daily_kwh_savings/KWH_PER_GALLON)*DIESEL_PRICE
-        @day_format = current_time.strftime("%B #{current_time.day.ordinalize}, 2021")
+        @day_format = current_time.strftime("%B #{current_time.day.ordinalize}")
 
     end
 
