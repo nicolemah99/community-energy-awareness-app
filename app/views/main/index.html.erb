@@ -159,7 +159,11 @@
 											<div class="Wind"></div>
 											Wind</td>
 										<td><%= @wind_kwh %> kWh</td>
-										<td><%= @wind_percent %> %</td>
+										<% if @wind_percent == 0.0 && @wind_kwh > 0.0 %>
+											<td> <0.01 %</td>
+										<% else %>
+											<td><%= @wind_percent %> %</td>
+										<% end %>
 									</tr>
 									<tr>
 										<td></td>
@@ -168,7 +172,11 @@
 											<div class="Solar"></div>
 											Solar</td>
 										<td><%= @solar_kwh %> kWh</td>
-										<td><%= @solar_percent %> %</td>
+										<% if @solar_percent == 0.0 && @solar_kwh > 0.0 %>
+											<td> <0.01 %</td>
+										<% else %>
+											<td><%= @solar_percent %> %</td>
+										<% end %>
 									</tr>
 								</tbody>
 							</table>
@@ -220,34 +228,34 @@
 					<h3 class="card-title"><i class="tim-icons icon-money-coins text-success"></i>Diesel Savings</h3>
 				</div>
 				<div class="card-body">
-				<div class="row mt-3">
-					<div class="savings-chart-area pb-4 col-lg-8">
-						<canvas id="savingschart"></canvas>
-					</div>
-					<div class="savingstable col-lg-4">
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th scope="col" colspan="3">Time Period</th>
-									<th scope="col">Dollar Savings ($)</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td colspan="3">This year - <%= @current_year %></td>
-									<td>$<%= number_with_precision(@dollar_savings, :precision => 1, :delimiter => ', ') %></td>
-								</tr>
-								<tr class="CurMonth">
-									<td colspan="3">This month - <%= @current_month_str %></td>
-									<td>$<%= number_with_precision(@current_month_dollar_savings, :precision => 1, :delimiter => ', ') %></td>
-								</tr>
-								<tr class="CurDay">
-									<td colspan="3">Today - <%= @day_format %></td>
-									<td>$<%= number_with_precision(@current_daily_dollar_savings, :precision => 1, :delimiter => ', ') %></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+					<div class="row mt-3">
+						<div class="savings-chart-area pb-4 col-lg-8">
+							<canvas id="savingschart"></canvas>
+						</div>
+						<div class="savingstable col-lg-4">
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th scope="col" colspan="3">Time Period</th>
+										<th scope="col">Dollar Savings ($)</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td colspan="3">This year - <%= @current_year %></td>
+										<td>$<%= number_with_precision(@dollar_savings, :precision => 1, :delimiter => ', ') %></td>
+									</tr>
+									<tr class="CurMonth">
+										<td colspan="3">This month - <%= @current_month_str %></td>
+										<td>$<%= number_with_precision(@current_month_dollar_savings, :precision => 1, :delimiter => ', ') %></td>
+									</tr>
+									<tr class="CurDay">
+										<td colspan="3">Today - <%= @day_format %></td>
+										<td>$<%= number_with_precision(@current_daily_dollar_savings, :precision => 1, :delimiter => ', ') %></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 				<!-- Button trigger modal -->

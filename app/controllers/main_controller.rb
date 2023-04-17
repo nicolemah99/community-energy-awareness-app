@@ -87,6 +87,7 @@ class MainController < ApplicationController
 
     def calculatePercentage(numerator, denominator)
         percent = ((numerator/denominator) * 100).round(2)
+
         return percent
 
     end
