@@ -13,7 +13,7 @@ const data = {
   ],
   datasets: [{
     borderWidth: 0.25,
-    labels: 'kWh',
+    label: 'kWh',
     data: [renew_kwh, non_renew_kwh],
     backgroundColor: [
       '#4F7942',
@@ -48,7 +48,7 @@ const data2 = {
   ],
   datasets: [{
     borderWidth: 0.25,
-    labels: 'kWh',
+    label: 'kWh',
     data: [solar_kwh, wind_kwh, diesel_kwh],
     backgroundColor: [
       '#FDDA0D',

@@ -25,7 +25,7 @@ class MainController < ApplicationController
         #Calculate percentage of each energy source
         @renew_percent = calculatePercentage(@renew_kwh, @total_kwh)
         @non_renew_percent = calculatePercentage(@non_renew_kwh, @total_kwh)
-        @solar_percent = gon.solar_percent = calculatePercentage(@solar_kwh, @total_kwh)
+        @solar_percent = gon.solar_percent = calculatePercentage(@solar_kwh, @total_kwh, true)
         @wind_percent = gon.wind_percent = calculatePercentage(@wind_kwh, @total_kwh)
         @diesel_percent = gon.diesel_percent = calculatePercentage(@non_renew_kwh, @total_kwh)
 
@@ -53,14 +53,14 @@ class MainController < ApplicationController
         @savings_dates = []
         savings_date_and_amount = []
         collected_data = GenerationBreakdown.where(dateTime: "2021-01-01 00:00:00"..past_hour)
-        @curr_savings = @current_record_breakdown.year_total_non_renew
+        @curr_savings = @current_record_breakdown.year_total_renew
         
         # cycle through all dates
         collected_data.each do |record|
             # day and month 
             reading_time = record.dateTime.strftime("%e %b")
             @savings_dates.push reading_time
-            @dollar_savings = (record.year_total_non_renew / KWH_PER_GALLON) * DIESEL_PRICE
+            @dollar_savings = (record.year_total_renew / KWH_PER_GALLON) * DIESEL_PRICE
             savings_formatted = {:x => reading_time, :y => @dollar_savings}
             savings_date_and_amount.push savings_formatted
         end
@@ -73,20 +73,24 @@ class MainController < ApplicationController
         current_month = Date.today.strftime("%m")
         @current_month_str = Date.today.strftime("%B")
         current_month_data = GenerationBreakdown.where(dateTime: "2021-#{current_month}-01 00:00:00"..past_hour)
-        current_month_kwh_savings = (current_month_data.last().year_total_non_renew) - (current_month_data.first().year_total_non_renew)
+        current_month_kwh_savings = (current_month_data.last().year_total_renew) - (current_month_data.first().year_total_renew)
         @current_month_dollar_savings = (current_month_kwh_savings/KWH_PER_GALLON)*DIESEL_PRICE
 
         #daily savings
         @current_day = Date.today.strftime("%d")
         current_daily_data = GenerationBreakdown.where(dateTime: "2021-#{current_month}-#{@current_day} 00:00:00"..past_hour)
-        current_daily_kwh_savings = (current_daily_data.last().year_total_non_renew) - (current_daily_data.first().year_total_non_renew)
+        current_daily_kwh_savings = (current_daily_data.last().year_total_renew) - (current_daily_data.first().year_total_renew)
         @current_daily_dollar_savings = (current_daily_kwh_savings/KWH_PER_GALLON)*DIESEL_PRICE
         @day_format = current_time.strftime("%B #{current_time.day.ordinalize}")
 
     end
 
-    def calculatePercentage(numerator, denominator)
-        percent = ((numerator/denominator) * 100).round(2)
+    def calculatePercentage(numerator, denominator, renew = false)
+        if renew
+            percent = ((numerator/denominator) * 100).round(3)
+        else
+            percent = ((numerator/denominator) * 100).round(2)
+        end
 
         return percent
 
