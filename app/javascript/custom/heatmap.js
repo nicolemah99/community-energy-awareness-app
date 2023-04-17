@@ -29,7 +29,7 @@ function renderMap(){
     }   
     var heatmap = new ej.heatmap.HeatMap({
         titleSettings: {
-            text: 'Community Electricity Usage (kWh)',
+            text: 'Community Electricity Usage',
             textStyle: {
                 size: '24px',
                 fontWeight: '500',
@@ -43,8 +43,6 @@ function renderMap(){
             border:{
                 width:0
             },
-            //tileType: 'Bubble',
-            //bubbleType: 'SizeAndColor',
             textStyle: {
                 size: '14px',
                 fontFamily: 'Poppins'
@@ -100,7 +98,7 @@ function renderMap(){
             height: "75",
             labelFormat: '{value}',
             title: {
-                text: 'Kilowatt Hour',
+                text: 'Kilowatt Hour (kWh)',
             textStyle: {
                 size: '14px',
                 fontFamily: 'Poppins'
