@@ -12,6 +12,7 @@ const data = {
     'Non Renewables'
   ],
   datasets: [{
+    borderWidth: 0.25,
     label: 'kWh',
     data: [renew_kwh, non_renew_kwh],
     backgroundColor: [
@@ -46,6 +47,7 @@ const data2 = {
     'Diesel'
   ],
   datasets: [{
+    borderWidth: 0.25,
     label: 'kWh',
     data: [solar_kwh, wind_kwh, diesel_kwh],
     backgroundColor: [
