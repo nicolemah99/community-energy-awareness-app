@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_18_014114) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_17_191343) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -34,7 +34,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_18_014114) do
     t.float "nonRenewP"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "year_total_non_renew"
+    t.float "year_total_renew"
   end
 
   create_table "master", id: false, force: :cascade do |t|
@@ -49,5 +49,3 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_18_014114) do
   end
 
 end
-
-
