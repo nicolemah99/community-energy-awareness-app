@@ -12,6 +12,8 @@ ENV RAILS_ENV="production" \
     BUNDLE_WITHOUT="development:test" \
     BUNDLE_DEPLOYMENT="1"
 
+RUN mkdir -p /rails/tmp/cache/assets
+
 # Update gems and bundler
 RUN gem update --system --no-document && \
     gem install -N bundler
@@ -39,13 +41,14 @@ RUN apt-get update -qq && \
 
 # Run and own the application files as a non-root user for security
 RUN useradd rails --home /rails --shell /bin/bash
+RUN chown -R rails:rails /rails/tmp
 USER rails:rails
 
 # Deployment options
 ENV RAILS_LOG_TO_STDOUT="1" \
     RAILS_SERVE_STATIC_FILES="true"
 
-# Entrypoint prepares the database.
+## Entrypoint prepares the database.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
 # Start the server by default, this can be overwritten at runtime
