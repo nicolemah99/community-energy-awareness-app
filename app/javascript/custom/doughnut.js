@@ -40,6 +40,7 @@ const config_category_sources = {
 new Chart(category_sources, config_category_sources);
 
 const all_sources = document.getElementById('doughnutChart2');
+const all_sources_copy = document.getElementById('doughnutChart3');
 const data2 = {
   labels: [
     'Solar',
@@ -74,6 +75,7 @@ const config_category_sources_all_sources = {
 };
 
 new Chart(all_sources, config_category_sources_all_sources);
+new Chart(all_sources_copy, config_category_sources_all_sources);
 
 
 

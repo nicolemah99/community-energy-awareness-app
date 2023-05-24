@@ -20,11 +20,82 @@
 		</div>
 	</div>
 	<!--Row 1 End-->
+	<!--Row 1 Start-->
+	<div class="row mt-3">
+		<!-- Battery Percentage -->
+		<div class="col-2">
+		<a href="#battery-card">
+			<div class="card overview-card">
+				<div class="card-header" style="text-align:center">
+					<h5 class="card-category">Battery Percentage</h5><br>
+					<h1 class="card-title">
+					<i class="tim-icons icon-wifi text-info "></i><br><br>
+					<%= @current_charge %> %
+					<% if @battery_state=="Charging" %>
+						<i class="tim-icons icon-minimal-up text-success "></i>
+					<% elsif @battery_state=="Discharging" %>
+						<i class="tim-icons icon-minimal-down text-danger "></i>
+					<% end %>
+					<p><br></p>
+				</div>
+			</div>
+			</a>
+		</div>
+		<!-- Electricity Generation Breakdown -->
+		<div class="col-3">
+			<a href="#generation-breakdown-card">
+			<div class="card overview-card">
+				<div class="card-header" style="text-align:center">
+					<h5 class="card-category">Electricity Generation Breakdown</h5>
+					<div class="doughnut-charts">
+							<canvas id="doughnutChart3"></canvas>
+						</div>
+				</div>
+			</div>
+			</a>
+		</div>
+		<!-- Weather -->
+		<div class="col-2">
+			<a href="#map-card">
+			<div class="card overview-card">
+				<div class="card-header" style="text-align:center">
+					<h5 class="card-category">Weather</h5>
+					<h1 class="card-title"></h1>
+				</div>
+			</div>
+			</a>
+		</div>
+		<!-- Savings -->
+		<div class="col-2">
+		<a href="#savings-card">
+			<div class="card overview-card">
+				<div class="card-header" style="text-align:center">
+					<h5 class="card-category">Daily Savings</h5><br>
+					<h1 class="card-title"><i class="tim-icons icon-money-coins text-success"></i><br><br>
+					$ <%= number_with_precision(@current_daily_dollar_savings, :precision => 1, :delimiter => ', ') %></h1><br>
+				</div>
+			</div>
+		</a>
+		</div>
+		<!-- Community Electricity Usage -->
+		<div class="col-3">
+			<a href="#usage-card">
+			<div class="card overview-card">
+				<div class="card-header" style="text-align:center">
+					<h5 class="card-category">Community Usage</h5><br>
+					<h1 class="card-title"><i class="tim-icons icon-components text-primary "></i><br><br>
+					<%= @total_kwh %> kWh</h1><br>
+				</div>
+			</div>
+			</a>
+		</div>
+	</div>
+	<!--Row 1 End-->
 	<!--Row 2 Start-->
 	<div class="row mt-3">
 		<!-- Map -->
 		<div class="col-sm">
-			<div class="card card-chart">
+			<div class="card card-chart" id="map-card">
 				<div class="card-header">
 					<h5 class="card-category">Map</h5>
 					<h3 class="card-title"><i class="tim-icons icon-square-pin text-primary "></i> Kotzebue, Alaska</h3>
@@ -36,7 +107,7 @@
 		</div>
 		<!-- Battery -->
 		<div class="col-sm">
-			<div class="card card-chart">
+			<div class="card card-chart" id="battery-card">
 				<div class="card-header">
 					<h5 class="card-category">Battery</h5>
 					<h3 class="card-title"><i class="tim-icons icon-wifi text-info "></i>State of Battery: <strong><%= @battery_state %> </strong></h3>
@@ -102,7 +173,7 @@
 	<div class="row mt-3">
 		<!-- Electricity Generation Breakdown Doughnut -->
 		<div class="col-md ml-auto mr-auto">
-			<div class="card card-chart">
+			<div class="card card-chart" id="generation-breakdown-card">
 				<div class="card-header">
 					<h5 class="card-category">Electricity Generation</h5>
 					<h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-primary "></i> Electricity Generation Breakdown</h3>
@@ -221,7 +292,7 @@
 	<div class="row mt-3">
 		<!-- Diesel Savings -->
 		<div class="col-lg">
-			<div class="card card-chart">
+			<div class="card card-chart" id="savings-card">
 				<div class="card-header">
 					<h5 class="card-category">Diesel Savings</h5>
 					<h3 class="card-title"><i class="tim-icons icon-money-coins text-success"></i>Diesel Savings</h3>
@@ -297,7 +368,7 @@
 	<div class="row mt-3">
 		<!-- Community Usage Chart -->
 		<div class="col ml-auto mr-auto">
-			<div class="card card-chart">
+			<div class="card card-chart" id="usage-card">
 				<div class="card-header">
 					<h5 class="card-category">Community</h5>
 					<h3 class="card-title"><i class="tim-icons icon-components text-primary "></i> Community Usage Chart</h3>
