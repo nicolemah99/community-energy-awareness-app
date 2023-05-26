@@ -68,11 +68,11 @@ function renderMap(){
         //Might want to change these values based on monthly or seasonaly maxs
         paletteSettings:{
             emptyPointColor: '#FFFFFF',
-            palette: [{ startValue: 1800, endValue:2100, minColor: '#FFFFDA', maxColor:'#EDF8B6' },
-            { startValue: 2100, endValue:2500, minColor: '#CAE8B4', maxColor:'#78D1BD' },
-            { startValue: 2500, endValue:2775, minColor: '#36BCC6', maxColor:'#208FC6' },
-            { startValue: 2775, endValue:3000, minColor: '#208FC6', maxColor:'#000080' },
-            { startValue: 3000, endValue:3200, minColor: '#000080', maxColor:'#152238' }
+            palette: [{ startValue: 1500, endValue:1800, minColor: '#FFFFDA', maxColor:'#EDF8B6' },
+            { startValue: 1800, endValue:2100, minColor: '#CAE8B4', maxColor:'#78D1BD' },
+            { startValue: 2100, endValue:2400, minColor: '#36BCC6', maxColor:'#208FC6' },
+            { startValue: 2400, endValue:2700, minColor: '#208FC6', maxColor:'#000080' },
+            //{ startValue: 2300, endValue:2500, minColor: '#000080', maxColor:'#152238' }
             ],
             type: 'Gradient'
         },
