@@ -173,9 +173,9 @@
 											Solar</td>
 										<td><%= @solar_kwh %> kWh</td>
 										<% if @solar_percent == 0.0 && @solar_kwh > 0.0 %>
-											<td> <0.01 %</td>
+											<td>~<0.01 %</td>
 										<% else %>
-											<td>~<%= @solar_percent %> %</td>
+											<td><%= @solar_percent %> %</td>
 										<% end %>
 									</tr>
 								</tbody>
@@ -307,7 +307,7 @@
 				</div>
 				<!-- Button trigger modal -->
 				<div class="p-2 info-button">
-					<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#batteryModal">
+					<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#usageModal">
 						Learn More
 					</button>
 				</div>
