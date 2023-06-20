@@ -1,0 +1,29 @@
+/* Large Screen */
+@media screen and (min-width: 1124px) {
+  #doughbut-card-body {
+    height: auto; 
+    display: flex;
+    direction: row;
+    justify-content: space-evenly;
+  }
+
+.breakdownTable{
+        width: 40%;
+    }
+}
+
+/* Small-Medium Screen */
+@media screen and (max-width: 1124px) {
+  #doughbut-card-body {
+    height: auto; /* Set the height to 1000px for screens up to 1124px wide */
+    display: flex;
+    direction: column;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+
+    .breakdownTable{
+        width: 100%;
+    }
+    
+}
