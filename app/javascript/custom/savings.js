@@ -44,7 +44,7 @@ const config = {
 };
 
 
-const ctx = new Chart(document.getElementById('savingschart'), config);
+const ctx = new Chart(document.getElementById('savings-chart'), config);
 
 
 function filterData(){

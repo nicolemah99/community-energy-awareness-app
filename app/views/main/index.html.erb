@@ -20,7 +20,7 @@
 			<div class="row mt-3">
 				<div class="col">
 					<div class="card">
-						<div class="card-body">
+						<div class="card-body overview">
 							<h3 class="card-title">Daily Overview</h3>
 							<div class="row">
 								<!-- Battery Percentage -->
@@ -32,6 +32,7 @@
 												<h1>
 													<%= @current_charge %> % <% if @battery_state=="Charging" %>
 															<% elsif @battery_state=="Discharging" %>
+															
 																<% end %>
 												</h1>
 											</div>
@@ -40,13 +41,12 @@
 								</div>
 								<!-- Electricity Generation Breakdown -->
 								<div class="col mb-3">
-									<a href="#generation-breakdown-card">
+									<a href="#elec-gen-card">
 										<div class="card p-3 h-100">
 											<div class="card-body">
 												<h5 class="card-title">Electricity Generation Breakdown</h5>
-												<div class="doughnut-charts">
-													<canvas id="doughnutChart3"></canvas>
-												</div>
+												<canvas id="doughnut-overview"></canvas>
+											
 											</div>
 										</div>
 									</a>
@@ -77,10 +77,10 @@
 								<div class="col mb-3">
 									<a href="#usage-card">
 										<div class="card p-3 h-100">
-											<h5 class="card-title">Community Usage</h5>
-											<h1 class="card-body">
-												<%= @total_kwh %> kWh
-											</h1>
+											<div class="card-body">
+												<h5 class="card-title">Community Usage</h5>
+												<h1><%= @total_kwh %> kWh</h1>
+											</div>
 										</div>
 									</a>
 								</div>
@@ -117,6 +117,7 @@
 										</div>
 										<div class="battery-body">
 											<% if @battery_state=="Charging" %>
+											<i class="fas fa-bolt"></i>
 												<div class="charge"></div>
 												<h3 class="z-index-3 position-absolute">
 													<%= @current_charge %> %
@@ -173,17 +174,15 @@
 			<!--Row 3 Start-->
 			<div class="row mt-3">
 				<!-- Electricity Generation Breakdown Doughnut -->
-				<div class="col">
-					<div class="card p-3 h-100" id="generation-breakdown-card">
+				<div class="col mb-3">
+					<div class="card p-3 h-100" id="elec-gen-card">
 						<div class="card-body" id="doughnut-card-body">
 							<h3 class="card-title"> Electricity Generation Breakdown</h3>
 							<div class="col">
-								<div class="doughnut-charts">
-									<canvas id="doughnutChart2"></canvas>
-								</div>
+								<canvas class="m-auto" id="doughnut-main"></canvas>	
 							</div>
 							<div class="col">
-								<div class="breakdownTable">
+								<div class="breakdown-table">
 									<table class="table table-hover">
 										<thead>
 											<tr>
@@ -200,7 +199,7 @@
 												</td>
 												<td>100.00 %</td>
 											</tr>
-											<tr class="NonRenew">
+											<tr class="non-renew">
 												<td></td>
 												<td colspan="2"><strong>Non Renewables</strong></td>
 												<td><strong>
@@ -214,7 +213,7 @@
 												<td></td>
 												<td></td>
 												<td>
-													<div class="Diesel"></div> Diesel
+													<div class="diesel"></div>Diesel
 												</td>
 												<td>
 													<%= @diesel_kwh %> kWh
@@ -223,7 +222,7 @@
 													<%= @diesel_percent %> %
 												</td>
 											</tr>
-											<tr class="Renew">
+											<tr class="renew">
 												<td></td>
 												<td colspan="2"><strong>Renewables</strong></td>
 												<td><strong>
@@ -237,7 +236,7 @@
 												<td></td>
 												<td></td>
 												<td>
-													<div class="Wind"></div> Wind
+													<div class="wind"></div> Wind
 												</td>
 												<td>
 													<%= @wind_kwh %> kWh
@@ -254,7 +253,7 @@
 												<td></td>
 												<td></td>
 												<td>
-													<div class="Solar"></div> Solar
+													<div class="solar"></div> Solar
 												</td>
 												<td>
 													<%= @solar_kwh %> kWh
@@ -274,14 +273,14 @@
 						<!-- Button trigger modal -->
 						<div class="info-button">
 							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-								data-bs-target="#electricityGenModal"> Learn More </button>
+								data-bs-target="#elec-gen-modal"> Learn More </button>
 						</div>
 						<!-- Modal -->
-						<div class="modal fade" id="electricityGenModal" tabindex="-1"
-							aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal fade" id="elec-gen-modal" tabindex="-1"
+							aria-labelledby="elec-gen-modal-label" aria-hidden="true">
 							<div class="modal-dialog">
 								<div class="modal-content">
-									<h1 class="modal-title" id="electricityGenModalLabel">Electricity Generation</h1>
+									<h1 class="modal-title" id="elec-gen-modal-label">Electricity Generation</h1>
 									<button type="button" class="btn btn-primary-close" data-bs-dismiss="modal"
 										aria-label="Close"></button>
 									<div class="modal-body">
@@ -305,14 +304,14 @@
 					</div>
 				</div>
 				<!-- Diesel Savings -->
-				<div class="col">
+				<div class="col mb-3">
 					<div class="card p-3 h-100" id="savings-card">
 						<div class="card-body">
 							<h3 class="card-title">Diesel Savings</h3>
 							<div class="savings-chart-area">
-								<canvas id="savingschart"></canvas>
+								<canvas id="savings-chart"></canvas>
 							</div>
-							<div class="savingstable">
+							<div class="savings-table">
 								<table class="table table-hover">
 									<thead>
 										<tr>
@@ -326,13 +325,13 @@
 											</td>
 											<td>$<%= number_with_precision(@dollar_savings, :precision=> 1, :delimiter => ', ') %></td>
 										</tr>
-										<tr class="CurMonth">
+										<tr class="curr-month">
 											<td colspan="3">This month - <%= @current_month_str %>
 											</td>
 											<td>$<%= number_with_precision(@current_month_dollar_savings, :precision=>
 													1, :delimiter => ', ') %></td>
 										</tr>
-										<tr class="CurDay">
+										<tr class="curr-day">
 											<td colspan="3">Today - <%= @day_format %>
 											</td>
 											<td>$<%= number_with_precision(@current_daily_dollar_savings, :precision=>
@@ -345,15 +344,15 @@
 						<!-- Button trigger modal -->
 						<div class="info-button">
 							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-								data-bs-target="#savingsModal"> Learn More </button>
+								data-bs-target="#savings-modal"> Learn More </button>
 						</div>
 						<!-- Modal -->
-						<div class="modal fade" id="savingsModal" tabindex="-1" aria-labelledby="savingsModalLabel"
+						<div class="modal fade" id="savings-modal" tabindex="-1" aria-labelledby="savings-modal-label"
 							aria-hidden="true">
 							<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h1 class="modal-title" id="savingsModalLabel">Diesel Savings</h1>
+										<h1 class="modal-title" id="savings-modal-label">Diesel Savings</h1>
 										<button type="button" class="btn btn-primary-close" data-bs-dismiss="modal"
 											aria-label="Close"></button>
 									</div>
@@ -383,7 +382,7 @@
 			</div>
 			<!--Row 3 End-->
 			<!--Row 4 Start-->
-			<div class="row mt-3">
+			<div class="row">
 				<!-- Community Usage Chart -->
 				<div class="col">
 					<div class="card p-3" id="usage-card">
@@ -394,15 +393,15 @@
 						<!-- Button trigger modal -->
 						<div class="info-button">
 							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-								data-bs-target="#usageModal"> Learn More </button>
+								data-bs-target="#usage-modal"> Learn More </button>
 						</div>
 						<!-- Modal -->
-						<div class="modal fade" id="usageModal" tabindex="-1" aria-labelledby="usageModalLabel"
+						<div class="modal fade" id="usage-modal" tabindex="-1" aria-labelledby="usage-modal-label"
 							aria-hidden="true">
 							<div class="modal-dialog">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h1 class="modal-title" id="usageModalLabel">Community Usage</h1>
+										<h1 class="modal-title" id="usage-modal-label">Community Usage</h1>
 										<button type="button" class="btn btn-primary-close" data-bs-dismiss="modal"
 											aria-label="Close"></button>
 									</div>
