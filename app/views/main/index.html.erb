@@ -1,411 +1,423 @@
 <% content_for :head do %>
 	<!-- header content specific to this page -->
-	<script src="https://code.highcharts.com/highcharts.js"></script>
-	<script src="https://code.highcharts.com/highcharts-more.js"></script>
-	<script src="https://code.highcharts.com/modules/exporting.js"></script>
-	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-<% end %>
-<div "class="content">
-	<h1 class="text-center">Kotzebue Electric Association</h1>
-	<!--Row 1 Start-->
-	<div class="row mt-3">
-		<!-- Last Updated Time -->
-		<div class="col mx-auto">
-			<div class="card">
-				<div class="card-header" style="text-align:center">
-					<h5 class="card-category">Last Updated</h5>
-					<h3 class="card-title"><i class="tim-icons icon-watch-time text-primary "></i> <%= @last_updated %></h3>
+	<% end %>
+		<div class="container-fluid text-center dashboard mt-5">
+			<!-- remove "mt-5" after, only used to see entire page (Syncfusion banner) -->
+			<h1>Kotzebue Electric Association</h1>
+			<!--Row 1 Start-->
+			<div class="row">
+				<!-- Last Updated Time -->
+				<div class="col">
+					<div class="card p-3">
+						<h3 class="card-title">
+							<%= @last_updated %>
+						</h3>
+					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<!--Row 1 End-->
-	<!--Row 1 Start-->
-	<div class="row mt-3">
-		<!-- Battery Percentage -->
-		<div class="col-2">
-			<a href="#battery-card">
-				<div class="card overview-card">
-					<div class="card-header text-center">
-						<h5 class="card-category">Battery Percentage</h5>
-					</div>
-					<h1 class="card-body text-center" style="font-size: 2.5vw; font-weight: 200;">
-						<i class="tim-icons icon-button-power text-info "></i><br><br>
-						<%= @current_charge %> %
-						<% if @battery_state=="Charging" %>
-							<i class="tim-icons icon-minimal-up text-success "></i>
-						<% elsif @battery_state=="Discharging" %>
-							<i class="tim-icons icon-minimal-down text-danger "></i>
-						<% end %>
-					</h1>
-				</div>
-			</a>
-		</div>
-		<!-- Electricity Generation Breakdown -->
-		<div class="col-2">
-			<a href="#generation-breakdown-card">
-				<div class="card overview-card">
-					<div class="card-header text-center">
-						<h5 class="card-category">Electricity Generation Breakdown</h5>
-					</div>
-					<div class="card-body">
-						<div class="doughnut-charts">
-							<canvas id="doughnutChart3"></canvas>
-						</div>
-					</div>
-				</div>
-			</a>
-		</div>
-		<!-- Weather -->
-		<div class="col-2">
-			<a href="#map-card">
-				<div class="card overview-card">
-					<div class="card-header text-center">
-						<h5 class="card-category">Weather</h5>
-						<h1 class="card-title"></h1>
-					</div>
-				</div>
-			</a>
-		</div>
-		<!-- Savings -->
-		<div class="col-3">
-			<a href="#savings-card">
-				<div class="card overview-card">
-					<div class="card-header text-center">
-						<h5 class="card-category">Daily Savings</h5>
-					</div>
-					<h1 class="card-body text-center" style="font-size: 2.5vw; font-weight: 200;"><i class="tim-icons icon-money-coins text-success"></i><br><br>
-						$ <%= number_with_precision(@current_daily_dollar_savings, :precision => 1, :delimiter => ', ') %>
-					</h1>
-				</div>
-			</a>
-		</div>
-		<!-- Community Electricity Usage -->
-		<div class="col-3">
-			<a href="#usage-card">
-				<div class="card overview-card">
-					<div class="card-header text-center">
-						<h5 class="card-category">Community Usage</h5>
-					</div>
-					<h1 class="card-body text-center" style="font-size: 2.5vw; font-weight: 200;"><i class="tim-icons icon-components text-primary "></i><br><br>
-						<%= @total_kwh %> kWh</h1>
-					</h1>
-				</div>
-			</a>
-		</div>
-	</div>
-	<!--Row 1 End-->
-	<!--Row 2 Start-->
-	<div class="row mt-3">
-		<!-- Map -->
-		<div class="col-sm">
-			<div class="card card-chart" id="map-card">
-				<div class="card-header">
-					<h5 class="card-category">Map</h5>
-					<h3 class="card-title"><i class="tim-icons icon-square-pin text-primary "></i> Kotzebue, Alaska</h3>
-				</div>
-				<div class="card-body">
-					<div id="windy"></div>
-				</div>
-			</div>
-		</div>
-		<!-- Battery -->
-		<div class="col-sm">
-			<div class="card card-chart" id="battery-card">
-				<div class="card-header">
-					<h5 class="card-category">Battery</h5>
-					<h3 class="card-title"><i class="tim-icons icon-button-power text-info "></i>State of Battery: <strong><%= @battery_state %> </strong></h3>
-				</div>
-				<div class="card-body">
-					<div class="pl-5">
-						<strong>Current state of Charge: </strong><%= @current_charge %> <br>
-						<strong>Charge one hour ago: </strong><%= @past_charge %> <br>
-					</div>
-					<div class="battery p-4">
-						<div class="battery-head">
-						</div>
-						<div class="battery-body">
-							<% if @battery_state=="Charging" %>
-								<i class="fas fa-bolt"></i>
-								<div class="charge"></div>
-								<h3 class="pl-2 mt-4 z-index-3 position-absolute"><%= @current_charge %> %</h3>
-							<% elsif @battery_state=="Discharging" %>
-								<div class="discharge"></div>
-								<h3 class="text-center mt-4"><%= @current_charge %> %</h3>
-							<% else %>
-								<div class="nocharge"></div>
-								<h3 class="text-center mt-3"><%= @current_charge %> %</h3>
-							<% end %>
-						</div>
-					</div>
-				</div>
-				<!-- Button trigger modal -->
-				<div class="p-2 info-button">
-					<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#batteryModal">
-						Learn More
-					</button>
-				</div>
-				<!-- Modal -->
-				<div class="modal fade" id="batteryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h1 class="modal-title fs-5" id="batteryModalLabel">Battery Information</h1>
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-							</div>
-							<div class="modal-body">
-								<p>
-								Kotzebue produces energy from diesel, wind, and solar. The amount of energy produced by the renewables, wind and solar, 
-								depends on the wind speed and how sunny it is. This means that there is sometimes excess energy production, which gets 
-								stored in a lithium-ion battery. 
-									<br>
-									<br>
-									This figure shows how much the battery is currently charged and if it is charging or discharging.
-								</p>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+			<!--Row 1 End-->
+			<!--Overview Start-->
+			<div class="row mt-3">
+				<div class="col">
+					<div class="card">
+						<div class="card-body overview">
+							<h3 class="card-title">Daily Overview</h3>
+							<div class="row">
+								<!-- Battery Percentage -->
+								<div class="col mb-3">
+									<a href="#battery-card">
+										<div class="card p-3 h-100">
+											<div class="card-body">
+												<h5 class="card-title">Battery Percentage</h5>
+												<h1>
+													<%= @current_charge %> % <% if @battery_state=="Charging" %>
+															<% elsif @battery_state=="Discharging" %>
+															
+																<% end %>
+												</h1>
+											</div>
+										</div>
+									</a>
+								</div>
+								<!-- Electricity Generation Breakdown -->
+								<div class="col mb-3">
+									<a href="#elec-gen-card">
+										<div class="card p-3 h-100">
+											<div class="card-body">
+												<h5 class="card-title">Electricity Generation Breakdown</h5>
+												<canvas id="doughnut-overview"></canvas>
+											
+											</div>
+										</div>
+									</a>
+								</div>
+								<!-- Weather -->
+								<div class="col mb-3">
+									<a href="#map-card">
+										<div class="card p-3 h-100">
+											<div class="card-body">
+												<h5 class="card-title">Weather</h5>
+											</div>
+										</div>
+									</a>
+								</div>
+								<!-- Savings -->
+								<div class="col mb-3">
+									<a href="#savings-card">
+										<div class="card p-3 h-100">
+											<div class="card-body">
+												<h5 class="card-title">Savings</h5>
+												<h1>$ <%= number_with_precision(@current_daily_dollar_savings,
+														:precision=> 1, :delimiter => ', ') %></h1>
+											</div>
+										</div>
+									</a>
+								</div>
+								<!-- Community Electricity Usage -->
+								<div class="col mb-3">
+									<a href="#usage-card">
+										<div class="card p-3 h-100">
+											<div class="card-body">
+												<h5 class="card-title">Community Usage</h5>
+												<h1><%= @total_kwh %> kWh</h1>
+											</div>
+										</div>
+									</a>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<!--Row 2 End-->
-	<!--Row 3 Start-->
-	<div class="row mt-3">
-		<!-- Electricity Generation Breakdown Doughnut -->
-		<div class="col-md ml-auto mr-auto">
-			<div class="card card-chart" id="generation-breakdown-card">
-				<div class="card-header">
-					<h5 class="card-category">Electricity Generation</h5>
-					<h3 class="card-title"><i class="tim-icons icon-chart-bar-32 text-primary "></i> Electricity Generation Breakdown</h3>
-				</div>
-				<div class="card-body">
-					<div id="doughbut-card-body">
-						<div class="doughnut-charts">
-							<canvas id="doughnutChart"></canvas>
-						</div>
-						<div class="doughnut-charts">
-							<canvas id="doughnutChart2"></canvas>
-						</div>
-						<div class="breakdownTable">
-							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th scope="col" colspan="3"></th>
-										<th scope="col">Kilowatt-hour (kWh)</th>
-										<th scope="col">Percentage (%)</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td colspan="3"><strong>TOTAL</strong></td>
-										<td><%= @total_kwh %> kWh</td>
-										<td>100.00 %</td>
-									</tr>
-									<tr class="NonRenew">
-										<td></td>
-										<td colspan="2" ><strong>Non Renewables</strong></td>
-										<td><strong><%= @non_renew_kwh %> kWh</strong></td>
-										<td><strong><%= @non_renew_percent %> %</strong></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td style="display:flex;align-items:center;">
-											<div class="Diesel"></div>
-											Diesel</td>
-										<td><%= @diesel_kwh %> kWh</td>
-										<td><%= @diesel_percent %> %</td>
-									</tr>
-									<tr class="Renew">
-										<td></td>
-										<td colspan="2"><strong>Renewables</strong></td>
-										<td><strong><%=@renew_kwh %> kWh</strong></td>
-										<td><strong><%= @renew_percent %> %</strong></td>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td style="display:flex;align-items:center;">
-											<div class="Wind"></div>
-											Wind</td>
-										<td><%= @wind_kwh %> kWh</td>
-										<% if @wind_percent == 0.0 && @wind_kwh > 0.0 %>
-											<td> <0.01 %</td>
-										<% else %>
-											<td><%= @wind_percent %> %</td>
-										<% end %>
-									</tr>
-									<tr>
-										<td></td>
-										<td></td>
-										<td style="display:flex;align-items:center;">
-											<div class="Solar"></div>
-											Solar</td>
-										<td><%= @solar_kwh %> kWh</td>
-										<% if @solar_percent == 0.0 && @solar_kwh > 0.0 %>
-											<td>~<0.01 %</td>
-										<% else %>
-											<td><%= @solar_percent %> %</td>
-										<% end %>
-									</tr>
-								</tbody>
-							</table>
+			<!--Dashboard End-->
+			<!--Row 2 Start-->
+			<div class="row mt-3">
+				<!-- Map -->
+				<div class="col">
+					<div class="card p-3" id="map-card">
+						<div class="card-body">
+							<h3 class="card-title"> Kotzebue, Alaska</h3>
+							<div id="windy"></div>
 						</div>
 					</div>
 				</div>
-				<!-- Button trigger modal -->
-				<div class="p-2 info-button">
-					<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#electricityGenModal">
-						Learn More
-					</button>
-				</div>
-				<!-- Modal -->
-				<div class="modal fade" id="electricityGenModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h1 class="modal-title fs-5" id="electricityGenModalLabel">Electricity Generation</h1>
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-							</div>
-							<div class="modal-body">
-								<p>
-								Kotzebue Electric Association (KEA) currently produces power from diesel, solar, and wind power—the excess energy gets stored in a lithium-ion battery.
-								Currently, 25% of the energy usage in Kotzebue is produced by renewable energy sources, and KEA has a goal of increasing this
-								to 50% within the next five years.							   
-									<br>
-									<br>
-									<strong>Wind Power</strong><br>
-									KEA started generating wind power in 1997, using the first generation “utility-scale” wind turbines.
-									</p>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+				<!-- Battery -->
+				<div class="col">
+					<div class="card p-3 h-100" id="battery-card">
+						<div class="card-body">
+							<h3 class="card-title">State of Battery: <strong>
+									<%= @battery_state %>
+								</strong></h3>
+							<strong>Current state of Charge: </strong>
+							<%= @current_charge %> <br>
+								<strong>Charge one hour ago: </strong>
+								<%= @past_charge %> <br>
+									<div class="battery">
+										<div class="battery-head">
+										</div>
+										<div class="battery-body">
+											<% if @battery_state=="Charging" %>
+											<i class="fas fa-bolt"></i>
+												<div class="charge"></div>
+												<h3 class="z-index-3 position-absolute">
+													<%= @current_charge %> %
+												</h3>
+												<% elsif @battery_state=="Discharging" %>
+													<div class="discharge"></div>
+													<h3>
+														<%= @current_charge %> %
+													</h3>
+													<% else %>
+														<div class="nocharge"></div>
+														<h3>
+															<%= @current_charge %> %
+														</h3>
+														<% end %>
+										</div>
+									</div>
+						</div>
+						<!-- Button trigger modal -->
+						<div class="info-button">
+							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+								data-bs-target="#batteryModal"> Learn More </button>
+						</div>
+						<!-- Modal -->
+						<div class="modal fade" id="batteryModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h1 class="modal-title" id="batteryModalLabel">Battery Information</h1>
+										<button type="button" class="btn btn-primary-close" data-bs-dismiss="modal"
+											aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<p> Kotzebue produces energy from diesel, wind, and solar. The amount of energy
+											produced by the renewables, wind and solar, depends on the wind speed and
+											how sunny it is. This means that there is sometimes excess energy
+											production, which gets stored in a lithium-ion battery. <br>
+											<br> This figure shows how much the battery is currently charged and if it
+											is charging or discharging.
+										</p>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-primary"
+											data-bs-dismiss="modal">Close</button>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<!--Row 3 End-->
-	<!--Row 4 Start-->
-	<div class="row mt-3">
-		<!-- Diesel Savings -->
-		<div class="col-lg">
-			<div class="card card-chart" id="savings-card">
-				<div class="card-header">
-					<h5 class="card-category">Diesel Savings</h5>
-					<h3 class="card-title"><i class="tim-icons icon-money-coins text-success"></i>Diesel Savings</h3>
-				</div>
-				<div class="card-body">
-					<div class="row mt-3">
-						<div class="savings-chart-area pb-4 col-lg-8">
-							<canvas id="savingschart"></canvas>
+			<!--Row 2 End-->
+			<!--Row 3 Start-->
+			<div class="row mt-3">
+				<!-- Electricity Generation Breakdown Doughnut -->
+				<div class="col mb-3">
+					<div class="card p-3 h-100" id="elec-gen-card">
+						<div class="card-body" id="doughnut-card-body">
+							<h3 class="card-title"> Electricity Generation Breakdown</h3>
+							<div class="col">
+								<canvas class="m-auto" id="doughnut-main"></canvas>	
+							</div>
+							<div class="col">
+								<div class="breakdown-table">
+									<table class="table table-hover">
+										<thead>
+											<tr>
+												<th scope="col" colspan="3"></th>
+												<th scope="col">Kilowatt-hour (kWh)</th>
+												<th scope="col">Percentage (%)</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td colspan="3"><strong>TOTAL</strong></td>
+												<td>
+													<%= @total_kwh %> kWh
+												</td>
+												<td>100.00 %</td>
+											</tr>
+											<tr class="non-renew">
+												<td></td>
+												<td colspan="2"><strong>Non Renewables</strong></td>
+												<td><strong>
+														<%= @non_renew_kwh %> kWh
+													</strong></td>
+												<td><strong>
+														<%= @non_renew_percent %> %
+													</strong></td>
+											</tr>
+											<tr>
+												<td></td>
+												<td></td>
+												<td>
+													<div class="diesel"></div>Diesel
+												</td>
+												<td>
+													<%= @diesel_kwh %> kWh
+												</td>
+												<td>
+													<%= @diesel_percent %> %
+												</td>
+											</tr>
+											<tr class="renew">
+												<td></td>
+												<td colspan="2"><strong>Renewables</strong></td>
+												<td><strong>
+														<%=@renew_kwh %> kWh
+													</strong></td>
+												<td><strong>
+														<%= @renew_percent %> %
+													</strong></td>
+											</tr>
+											<tr>
+												<td></td>
+												<td></td>
+												<td>
+													<div class="wind"></div> Wind
+												</td>
+												<td>
+													<%= @wind_kwh %> kWh
+												</td>
+												<% if @wind_percent==0.0 && @wind_kwh> 0.0 %> <td>
+														<0.01 %</td>
+															<% else %>
+													<td>
+														<%= @wind_percent %> %
+													</td>
+													<% end %>
+											</tr>
+											<tr>
+												<td></td>
+												<td></td>
+												<td>
+													<div class="solar"></div> Solar
+												</td>
+												<td>
+													<%= @solar_kwh %> kWh
+												</td>
+												<% if @solar_percent==0.0 && @solar_kwh> 0.0 %> <td>~<0.01 %</td>
+															<% else %>
+													<td>
+														<%= @solar_percent %> %
+													</td>
+													<% end %>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
 						</div>
-						<div class="savingstable col-lg-4">
-							<table class="table table-hover">
-								<thead>
-									<tr>
-										<th scope="col" colspan="3">Time Period</th>
-										<th scope="col">Dollar Savings ($)</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td colspan="3">This year - <%= @current_year %></td>
-										<td>$<%= number_with_precision(@dollar_savings, :precision => 1, :delimiter => ', ') %></td>
-									</tr>
-									<tr class="CurMonth">
-										<td colspan="3">This month - <%= @current_month_str %></td>
-										<td>$<%= number_with_precision(@current_month_dollar_savings, :precision => 1, :delimiter => ', ') %></td>
-									</tr>
-									<tr class="CurDay">
-										<td colspan="3">Today - <%= @day_format %></td>
-										<td>$<%= number_with_precision(@current_daily_dollar_savings, :precision => 1, :delimiter => ', ') %></td>
-									</tr>
-								</tbody>
-							</table>
+						<!-- Button trigger modal -->
+						<div class="info-button">
+							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+								data-bs-target="#elec-gen-modal"> Learn More </button>
+						</div>
+						<!-- Modal -->
+						<div class="modal fade" id="elec-gen-modal" tabindex="-1"
+							aria-labelledby="elec-gen-modal-label" aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<h1 class="modal-title" id="elec-gen-modal-label">Electricity Generation</h1>
+									<button type="button" class="btn btn-primary-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+									<div class="modal-body">
+										<p> Kotzebue Electric Association (KEA) currently produces power from diesel,
+											solar, and wind power—the excess energy gets stored in a lithium-ion
+											battery. Currently, 25% of the energy usage in Kotzebue is produced by
+											renewable energy sources, and KEA has a goal of increasing this to 50%
+											within the next five years. <br>
+											<br>
+											<strong>Wind Power</strong><br> KEA started generating wind power in 1997,
+											using the first generation “utility-scale” wind turbines.
+										</p>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-primary"
+											data-bs-dismiss="modal">Close</button>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-				<!-- Button trigger modal -->
-				<div class="p-2 info-button">
-					<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#savingsModal">
-						Learn More
-					</button>
-				</div>
-				<!-- Modal -->
-				<div class="modal fade" id="savingsModal" tabindex="-1" aria-labelledby="savingsModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h1 class="modal-title fs-5" id="savingsModalLabel">Diesel Savings</h1>
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				<!-- Diesel Savings -->
+				<div class="col mb-3">
+					<div class="card p-3 h-100" id="savings-card">
+						<div class="card-body">
+							<h3 class="card-title">Diesel Savings</h3>
+							<div class="savings-chart-area">
+								<canvas id="savings-chart"></canvas>
 							</div>
-							<div class="modal-body">
-								<p>
-									Kotzebue Electric Association (KEA) has been on the cutting edge of using renewable energy since the early 1990s. 
-									By introducing the renewable energy sources solar and wind power, they have reduced the amount of diesel needed to generate energy. 
-									The introduction of wind power in Kotzebue displaces 250,000 to 300,000 gallons of diesel fuel annually (about 20% of annual power needs). 
-									The excess renewable energy gets saved in the battery, displacing 25, 000 gallons of heating fuel yearly.  
-									<br>
-									<br>
-									By changing from non-renewable energy sources to renewables the cost of producing electricity goes down. This results in money savings that goes towards the community
-									and development in other areas. It also decreases the home electricity bills for KEA members.
-								</p>
+							<div class="savings-table">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th scope="col" colspan="3">Time Period</th>
+											<th scope="col">Dollar Savings ($)</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td colspan="3">This year - <%= @current_year %>
+											</td>
+											<td>$<%= number_with_precision(@dollar_savings, :precision=> 1, :delimiter => ', ') %></td>
+										</tr>
+										<tr class="curr-month">
+											<td colspan="3">This month - <%= @current_month_str %>
+											</td>
+											<td>$<%= number_with_precision(@current_month_dollar_savings, :precision=>
+													1, :delimiter => ', ') %></td>
+										</tr>
+										<tr class="curr-day">
+											<td colspan="3">Today - <%= @day_format %>
+											</td>
+											<td>$<%= number_with_precision(@current_daily_dollar_savings, :precision=>
+													1, :delimiter => ', ') %></td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+						</div>
+						<!-- Button trigger modal -->
+						<div class="info-button">
+							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+								data-bs-target="#savings-modal"> Learn More </button>
+						</div>
+						<!-- Modal -->
+						<div class="modal fade" id="savings-modal" tabindex="-1" aria-labelledby="savings-modal-label"
+							aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h1 class="modal-title" id="savings-modal-label">Diesel Savings</h1>
+										<button type="button" class="btn btn-primary-close" data-bs-dismiss="modal"
+											aria-label="Close"></button>
+									</div>
+									<div class="modal-body">
+										<p> Kotzebue Electric Association (KEA) has been on the cutting edge of using
+											renewable energy since the early 1990s. By introducing the renewable energy
+											sources solar and wind power, they have reduced the amount of diesel needed
+											to generate energy. The introduction of wind power in Kotzebue displaces
+											250,000 to 300,000 gallons of diesel fuel annually (about 20% of annual
+											power needs). The excess renewable energy gets saved in the battery,
+											displacing 25, 000 gallons of heating fuel yearly. <br>
+											<br> By changing from non-renewable energy sources to renewables the cost of
+											producing electricity goes down. This results in money savings that goes
+											towards the community and development in other areas. It also decreases the
+											home electricity bills for KEA members.
+										</p>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-primary"
+											data-bs-dismiss="modal">Close</button>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
-	<!--Row 4 End-->
-	<!--Row 5 Start-->
-	<div class="row mt-3">
-		<!-- Community Usage Chart -->
-		<div class="col ml-auto mr-auto">
-			<div class="card card-chart" id="usage-card">
-				<div class="card-header">
-					<h5 class="card-category">Community</h5>
-					<h3 class="card-title"><i class="tim-icons icon-components text-primary "></i> Community Usage Chart</h3>
-				</div>
-				<div class="card-body">
-					<div id="heatmap"></div>
-				</div>
-				<!-- Button trigger modal -->
-				<div class="p-2 info-button">
-					<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#usageModal">
-						Learn More
-					</button>
-				</div>
-				<!-- Modal -->
-				<div class="modal fade" id="usageModal" tabindex="-1" aria-labelledby="usageModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h1 class="modal-title fs-5" id="usageModalLabel">Community Usage</h1>
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-							</div>
-							<div class="modal-body">
-							Kotzebue Electric Association (KEA) monitors the electricity consumption and generation in Kotzebue. 
-							The chart represents the consumption of the community today. 
-							The color represents the degree of usage with an hour interval.
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-success" data-bs-dismiss="modal">Close</button>
+			<!--Row 3 End-->
+			<!--Row 4 Start-->
+			<div class="row">
+				<!-- Community Usage Chart -->
+				<div class="col">
+					<div class="card p-3" id="usage-card">
+						<h3 class="card-title">Community Usage Chart</h3>
+						<div class="card-body">
+							<div id="heatmap"></div>
+						</div>
+						<!-- Button trigger modal -->
+						<div class="info-button">
+							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+								data-bs-target="#usage-modal"> Learn More </button>
+						</div>
+						<!-- Modal -->
+						<div class="modal fade" id="usage-modal" tabindex="-1" aria-labelledby="usage-modal-label"
+							aria-hidden="true">
+							<div class="modal-dialog">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h1 class="modal-title" id="usage-modal-label">Community Usage</h1>
+										<button type="button" class="btn btn-primary-close" data-bs-dismiss="modal"
+											aria-label="Close"></button>
+									</div>
+									<div class="modal-body"> Kotzebue Electric Association (KEA) monitors the
+										electricity consumption and generation in Kotzebue. The chart represents the
+										consumption of the community today. The color represents the degree of usage
+										with an hour interval. </div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-primary"
+											data-bs-dismiss="modal">Close</button>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+			<!--Row 4 End-->
 		</div>
-	</div>
-	<!--Row 5 End-->
