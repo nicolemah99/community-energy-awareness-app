@@ -3,7 +3,7 @@
 	<head>
 		<title>Community Energy Awareness</title>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<%= csrf_meta_tags %>
 		<%= csp_meta_tag %>
 		<%= include_gon %>
@@ -19,17 +19,16 @@
 		<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 	
 	</head>
-	<body class="sidebar-mini white-content">
-		<div class="wrapper">
+	<body>
 			<%= render partial: "shared/sidebar" %>
-			<div class="main-panel" data="green">
+			<div>
 				<%= render partial: "shared/navbar" %>
-				<div class="content">
+				<div class="dashboard">
 					<%= yield %>
 				</div>
 				<%= render partial: "shared/footer" %>
 			</div>
-		</div>
+	
 		<!--Chart JS -->
 		<script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
 

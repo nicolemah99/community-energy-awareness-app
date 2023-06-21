@@ -1,8 +1,9 @@
 /* Layout */
 
 /* Font */
-body > * {
+body > a {
     text-decoration: none;
+    color: black;
 }
 
 /* */
@@ -10,6 +11,6 @@ body > * {
 /* */
 
 /* Card Style */
-body > *{
-    outline: 5px;
+.card {
+    border-radius: 15px;
 }
