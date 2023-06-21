@@ -24,7 +24,7 @@
 							<h3 class="card-title">Daily Overview</h3>
 							<div class="row">
 								<!-- Battery Percentage -->
-								<div class="col">
+								<div class="col mb-3">
 									<a href="#battery-card">
 										<div class="card p-3 h-100">
 											<div class="card-body">
@@ -39,7 +39,7 @@
 									</a>
 								</div>
 								<!-- Electricity Generation Breakdown -->
-								<div class="col">
+								<div class="col mb-3">
 									<a href="#generation-breakdown-card">
 										<div class="card p-3 h-100">
 											<div class="card-body">
@@ -52,7 +52,7 @@
 									</a>
 								</div>
 								<!-- Weather -->
-								<div class="col">
+								<div class="col mb-3">
 									<a href="#map-card">
 										<div class="card p-3 h-100">
 											<div class="card-body">
@@ -62,7 +62,7 @@
 									</a>
 								</div>
 								<!-- Savings -->
-								<div class="col">
+								<div class="col mb-3">
 									<a href="#savings-card">
 										<div class="card p-3 h-100">
 											<div class="card-body">
@@ -74,7 +74,7 @@
 									</a>
 								</div>
 								<!-- Community Electricity Usage -->
-								<div class="col">
+								<div class="col mb-3">
 									<a href="#usage-card">
 										<div class="card p-3 h-100">
 											<h5 class="card-title">Community Usage</h5>
@@ -94,20 +94,20 @@
 			<div class="row mt-3">
 				<!-- Map -->
 				<div class="col">
-					<div class="card p-3 card-chart" id="map-card">
-						<h3 class="card-title"> Kotzebue, Alaska</h3>
+					<div class="card p-3" id="map-card">
 						<div class="card-body">
+							<h3 class="card-title"> Kotzebue, Alaska</h3>
 							<div id="windy"></div>
 						</div>
 					</div>
 				</div>
 				<!-- Battery -->
 				<div class="col">
-					<div class="card p-3 h-100 card-chart" id="battery-card">
-						<h3 class="card-title">State of Battery: <strong>
-								<%= @battery_state %>
-							</strong></h3>
+					<div class="card p-3 h-100" id="battery-card">
 						<div class="card-body">
+							<h3 class="card-title">State of Battery: <strong>
+									<%= @battery_state %>
+								</strong></h3>
 							<strong>Current state of Charge: </strong>
 							<%= @current_charge %> <br>
 								<strong>Charge one hour ago: </strong>
@@ -174,16 +174,15 @@
 			<div class="row mt-3">
 				<!-- Electricity Generation Breakdown Doughnut -->
 				<div class="col">
-					<div class="card p-3 card-chart" id="generation-breakdown-card">
-						<h3 class="card-title"> Electricity Generation Breakdown</h3>
-						<div class="card-body">
-							<div id="doughbut-card-body">
-								<div class="doughnut-charts">
-									<canvas id="doughnutChart"></canvas>
-								</div>
+					<div class="card p-3 h-100" id="generation-breakdown-card">
+						<div class="card-body" id="doughnut-card-body">
+							<h3 class="card-title"> Electricity Generation Breakdown</h3>
+							<div class="col">
 								<div class="doughnut-charts">
 									<canvas id="doughnutChart2"></canvas>
 								</div>
+							</div>
+							<div class="col">
 								<div class="breakdownTable">
 									<table class="table table-hover">
 										<thead>
@@ -305,49 +304,42 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<!--Row 3 End-->
-			<!--Row 4 Start-->
-			<div class="row mt-3">
 				<!-- Diesel Savings -->
 				<div class="col">
-					<div class="card p-3 card-chart" id="savings-card">
-						<h3 class="card-title">Diesel Savings</h3>
+					<div class="card p-3 h-100" id="savings-card">
 						<div class="card-body">
-							<div class="row">
-								<div class="col savings-chart-area">
-									<canvas id="savingschart"></canvas>
-								</div>
-								<div class="col savingstable">
-									<table class="table table-hover">
-										<thead>
-											<tr>
-												<th scope="col" colspan="3">Time Period</th>
-												<th scope="col">Dollar Savings ($)</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td colspan="3">This year - <%= @current_year %>
-												</td>
-												<td>$<%= number_with_precision(@dollar_savings, :precision=> 1,
-														:delimiter => ', ') %></td>
-											</tr>
-											<tr class="CurMonth">
-												<td colspan="3">This month - <%= @current_month_str %>
-												</td>
-												<td>$<%= number_with_precision(@current_month_dollar_savings,
-														:precision=> 1, :delimiter => ', ') %></td>
-											</tr>
-											<tr class="CurDay">
-												<td colspan="3">Today - <%= @day_format %>
-												</td>
-												<td>$<%= number_with_precision(@current_daily_dollar_savings,
-														:precision=> 1, :delimiter => ', ') %></td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
+							<h3 class="card-title">Diesel Savings</h3>
+							<div class="savings-chart-area">
+								<canvas id="savingschart"></canvas>
+							</div>
+							<div class="savingstable">
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th scope="col" colspan="3">Time Period</th>
+											<th scope="col">Dollar Savings ($)</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td colspan="3">This year - <%= @current_year %>
+											</td>
+											<td>$<%= number_with_precision(@dollar_savings, :precision=> 1, :delimiter => ', ') %></td>
+										</tr>
+										<tr class="CurMonth">
+											<td colspan="3">This month - <%= @current_month_str %>
+											</td>
+											<td>$<%= number_with_precision(@current_month_dollar_savings, :precision=>
+													1, :delimiter => ', ') %></td>
+										</tr>
+										<tr class="CurDay">
+											<td colspan="3">Today - <%= @day_format %>
+											</td>
+											<td>$<%= number_with_precision(@current_daily_dollar_savings, :precision=>
+													1, :delimiter => ', ') %></td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
 						</div>
 						<!-- Button trigger modal -->
@@ -389,12 +381,12 @@
 					</div>
 				</div>
 			</div>
-			<!--Row 4 End-->
-			<!--Row 5 Start-->
+			<!--Row 3 End-->
+			<!--Row 4 Start-->
 			<div class="row mt-3">
 				<!-- Community Usage Chart -->
 				<div class="col">
-					<div class="card p-3 card-chart" id="usage-card">
+					<div class="card p-3" id="usage-card">
 						<h3 class="card-title">Community Usage Chart</h3>
 						<div class="card-body">
 							<div id="heatmap"></div>
@@ -428,4 +420,5 @@
 					</div>
 				</div>
 			</div>
-			<!--Row 5 End-->
+			<!--Row 4 End-->
+		</div>
