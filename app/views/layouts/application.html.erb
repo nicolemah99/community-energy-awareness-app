@@ -24,7 +24,12 @@
 					<%= render partial: "shared/sidebar" %>
 				</div>
 				<div class="col-10">
+				<div class="row text-center sticky-top">
+					<%= render partial: "shared/navbar" %>
+				</div>
+				<div class="row">
 					<%= yield %>
+					</div>
 				</div>
 			</div>
 		</div>
