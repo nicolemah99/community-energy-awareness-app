@@ -2,18 +2,19 @@
 /* */
 /* */
 /* */
-/* */
+/* Fonts */
 
 /* Card Styles */
 
 .banner{
     background-color: lightgrey;
 }
-
+.content-container{
+    min-height: 100vh;
+}
 
 #windy{
     height: 300px;
-
 }
 
 .overview-card:hover{
@@ -21,7 +22,47 @@
     box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 }
 
-html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 100px;
+li {
+	display: inline-block;
+}
+
+.ACEP-logo-sidebar{
+	width: 60%;
+	height: auto;
+}
+
+.img-container{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
+.bi {
+	vertical-align: -0.125em;
+	fill: currentColor;
+}
+
+
+
+
+/* Sidebar */
+
+@media (min-width: 1080px) {
+  .nav-icon {
+    display: none;
   }
+}
+
+@media (max-width: 1080px) {
+  .nav-full {
+    display: none;
+  }
+
+}
+
+.nav-full:hover,
+.nav-icon:hover {
+  background-color: lightgray; /* Change to the desired color for the hover effect */
+  border-radius: 5px;
+}
