@@ -7,7 +7,9 @@
 /* Card Styles */
 
 .banner{
-    background-color: lightgrey;
+    background-color: white;
+    border-bottom: 1px black solid;
+
 }
 .content-container{
     min-height: 100vh;
@@ -53,6 +55,13 @@ li {
         display: none;
     }
 }
+
+@media (min-width: 425px){
+    #hamburger-btn{
+        display: none;
+    }
+}
+
 
 @media (min-width: 1080px) {
   .nav-icon {
