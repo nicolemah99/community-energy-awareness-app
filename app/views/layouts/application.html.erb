@@ -22,10 +22,10 @@
 	<body>
 		<div class="container-fluid">
 			<div class="row align-items-stretch">
-				<div class="col-2 p-0">
+				<div class="col-2 p-0 sidebar">
 					<%= render partial: "shared/sidebar" %>
 				</div>
-				<div class="col-10">
+				<div class="col-10" id="main-container">
 					<div class="row text-center sticky-top">
 						<%= render partial: "shared/navbar" %>
 					</div>
@@ -37,3 +37,22 @@
 		</div>
 	</body>
 </html>
+
+<script>
+	document.addEventListener("DOMContentLoaded", checkScreenSize());
+	function checkScreenSize() {
+		var screenWidth = window.innerWidth; // Get the current screen width
+		var main = document.getElementById('main-container'); // Select the element
+
+		if (screenWidth <= 425) {
+			main.classList.add('col-auto'); // Add class if screen size is less than 425px
+			main.classList.remove('col-10'); // Remove class if screen size is 425px or larger
+		}
+	}
+
+	// Call the function on page load and whenever the window is resized
+	checkScreenSize();
+	window.addEventListener('resize', checkScreenSize);
+
+
+</script>
