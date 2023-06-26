@@ -40,19 +40,21 @@
 
 <script>
 	document.addEventListener("DOMContentLoaded", checkScreenSize());
+	document.addEventListener('resize', checkScreenSize());
+
 	function checkScreenSize() {
 		var screenWidth = window.innerWidth; // Get the current screen width
 		var main = document.getElementById('main-container'); // Select the element
+		var sidebar = document.getElementById('sidebar-column');
 
-		if (screenWidth <= 425) {
-			main.classList.add('col-auto'); // Add class if screen size is less than 425px
-			main.classList.remove('col-10'); // Remove class if screen size is 425px or larger
+		if (screenWidth <= 430) {
+			main.classList.add('col-auto'); // Add class if screen size is less than 430px
+			main.classList.remove('col-10'); // Remove class if screen size is 430px or larger
+		}
+		else if (430 < screenWidth && screenWidth <= 500) {
+			sidebar.classList.add('p-2');
+			sidebar.classList.remove('p-3');
 		}
 	}
-
-	// Call the function on page load and whenever the window is resized
-	checkScreenSize();
-	window.addEventListener('resize', checkScreenSize);
-
-
+	
 </script>

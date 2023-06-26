@@ -1,4 +1,35 @@
 <div class="d-flex justify-content-center align-items-center banner p-3">
-    <button id="hamburger-btn"><span class="material-symbols-outlined" style="font-size: 36px;"> menu </span></button>
     <h1>Kotzebue Electric Association</h1>
+    <nav id="hamburger-btn" class="navigation">
+        <input type="checkbox" id="nav-toggle" class="navigation__checkbox">
+        <label for="nav-toggle" class="navigation__button">
+            <span class="navigation__icon">&nbsp;</span>
+            <span class="material-symbols-outlined" style="font-size: 36px;"> menu </span>
+        </label>
+        <div class="navigation__items">
+            <!-- Place your navigation items here -->
+            <ul class="navigation__list">
+                <li class="navigation__item"><a href="#">Home</a></li>
+                <li class="navigation__item"><a href="#">About</a></li>
+                <li class="navigation__item"><a href="#">Services</a></li>
+                <li class="navigation__item"><a href="#">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
 </div>
+
+
+
+<script>
+    // Close the menu when a navigation item is clicked
+    const navigationItems = document.querySelectorAll('.navigation__item a');
+    navigationItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const navToggle = document.getElementById('nav-toggle');
+            navToggle.checked = false;
+        });
+    });
+
+
+</script>
