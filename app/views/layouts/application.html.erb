@@ -27,8 +27,9 @@
 				</div>
 				<div class="col-10" id="main-container">
 					<div class="row text-center sticky-top">
-						<%= render partial: "shared/navbar" %>
+						<%= render partial: "shared/header" %>
 					</div>
+						<%= render partial: "shared/navbar" %>
 					<div class="row content-container">
 						<%= yield %>
 					</div>
@@ -56,5 +57,22 @@
 			sidebar.classList.remove('p-3');
 		}
 	}
-	
+
+	var slideMenu = document.getElementById("slide-menu");
+	var hamburgerBtn = document.getElementById("hamburger-btn");
+	var isMenuOpen = false;
+
+	hamburgerBtn.addEventListener("click", function () {
+		if (isMenuOpen) {
+			slideMenu.style.left = "-110%";
+		} else {
+			slideMenu.style.left = "0";
+		}
+		isMenuOpen = !isMenuOpen;
+	});
+
+
+
+
+
 </script>
