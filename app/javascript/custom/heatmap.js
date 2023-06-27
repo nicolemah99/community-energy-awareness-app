@@ -1,4 +1,4 @@
-const hourly_kwh = gon.hourly_kwh_usage
+/*const hourly_kwh = gon.hourly_kwh_usage
 document.addEventListener('DOMContentLoaded', renderMap());
 
 function renderMap(){
@@ -124,3 +124,4 @@ function kwh_usage(kwh){
         return "High"
     }
 };
+*/
