@@ -9,13 +9,13 @@
 <script src="https://api.windy.com/assets/map-forecast/libBoot.js"></script>
 
 	<% end %>
-		<div class="container-fluid p-0 text-center">
+		
 			<!-- Title Row -->
-			<div class="row mt-3">
+			<div class="row m-0">
 				<h1>Dashboard</h1>
 			</div>
 			<!--Row 1 Start-->
-			<div class="row mt-3">
+			<div class="row m-0">
 				<!-- Last Updated Time -->
 				<div class="col">
 					<div class="card p-3">
@@ -27,14 +27,14 @@
 			</div>
 			<!--Row 1 End-->
 			<!--Overview Start-->
-			<div class="row mt-3">
+			<div class="row gy-3 m-0">
 				<div class="col">
 					<div class="card">
 						<div class="card-body overview">
 							<h3 class="card-title">Daily Overview</h3>
-							<div class="row">
+							<div class="row gy-3 m-0">
 								<!-- Battery Percentage -->
-								<div class="col mb-3">
+								<div class="col">
 									<a href="#battery-card">
 										<div class="card p-3 h-100">
 											<div class="card-body">
@@ -50,7 +50,7 @@
 									</a>
 								</div>
 								<!-- Electricity Generation Breakdown -->
-								<div class="col mb-3">
+								<div class="col">
 									<a href="#elec-gen-card">
 										<div class="card p-3 h-100">
 											<div class="card-body">
@@ -62,7 +62,7 @@
 									</a>
 								</div>
 								<!-- Weather -->
-								<div class="col mb-3">
+								<div class="col">
 									<a href="#map-card">
 										<div class="card p-3 h-100">
 											<div class="card-body">
@@ -72,7 +72,7 @@
 									</a>
 								</div>
 								<!-- Savings -->
-								<div class="col mb-3">
+								<div class="col">
 									<a href="#savings-card">
 										<div class="card p-3 h-100">
 											<div class="card-body">
@@ -84,7 +84,7 @@
 									</a>
 								</div>
 								<!-- Community Electricity Usage -->
-								<div class="col mb-3">
+								<div class="col">
 									<a href="#usage-card">
 										<div class="card p-3 h-100">
 											<div class="card-body">
@@ -101,9 +101,9 @@
 			</div>
 			<!--Dashboard End-->
 			<!--Row 2 Start-->
-			<div class="row mt-3">
+			<div class="row gy-3 m-0">
 				<!-- Map -->
-				<div class="col mb-3">
+				<div class="col">
 					<div class="card p-3 h-100" id="map-card">
 						<div class="card-body">
 							<h3 class="card-title"> Kotzebue, Alaska</h3>
@@ -112,7 +112,7 @@
 					</div>
 				</div>
 				<!-- Battery -->
-				<div class="col mb-3">
+				<div class="col">
 					<div class="card p-3 h-100" id="battery-card">
 						<div class="card-body">
 							<h3 class="card-title">State of Battery: <strong>
@@ -179,12 +179,12 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			
 			<!--Row 2 End-->
 			<!--Row 3 Start-->
-			<div class="row">
+			
 				<!-- Electricity Generation Breakdown Doughnut -->
-				<div class="col mb-3">
+				<div class="col">
 					<div class="card p-3 h-100" id="elec-gen-card">
 						<div class="card-body" id="doughnut-card-body">
 							<h3 class="card-title"> Electricity Generation Breakdown</h3>
@@ -314,7 +314,7 @@
 					</div>
 				</div>
 				<!-- Diesel Savings -->
-				<div class="col mb-3">
+				<div class="col">
 					<div class="card p-3 h-100" id="savings-card">
 						<div class="card-body">
 							<h3 class="card-title">Diesel Savings</h3>
@@ -389,10 +389,10 @@
 						</div>
 					</div>
 				</div>
-			</div>
+		
 			<!--Row 3 End-->
 			<!--Row 4 Start-->
-			<div class="row">
+			
 				<!-- Community Usage Chart -->
 				<div class="col">
 					<div class="card p-3" id="usage-card">
@@ -428,6 +428,6 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<!--Row 4 End-->
 		</div>
+			<!--Row 4 End-->
+		
