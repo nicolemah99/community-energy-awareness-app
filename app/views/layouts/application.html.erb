@@ -40,37 +40,3 @@
 		</div>
 	</body>
 </html>
-
-<script>
-	document.addEventListener("DOMContentLoaded", checkScreenSize());
-	document.addEventListener("resize", checkScreenSize());
-
-	function checkScreenSize() {
-		var screenWidth = window.innerWidth; // Get the current screen width
-		var main = document.getElementById('main-container'); // Select the element
-		var sidebar = document.getElementById('sidebar-column');
-
-		if (screenWidth <= 768) {
-			main.classList.add('col-auto'); // Add class if screen size is less than 768px
-			main.classList.remove('col-10'); // Remove class if screen size is 768px or larger
-		}
-	}
-
-	var slideMenu = document.getElementById("slide-menu");
-	var hamburgerBtn = document.getElementById("hamburger-btn");
-	var isMenuOpen = false;
-
-	hamburgerBtn.addEventListener("click", function () {
-		if (isMenuOpen) {
-			slideMenu.style.left = "-110%";
-		} else {
-			slideMenu.style.left = "0";
-		}
-		isMenuOpen = !isMenuOpen;
-	});
-
-
-
-
-
-</script>

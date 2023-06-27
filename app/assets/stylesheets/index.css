@@ -14,7 +14,6 @@
     margin-left: 0px;
     margin-right: 0px;
     width: 100vw;
-
 }
 
 .content-container{
@@ -42,48 +41,13 @@
 	align-items: center;
 }
 
-
 .bi {
 	vertical-align: -0.125em;
 	fill: currentColor;
 }
 
-
 li {
   width: auto;
-}
-
-.row{
-  width: 100%;
-}
-
-/* Sidebar */
-
-@media (max-width: 768px){
-    .sidebar{
-        display: none;
-    }
-}
-
- @media (min-width: 768px){
-    #hamburger-btn{
-        display: none;
-    }
-    #hamburger-btn span{
-      display: none;
-    }
-}
-
-@media (min-width: 1025px) {
-  .nav-icon {
-    display: none;
-  }
-}
-
-@media (max-width: 1024px) {
-  .nav-full {
-    display: none;
-  }
 }
 
 .nav-full:hover,
