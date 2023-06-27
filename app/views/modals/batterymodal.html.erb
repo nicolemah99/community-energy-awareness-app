@@ -1,0 +1,18 @@
+<%= turbo_frame_tag "modal" do %>
+    <div class="modalformat">
+    <h1>Battery Information</h1> 
+    <br>
+    <p> Kotzebue produces energy from diesel, wind, and solar. The amount of energy
+											produced by the renewables, wind and solar, depends on the wind speed and
+											how sunny it is. This means that there is sometimes excess energy
+											production, which gets stored in a lithium-ion battery. <br>
+											<br> This figure shows how much the battery is currently charged and if it
+											is charging or discharging.
+	</p>
+        <%= link_to "Cancel", "#", data: {
+          controller: "modals",
+          action: "modals#close"
+        }, class: "close-button" %>
+      </div>
+    </div>
+  <% end %>

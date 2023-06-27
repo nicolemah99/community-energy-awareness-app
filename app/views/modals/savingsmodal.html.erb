@@ -1,0 +1,23 @@
+<%= turbo_frame_tag "modal" do %>
+    <div class="modalformat">
+    <h1>Diesel Savings</h1> 
+    <br>
+    <p> Kotzebue Electric Association (KEA) has been on the cutting edge of using
+											renewable energy since the early 1990s. By introducing the renewable energy
+											sources solar and wind power, they have reduced the amount of diesel needed
+											to generate energy. The introduction of wind power in Kotzebue displaces
+											250,000 to 300,000 gallons of diesel fuel annually (about 20% of annual
+											power needs). The excess renewable energy gets saved in the battery,
+											displacing 25, 000 gallons of heating fuel yearly. <br>
+											<br> By changing from non-renewable energy sources to renewables the cost of
+											producing electricity goes down. This results in money savings that goes
+											towards the community and development in other areas. It also decreases the
+											home electricity bills for KEA members.
+		</p>
+        <%= link_to "Cancel", "#", data: {
+          controller: "modals",
+          action: "modals#close"
+        }, class: "close-button" %>
+      </div>
+    </div>
+  <% end %>

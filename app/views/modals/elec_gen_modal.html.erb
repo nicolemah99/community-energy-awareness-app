@@ -1,0 +1,20 @@
+<%= turbo_frame_tag "modal" do %>
+    <div class="modalformat">
+    <h1>Electricity Generation</h1> 
+    <br>
+    <p> Kotzebue Electric Association (KEA) currently produces power from diesel,
+    solar, and wind power—the excess energy gets stored in a lithium-ion
+    battery. Currently, 25% of the energy usage in Kotzebue is produced by
+    renewable energy sources, and KEA has a goal of increasing this to 50%
+    within the next five years. <br>
+    <br>
+    <strong>Wind Power</strong><br> KEA started generating wind power in 1997,
+    using the first generation “utility-scale” wind turbines.
+	</p>
+        <%= link_to "Cancel", "#", data: {
+          controller: "modals",
+          action: "modals#close"
+        }, class: "close-button" %>
+      </div>
+    </div>
+<% end %>

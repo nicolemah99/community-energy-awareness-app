@@ -1,0 +1,16 @@
+<%= turbo_frame_tag "modal" do %>
+    <div class="modalformat">
+    <h1>Community Usage</h1> 
+    <br>
+    <p> Kotzebue Electric Association (KEA) monitors the
+    electricity consumption and generation in Kotzebue. The chart represents the
+    consumption of the community today. The color represents the degree of usage
+    with an hour interval.
+	</p>
+        <%= link_to "Cancel", "#", data: {
+          controller: "modals",
+          action: "modals#close"
+        }, class: "close-button" %>
+      </div>
+    </div>
+  <% end %>

@@ -24,6 +24,7 @@
 			<div>
 				<%= render partial: "shared/navbar" %>
 				<div class="dashboard">
+					<%= turbo_frame_tag "modal" %>
 					<%= yield %>
 				</div>
 				<%= render partial: "shared/footer" %>
