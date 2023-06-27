@@ -30,9 +30,9 @@ function toggleHamburgerMenu() {
 function handleScreenSizeChange() {
 	// Get references to elements that will be modified
 	var main = document.getElementById("main-container");
-	var sidebar = document.querySelector(".sidebar");
-	var navIcons = document.querySelectorAll(".nav-icon");
-	var navFulls = document.querySelectorAll(".nav-full");
+	var sidebar = document.getElementById("sidebar");
+	var navIcons = document.getElementsByClassName("nav-icon");
+	var navFulls = document.getElementsByClassName("nav-full");
 
 	if (maxWidth768.matches) {
 		// Code for screens with a maximum width of 768px
@@ -49,12 +49,14 @@ function handleScreenSizeChange() {
 	}
 
 	// Iterate over navIcons and adjust display based on screen size
-	navIcons.forEach(function (icon) {
+	var navIconsArray = [...navIcons];
+	navIconsArray.forEach(function (icon) {
 		icon.style.display = minWidth1025.matches ? "none" : "block";
 	});
 
 	// Iterate over navFulls and adjust display based on screen size
-	navFulls.forEach(function (full) {
+	var navFullsArray = [...navFulls]
+	navFullsArray.forEach(function (full) {
 		full.style.display = maxWidth1024.matches ? "none" : "block";
 	});
 	
