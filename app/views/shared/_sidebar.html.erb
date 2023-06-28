@@ -7,16 +7,10 @@
         <hr>
         <ul class="nav nav-pills flex-column">
             <li class="nav-full">
-                <%= link_to root_path, class: "nav-link text-white nav-name d-flex align-items-center #{'active' if current_page?(root_path)}" do %> <span class="material-symbols-outlined me-2"> dashboard </span>Dashboard <% end %>
-            </li>
-            <li class="nav-icon ">
-                <%= link_to root_path, class: "nav-link text-white nav-name d-flex align-items-center justify-content-center #{'active' if current_page?(root_path)}" do %><span class="material-symbols-outlined"> dashboard </span><% end %>
+                <%= link_to root_path, class: "nav-link text-white nav-name d-flex align-items-center #{'active' if current_page?(root_path)}" do %> <span class="material-symbols-outlined me-2"> dashboard </span><div class="nav-name">Dashboard</div><% end %>
             </li>
             <li class="nav-full">
-                <%= link_to about_path, class: "nav-link text-white nav-name d-flex align-items-center #{'active' if current_page?(about_path)}" do %><span class="material-symbols-outlined me-2"> group </span>About<% end %>
-            </li>
-            <li class="nav-icon">
-                <%= link_to about_path, class: "nav-link text-white nav-name d-flex align-items-center justify-content-center #{'active' if current_page?(about_path)}" do %><span class="material-symbols-outlined"> group </span><% end %>
+                <%= link_to about_path, class: "nav-link text-white nav-name d-flex align-items-center #{'active' if current_page?(about_path)}" do %><span class="material-symbols-outlined me-2"> group </span><div class="nav-name">About</div><% end %>
             </li>
         </ul>
     </div>
