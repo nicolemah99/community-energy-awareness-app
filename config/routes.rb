@@ -5,4 +5,8 @@ Rails.application.routes.draw do
   # root "articles#index"
   root 'main#index'
   get '/about', to: 'main#about'
+  get "modals/com_usage_modal"
+  get "modals/elec_gen_modal"
+  get "modals/savingsmodal"
+  get "modals/batterymodal"
 end
