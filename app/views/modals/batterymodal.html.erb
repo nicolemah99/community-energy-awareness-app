@@ -1,18 +1,30 @@
 <%= turbo_frame_tag "modal" do %>
-    <div class="modalformat">
-    <h1>Battery Information</h1> 
-    <br>
-    <p> Kotzebue produces energy from diesel, wind, and solar. The amount of energy
-											produced by the renewables, wind and solar, depends on the wind speed and
-											how sunny it is. This means that there is sometimes excess energy
-											production, which gets stored in a lithium-ion battery. <br>
-											<br> This figure shows how much the battery is currently charged and if it
-											is charging or discharging.
-	</p>
+  <div class="modalformat"> 
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title"> Battery Information</h1>
+        <h5>
+          <%= button_to "", "#", data: {
+              controller: "modals",
+              action: "modals#close"
+            }, class: "btn-close" %> 
+        </h5>
+      </div>
+      <div class="modal-body">  
+        Kotzebue produces energy from diesel, wind, and solar. The amount of energy
+        produced by the renewables, wind and solar, depends on the wind speed and
+        how sunny it is. This means that there is sometimes excess energy
+        production, which gets stored in a lithium-ion battery. <br>
+        <br> This figure shows how much the battery is currently charged and if it
+        is charging or discharging.
+      </div>
+      <br>
+      <div class="modal-footer">            
         <%= link_to "Cancel", "#", data: {
           controller: "modals",
           action: "modals#close"
-        }, class: "close-button" %>
+        }, class: "btn btn-primary" %>
       </div>
     </div>
-  <% end %>
+  </div>
+<% end %>
