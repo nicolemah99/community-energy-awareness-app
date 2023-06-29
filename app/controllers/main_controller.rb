@@ -96,4 +96,22 @@ class MainController < ApplicationController
 
     end
 
+    def data
+        current_time = DateTime.now
+        current_hour = current_time.strftime "2021-%m-%d %H:00:00"
+        past_hour = (Time.parse(current_hour) - 60 * 60).strftime "%2021-%m-%d %H:00:00"
+
+        @current_record_breakdown = GenerationBreakdown.find_by dateTime: past_hour
+        solar_kwh = @current_record_breakdown.solar.round(1)
+        wind_kwh = @current_record_breakdown.wind.round(1)
+        diesel_kwh = @current_record_breakdown.nonRenew.round(1)
+
+        respond_to do |format|
+        format.json {
+            render json: {wind_kwh: wind_kwh, solar_kwh: solar_kwh, diesel_kwh: diesel_kwh}
+        }
+    end
+end
+
+
 end
