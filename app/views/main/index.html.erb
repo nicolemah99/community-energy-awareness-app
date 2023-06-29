@@ -118,29 +118,32 @@
 							<%= @current_charge %> <br>
 								<strong>Charge one hour ago: </strong>
 								<%= @past_charge %> <br>
-									<div class="battery">
-										<div class="battery-head">
-										</div>
-										<div class="battery-body">
-											<% if @battery_state=="Charging" %>
-											<i class="fas fa-bolt"></i>
-												<div class="charge"></div>
-												<h3 class="z-index-3 position-absolute">
+								<br>
+								<div class="battery-container">
+								<div class="battery">
+									<div class="battery-head">
+									</div>
+									<div class="battery-body">
+										<% if @battery_state=="Charging" %>
+										<i class="fas fa-bolt"></i>
+											<div class="charge"></div>
+											<h3 class="z-index-3 position-relative">
+												<%= @current_charge %> %
+											</h3>
+											<% elsif @battery_state=="Discharging" %>
+												<div class="discharge"></div>
+												<h3 class="z-index-3 position-absolute top-50 start-50 translate-middle">
 													<%= @current_charge %> %
 												</h3>
-												<% elsif @battery_state=="Discharging" %>
-													<div class="discharge"></div>
-													<h3>
-														<%= @current_charge %> %
-													</h3>
-												<% else %>
-													<div class="nocharge"></div>
-													<h3>
-														<%= @current_charge %> %
-													</h3>
-												<% end %>
-										</div>
+											<% else %>
+												<div class="nocharge"></div>
+												<h3 class="z-index-1 position-absolute top-50 start-50 translate-middle">
+													<%= @current_charge %> %
+												</h3>
+											<% end %>
 									</div>
+								</div>
+							</div>
 						</div>
 						<!-- Button trigger modal -->
 						<div class="info-button">
@@ -149,7 +152,7 @@
 						</div>
 					</div>
 				</div>
-			
+			</div>
 			<!--Row 2 End-->
 			<!--Row 3 Start-->
 			
