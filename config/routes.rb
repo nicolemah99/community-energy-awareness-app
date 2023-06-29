@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   # root "articles#index"
   root 'main#index'
   get '/about', to: 'main#about'
+  get 'dashboard_data', to: 'main#data'
 end

@@ -1,6 +1,9 @@
 // Use the turbolinks:load event instead of DOMContentLoaded
-document.addEventListener("turbolinks:load", handleScreenSizeChange);
+document.addEventListener("DOMContentLoaded", handleScreenSizeChange);
+document.addEventListener("turbolinks:before-render", handleScreenSizeChange);
 window.addEventListener("resize", handleScreenSizeChange);
+document.addEventListener("turbolinks:load", handleScreenSizeChange);
+
 
 // Get references to the slide menu and hamburger button
 var slideMenu;
@@ -31,13 +34,13 @@ function handleScreenSizeChange() {
 		sidebar.style.display = "none"; // Hide the sidebar
 		main.classList.add("col-auto"); // Add class for smaller screen size
 		main.classList.remove("col-10"); // Remove class for larger screen size
-		hamburgerBtn.style.display = "block"; // Show the hamburger button
+		hamburgerBtn.classList.remove("d-none"); // Show the hamburger button
 	} else {
 		// Code for screens larger than 768px
 		sidebar.style.display = "block"; // Show the sidebar
 		main.classList.remove("col-auto"); // Remove class for smaller screen size
 		main.classList.add("col-10"); // Add class for larger screen size
-		hamburgerBtn.style.display = "none"; // Hide the hamburger button
+		hamburgerBtn.classList.add("d-none"); // Hide the hamburger button
 	}
 
 	// Iterate over navNames and adjust display based on screen size
