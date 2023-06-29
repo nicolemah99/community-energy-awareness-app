@@ -103,8 +103,7 @@
 				<div class="col">
 					<div class="card p-3 h-100" id="map-card">
 						<div class="card-body">
-							<h3 class="card-title"> Kotzebue, Alaska</h3>
-							
+              <h3 class="card-title"> Kotzebue, Alaska</h3>
 						</div>
 					</div>
 				</div>
@@ -119,64 +118,41 @@
 							<%= @current_charge %> <br>
 								<strong>Charge one hour ago: </strong>
 								<%= @past_charge %> <br>
-									<div class="battery">
-										<div class="battery-head">
-										</div>
-										<div class="battery-body">
-											<% if @battery_state=="Charging" %>
-											<i class="fas fa-bolt"></i>
-												<div class="charge"></div>
-												<h3 class="z-index-3 position-absolute">
+								<br>
+								<div class="battery-container">
+								<div class="battery">
+									<div class="battery-head">
+									</div>
+									<div class="battery-body">
+										<% if @battery_state=="Charging" %>
+										<i class="fas fa-bolt"></i>
+											<div class="charge"></div>
+											<h3 class="z-index-3 position-relative">
+												<%= @current_charge %> %
+											</h3>
+											<% elsif @battery_state=="Discharging" %>
+												<div class="discharge"></div>
+												<h3 class="z-index-3 position-absolute top-50 start-50 translate-middle">
 													<%= @current_charge %> %
 												</h3>
-												<% elsif @battery_state=="Discharging" %>
-													<div class="discharge"></div>
-													<h3>
-														<%= @current_charge %> %
-													</h3>
-													<% else %>
-														<div class="nocharge"></div>
-														<h3>
-															<%= @current_charge %> %
-														</h3>
-														<% end %>
-										</div>
-									</div>
-						</div>
-						<!-- Button trigger modal -->
-						<div class="info-button">
-							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-								data-bs-target="#batteryModal"> Learn More </button>
-						</div>
-						<!-- Modal -->
-						<div class="modal fade" id="batteryModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-							aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h1 class="modal-title" id="batteryModalLabel">Battery Information</h1>
-										<button type="button" class="btn btn-primary-close" data-bs-dismiss="modal"
-											aria-label="Close"></button>
-									</div>
-									<div class="modal-body">
-										<p> Kotzebue produces energy from diesel, wind, and solar. The amount of energy
-											produced by the renewables, wind and solar, depends on the wind speed and
-											how sunny it is. This means that there is sometimes excess energy
-											production, which gets stored in a lithium-ion battery. <br>
-											<br> This figure shows how much the battery is currently charged and if it
-											is charging or discharging.
-										</p>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-primary"
-											data-bs-dismiss="modal">Close</button>
+											<% else %>
+												<div class="nocharge"></div>
+												<h3 class="z-index-1 position-absolute top-50 start-50 translate-middle">
+													<%= @current_charge %> %
+												</h3>
+											<% end %>
 									</div>
 								</div>
 							</div>
 						</div>
+						<!-- Button trigger modal -->
+						<div class="info-button">
+							<%= link_to 'Learn More', modals_batterymodal_path, data: { turbo_frame: "modal" }, class: "btn btn-primary" %>
+						</div>
+						</div>
 					</div>
 				</div>
-			
+			</div>
 			<!--Row 2 End-->
 			<!--Row 3 Start-->
 			
@@ -279,34 +255,7 @@
 						</div>
 						<!-- Button trigger modal -->
 						<div class="info-button">
-							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-								data-bs-target="#elec-gen-modal"> Learn More </button>
-						</div>
-						<!-- Modal -->
-						<div class="modal fade" id="elec-gen-modal" tabindex="-1"
-							aria-labelledby="elec-gen-modal-label" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<h1 class="modal-title" id="elec-gen-modal-label">Electricity Generation</h1>
-									<button type="button" class="btn btn-primary-close" data-bs-dismiss="modal"
-										aria-label="Close"></button>
-									<div class="modal-body">
-										<p> Kotzebue Electric Association (KEA) currently produces power from diesel,
-											solar, and wind power—the excess energy gets stored in a lithium-ion
-											battery. Currently, 25% of the energy usage in Kotzebue is produced by
-											renewable energy sources, and KEA has a goal of increasing this to 50%
-											within the next five years. <br>
-											<br>
-											<strong>Wind Power</strong><br> KEA started generating wind power in 1997,
-											using the first generation “utility-scale” wind turbines.
-										</p>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-primary"
-											data-bs-dismiss="modal">Close</button>
-									</div>
-								</div>
-							</div>
+							<%= link_to 'Learn More', modals_elec_gen_modal_path, data: { turbo_frame: "modal" }, class: "btn btn-primary" %>
 						</div>
 					</div>
 				</div>
@@ -350,39 +299,7 @@
 						</div>
 						<!-- Button trigger modal -->
 						<div class="info-button">
-							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-								data-bs-target="#savings-modal"> Learn More </button>
-						</div>
-						<!-- Modal -->
-						<div class="modal fade" id="savings-modal" tabindex="-1" aria-labelledby="savings-modal-label"
-							aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h1 class="modal-title" id="savings-modal-label">Diesel Savings</h1>
-										<button type="button" class="btn btn-primary-close" data-bs-dismiss="modal"
-											aria-label="Close"></button>
-									</div>
-									<div class="modal-body">
-										<p> Kotzebue Electric Association (KEA) has been on the cutting edge of using
-											renewable energy since the early 1990s. By introducing the renewable energy
-											sources solar and wind power, they have reduced the amount of diesel needed
-											to generate energy. The introduction of wind power in Kotzebue displaces
-											250,000 to 300,000 gallons of diesel fuel annually (about 20% of annual
-											power needs). The excess renewable energy gets saved in the battery,
-											displacing 25, 000 gallons of heating fuel yearly. <br>
-											<br> By changing from non-renewable energy sources to renewables the cost of
-											producing electricity goes down. This results in money savings that goes
-											towards the community and development in other areas. It also decreases the
-											home electricity bills for KEA members.
-										</p>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-primary"
-											data-bs-dismiss="modal">Close</button>
-									</div>
-								</div>
-							</div>
+							<%= link_to 'Learn More', modals_savingsmodal_path, data: { turbo_frame: "modal" }, class: "btn btn-primary" %>
 						</div>
 					</div>
 				</div>
@@ -399,29 +316,7 @@
 						</div>
 						<!-- Button trigger modal -->
 						<div class="info-button">
-							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-								data-bs-target="#usage-modal"> Learn More </button>
-						</div>
-						<!-- Modal -->
-						<div class="modal fade" id="usage-modal" tabindex="-1" aria-labelledby="usage-modal-label"
-							aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h1 class="modal-title" id="usage-modal-label">Community Usage</h1>
-										<button type="button" class="btn btn-primary-close" data-bs-dismiss="modal"
-											aria-label="Close"></button>
-									</div>
-									<div class="modal-body"> Kotzebue Electric Association (KEA) monitors the
-										electricity consumption and generation in Kotzebue. The chart represents the
-										consumption of the community today. The color represents the degree of usage
-										with an hour interval. </div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-primary"
-											data-bs-dismiss="modal">Close</button>
-									</div>
-								</div>
-							</div>
+							<%= link_to 'Learn More', modals_com_usage_modal_path, data: { turbo_frame: "modal" }, class: "btn btn-primary" %>
 						</div>
 					</div>
 				</div>
