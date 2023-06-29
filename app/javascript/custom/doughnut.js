@@ -15,7 +15,6 @@ function getData() {
 			solarKwh = json.solar_kwh;
 			dieselKwh = json.diesel_kwh;
 
-			console.log("Data fetched successfully"); // Debug log
 			return { success: true };
 		})
 		.catch((e) => {

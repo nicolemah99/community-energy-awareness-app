@@ -1,9 +1,6 @@
 // Use the turbolinks:load event instead of DOMContentLoaded
-document.addEventListener("DOMContentLoaded", handleScreenSizeChange);
-document.addEventListener("turbolinks:before-render", handleScreenSizeChange);
+document.addEventListener("DOMContentLoaded",handleScreenSizeChange);
 window.addEventListener("resize", handleScreenSizeChange);
-document.addEventListener("turbolinks:load", handleScreenSizeChange);
-
 
 // Get references to the slide menu and hamburger button
 var slideMenu;
