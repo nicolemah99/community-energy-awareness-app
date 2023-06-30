@@ -33,7 +33,7 @@
 								<!-- Battery Percentage -->
 								<div class="col">
 									<a href="#battery-card">
-										<div class="card p-3 h-100">
+										<div class="card p-3 h-100 overview-card">
 											<div class="card-body">
 												<h5 class="card-title">Battery Percentage</h5>
 												<h1>
@@ -49,7 +49,7 @@
 								<!-- Electricity Generation Breakdown -->
 								<div class="col">
 									<a href="#elec-gen-card">
-										<div class="card p-3 h-100">
+										<div class="card p-3 h-100 overview-card">
 											<div class="card-body">
 												<h5 class="card-title">Electricity Generation Breakdown</h5>
 												<canvas id="doughnut-overview"></canvas>
@@ -61,7 +61,7 @@
 								<!-- Weather -->
 								<div class="col">
 									<a href="#map-card">
-										<div class="card p-3 h-100">
+										<div class="card p-3 h-100 overview-card">
 											<div class="card-body">
 												<h5 class="card-title">Weather</h5>
 											</div>
@@ -71,7 +71,7 @@
 								<!-- Savings -->
 								<div class="col">
 									<a href="#savings-card">
-										<div class="card p-3 h-100">
+										<div class="card p-3 h-100 overview-card">
 											<div class="card-body">
 												<h5 class="card-title">Savings</h5>
 												<h1>$ <%= number_with_precision(@current_daily_dollar_savings,
@@ -83,7 +83,7 @@
 								<!-- Community Electricity Usage -->
 								<div class="col">
 									<a href="#usage-card">
-										<div class="card p-3 h-100">
+										<div class="card p-3 h-100 overview-card">
 											<div class="card-body">
 												<h5 class="card-title">Community Usage</h5>
 												<h1><%= @total_kwh %> kWh</h1>
