@@ -14,6 +14,7 @@ function getData() {
 			windKwh = json.wind_kwh;
 			solarKwh = json.solar_kwh;
 			dieselKwh = json.diesel_kwh;
+			console.log("Successful");
 
 			return { success: true };
 		})
@@ -25,6 +26,7 @@ function getData() {
 
 // Draw chart after data is fetched
 function drawChart() {
+	console.log(solarKwh,windKwh,dieselKwh);
 	const elecGenMain = document.getElementById("doughnut-main");
 	const elecGenOverview = document.getElementById("doughnut-overview");
 
@@ -62,14 +64,7 @@ function drawChart() {
 	window.chartOverview = new Chart(elecGenOverview, configDoughnut);
 }
 
-// Call drawChart() on page load
-document.addEventListener("DOMContentLoaded", reloadCharts);
-
-// Call drawChart() when the window is resized
-window.addEventListener("resize", drawChart);
-
-// Call drawChart() when the fetch is successful
-function reloadCharts() {
+function loadCharts() {
 	getData().then((result) => {
 		if (result.success) {
 			drawChart();
@@ -78,4 +73,17 @@ function reloadCharts() {
 		}
 	});
 }
+
+document.addEventListener("turbolinks:load", function () {
+	console.log("Turbolinks load event fired");
+});
+
+
+document.addEventListener("DOMContentLoaded", loadCharts); //This works
+
+// Call drawChart() when the window is resized
+window.addEventListener("resize", drawChart); //This works
+
+
+
 
