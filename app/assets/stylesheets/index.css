@@ -13,7 +13,7 @@
     --body-color: #E4E9F7;
     --sidebar-color: #FFF;
     --primary-color: #695CFE;
-    --primary-color-light: #F6F5FF;
+    --primary-color-light: #efedff;
     --toggle-color: #DDD;
     --text-color: #707070;
 
@@ -203,11 +203,16 @@ body.dark .sidebar header .toggle{
   padding: 0px;
 }
 
-.sidebar li a:hover{
+.sidebar li a.active{
     background-color: var(--primary-color);
 }
-.sidebar li a:hover .icon,
-.sidebar li a:hover .text{
+
+.sidebar li a:hover{
+    background-color: var(--primary-color-light);
+}
+
+.sidebar li a.active .icon,
+.sidebar li a.active .text{
     color: var(--sidebar-color);
 }
 body.dark .sidebar li a:hover .icon,
@@ -313,12 +318,6 @@ body.dark .home .text{
     color: var(--text-color);
 }
 
-h1{
-  text-align: center;
-  flex-grow: 1;
-  padding: 0 20px;
-  overflow-wrap: break-word;
-}
 .banner{
     background-color: white;
     display: flex;
@@ -351,10 +350,6 @@ h1{
 
 #content-div{
   min-height: 100vh;
-}
-.nav-full:hover{
-  background-color: lightgray; /* Change to the desired color for the hover effect */
-  border-radius: 0.375rem;
 }
 
 #hamburger-btn {

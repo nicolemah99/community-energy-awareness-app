@@ -20,13 +20,13 @@
             <ul class="menu-links">
                 <li class="nav-link">
                     <%= link_to root_path,
-                        class: "nav-link #{'active' if current_page?(root_path)}" do %> <i class='bx bx-home-alt icon'></i>
+                        class: "#{'active' if current_page?(root_path)}" do %> <i class='bx bx-home-alt icon'></i>
                         <span class="text nav-text">Dashboard</span>
                         <% end %>
                         
                 </li>
                 <li class="nav-link">
-                    <%= link_to about_path, class: "nav-link #{'active' if current_page?(about_path)}" do %> <i
+                    <%= link_to about_path, class: "#{'active' if current_page?(about_path)}" do %> <i
                             class='bx bx-group icon'></i>
                         <span class="text nav-text">About</span>
                         <% end %>
@@ -57,6 +57,7 @@
         modeText = body.querySelector(".mode-text");
     toggle.addEventListener("click", () => {
         sidebar.classList.toggle("close");
+        toggle.style.transform = "rotate(180)"; 
     })
     searchBtn.addEventListener("click", () => {
         sidebar.classList.remove("close");
