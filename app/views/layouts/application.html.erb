@@ -20,24 +20,27 @@
 		<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 	</head>
 	<body>
+		<%= render partial: "shared/sidebar" %>
+		<section class="home">
+			<div class="text">Kotzebue</div>
 		<div class="container-fluid p-0">
 			<div class="row m-0">
-				<div class="col-2 p-0" id="sidebar">
-					<%= render partial: "shared/sidebar" %>
-				</div>
-				<div class="col-10 p-0" id="main-container">
+				<div class="col-auto p-0" id="main-container">
 					<div class="row m-0 text-center sticky-top">
 						<%= render partial: "shared/header" %>
 					</div>
 					<%= render partial: "shared/navbar" %>
-					<div class="row p-0 m-0">
-						<div id="content-div" class="container-fluid m-0 p-3 text-center">
-							<%= yield %>
-							<%= turbo_frame_tag "modal" %>
+						<div class="row p-0 m-0">
+							<div id="content-div" class="container-fluid m-0 p-3 text-center">
+								<%= yield %>
+									<%= turbo_frame_tag "modal" %>
+							</div>
 						</div>
-					</div>
 				</div>
 			</div>
 		</div>
+
+		</section>
+
 	</body>
 </html>

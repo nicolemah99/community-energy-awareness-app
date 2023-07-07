@@ -1,22 +1,3 @@
-<!-- <aside class="h-100">
-    <div id="sidebar-column" class="p-3 justify-content-center text-bg-dark h-100">
-        
-            <a href="https://www.uaf.edu/acep/" class="text-white text-decoration-none img-container">
-                <%= image_tag ("ACEP-logo.png"), class: "ACEP-logo-sidebar m-3" %>
-            </a>
-        <hr>
-        <ul class="nav nav-pills flex-column">
-            <li class="nav-full">
-                <%= link_to root_path, class: "nav-link text-white nav-name d-flex align-items-center #{'active' if current_page?(root_path)}" do %> <span class="material-symbols-outlined me-2"> dashboard </span><div class="nav-name">Dashboard</div><% end %>
-            </li>
-            <li class="nav-full">
-                <%= link_to about_path, class: "nav-link text-white nav-name d-flex align-items-center #{'active' if current_page?(about_path)}" do %><span class="material-symbols-outlined me-2"> group </span><div class="nav-name">About</div><% end %>
-            </li>
-        </ul>
-    </div>
-    
-</aside>
--->
 <nav class="sidebar close">
     <header>
         <div class="image-text">
@@ -24,7 +5,7 @@
                 <%= image_tag ("ACEP-logo.png")%>
             </span>
             <div class="text logo-text">
-                <span class="name">Community Energy Awareness</span>
+                <span class="name">CEA</span>
                 <span class="profession">ACEP</span>
             </div>
         </div>
@@ -66,9 +47,7 @@
         </div>
     </div>
 </nav>
-<section class="home">
-    <div class="text">Dashboard Sidebar</div>
-</section>
+
 <script>
     const body = document.querySelector('body'),
         sidebar = body.querySelector('nav'),
