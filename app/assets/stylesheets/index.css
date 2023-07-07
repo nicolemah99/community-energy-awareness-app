@@ -1,7 +1,4 @@
 /* Stylesheet for Entire Dashboard */
-/* */
-/* */
-/*  */
 /* Google Font Import - Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 *{
@@ -28,7 +25,6 @@
 }
 
 body{
-    min-height: 100vh;
     background-color: var(--body-color);
     transition: var(--tran-05);
 }
@@ -121,6 +117,7 @@ header .image-text .name {
     margin-top: 2px;
     font-size: 18px;
     font-weight: 600;
+    word-wrap: break-word;
 }
 
 header .image-text .profession{
@@ -200,6 +197,10 @@ body.dark .sidebar header .toggle{
     border-radius: 6px;
     text-decoration: none;
     transition: var(--tran-03);
+}
+
+.sidebar .menu-links{
+  padding: 0px;
 }
 
 .sidebar li a:hover{
@@ -342,26 +343,10 @@ h1{
     box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
 }
 
-.ACEP-logo-sidebar{
-	width: 70%;
-	height: auto;
-}
-
 .img-container{
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
-
-.bi {
-	vertical-align: -0.125em;
-	fill: currentColor;
-}
-
-li {
-  justify-content: center;
-  align-items: center;
-  width: auto;
 }
 
 #content-div{
