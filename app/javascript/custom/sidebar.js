@@ -1,6 +1,4 @@
-/** 
 // Use the turbolinks:load event instead of DOMContentLoaded
-document.addEventListener("DOMContentLoaded",handleScreenSizeChange);
 window.addEventListener("resize", handleScreenSizeChange);
 
 // Get references to the slide menu and hamburger button
@@ -10,73 +8,62 @@ var isMenuOpen = false;
 
 // Media queries for different screen sizes
 var maxWidth768 = window.matchMedia("(max-width: 768px)");
-var minWidth1025 = window.matchMedia("(min-width: 1025px)");
-var maxWidth1024 = window.matchMedia("(max-width: 1024px)");
 
-
- * Handles the screen size change event and adjusts the layout and display based on the screen size.
+// Handles the screen size change event and adjusts the layout and display based on the screen size.
 
 function handleScreenSizeChange() {
 	// Get references to elements that will be modified
-	slideMenu = document.getElementById("slide-menu");
-	hamburgerBtn = document.getElementById("hamburger-btn");
-	hamburgerBtn.removeEventListener("click", toggleHamburgerMenu);
-	hamburgerBtn.addEventListener("click", toggleHamburgerMenu);
-
-	var main = document.getElementById("main-container");
-	var sidebar = document.getElementById("sidebar");
-	var navNames = document.getElementsByClassName("nav-name");
 
 	if (maxWidth768.matches) {
-		// Code for screens with a maximum width of 768px
-		sidebar.style.display = "none"; // Hide the sidebar
-		main.classList.add("col-auto"); // Add class for smaller screen size
-		main.classList.remove("col-10"); // Remove class for larger screen size
-		hamburgerBtn.classList.remove("d-none"); // Show the hamburger button
+		// For screens smaller than 768px
+		
 	} else {
-		// Code for screens larger than 768px
-		sidebar.style.display = "block"; // Show the sidebar
-		main.classList.remove("col-auto"); // Remove class for smaller screen size
-		main.classList.add("col-10"); // Add class for larger screen size
-		hamburgerBtn.classList.add("d-none"); // Hide the hamburger button
+		// For screens larger than 768px
 	}
-
-	// Iterate over navNames and adjust display based on screen size
-	var navNamesArray = [...navNames];
-	navNamesArray.forEach(function (name) {
-		name.style.display = maxWidth1024.matches ? "none" : "block";
-	});
 }
 
-/**
- * Toggles the hamburger menu open or closed.
- 
+// Toggles the hamburger menu open or closed.
+
 function toggleHamburgerMenu() {
 	// Toggle the menu open or closed based on the current state
 	slideMenu.style.left = isMenuOpen ? "-110%" : "0";
 	isMenuOpen = !isMenuOpen;
 }
-*/
 
-
-
+//Add event listeners for sidebar everytime a new page loads
 document.addEventListener("turbo:load", () => {
+	// Select the body element
 	const body = document.body;
+
+	// Select the sidebar element
 	const sidebar = document.querySelector("nav");
+
+	// Select the toggle element
 	const toggle = document.querySelector(".toggle");
+
+	// Select the mode switch element
 	const modeSwitch = document.querySelector(".toggle-switch");
+
+	// Select the mode text element
 	const modeText = document.querySelector(".mode-text");
 
+	// Event listener for toggle click
 	toggle.addEventListener("click", () => {
+		// Toggle the 'close' class on the sidebar element
 		sidebar.classList.toggle("close");
+
+		// Rotate the toggle element 180 degrees
 		toggle.style.transform = "rotate(180)";
 	});
 
+	// Event listener for mode switch click
 	modeSwitch.addEventListener("click", () => {
+		// Toggle the 'dark' class on the body element
 		body.classList.toggle("dark");
+
+		// Update the mode text based on the body class
 		modeText.innerText = body.classList.contains("dark")
 			? "Light mode"
 			: "Dark mode";
 	});
 });
-

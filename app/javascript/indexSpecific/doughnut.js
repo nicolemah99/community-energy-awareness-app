@@ -1,6 +1,14 @@
+// Global variables to hold power production data
 let windKwh;
 let solarKwh;
 let dieselKwh;
+
+/**
+ * Fetch data from /dashboard_data.json, update global variables and return a promise
+ * @return {Promise<{success: boolean, error?: string}>}
+ *         A promise that resolves with an object indicating whether the fetch operation was successful,
+ *         and an error message when it was not successful.
+ */
 
 function getData() {
 	return fetch("/dashboard_data.json")
@@ -14,8 +22,6 @@ function getData() {
 			windKwh = json.wind_kwh;
 			solarKwh = json.solar_kwh;
 			dieselKwh = json.diesel_kwh;
-			console.log("Successful");
-
 			return { success: true };
 		})
 		.catch((e) => {
@@ -24,11 +30,15 @@ function getData() {
 		});
 }
 
-// Draw chart after data is fetched
+/**
+ * Draw doughnut chart using fetched data after checking whether elements exist
+ */
 function drawChart() {
-	console.log(solarKwh,windKwh,dieselKwh);
 	const elecGenMain = document.getElementById("doughnut-main");
 	const elecGenOverview = document.getElementById("doughnut-overview");
+
+	// If elements do not exist, exit the function
+	if (!elecGenMain || !elecGenOverview) return;
 
 	const elecData = {
 		labels: ["Solar", "Wind", "Diesel"],
@@ -57,13 +67,18 @@ function drawChart() {
 		},
 	};
 
+	// If charts already exist, destroy them to prevent multiple instances
 	if (window.chartMain) window.chartMain.destroy();
 	if (window.chartOverview) window.chartOverview.destroy();
 
+	// Draw new charts
 	window.chartMain = new Chart(elecGenMain, configDoughnut);
 	window.chartOverview = new Chart(elecGenOverview, configDoughnut);
 }
 
+/**
+ * Load chart data and then draw the chart
+ */
 function loadCharts() {
 	getData().then((result) => {
 		if (result.success) {
@@ -74,16 +89,18 @@ function loadCharts() {
 	});
 }
 
-document.addEventListener("turbolinks:load", function () {
-	console.log("Turbolinks load event fired");
+// Listen for Turbo's page load event, then load the charts
+document.addEventListener("turbo:load", () => {
+	const elecGenMain = document.getElementById("doughnut-main");
+	const elecGenOverview = document.getElementById("doughnut-overview");
+	if (elecGenMain && elecGenOverview) {
+		loadCharts();
+	}
 });
 
-
-document.addEventListener("DOMContentLoaded", loadCharts); //This works
-
-// Call drawChart() when the window is resized
-window.addEventListener("resize", drawChart); //This works
-
-
-
-
+// Create a debounce function for the window resize event
+let resizeTimeout;
+window.addEventListener("resize", () => {
+	clearTimeout(resizeTimeout);
+	resizeTimeout = setTimeout(drawChart, 250);
+});
