@@ -57,3 +57,26 @@ function toggleHamburgerMenu() {
 	isMenuOpen = !isMenuOpen;
 }
 */
+
+
+
+document.addEventListener("turbo:load", () => {
+	const body = document.body;
+	const sidebar = document.querySelector("nav");
+	const toggle = document.querySelector(".toggle");
+	const modeSwitch = document.querySelector(".toggle-switch");
+	const modeText = document.querySelector(".mode-text");
+
+	toggle.addEventListener("click", () => {
+		sidebar.classList.toggle("close");
+		toggle.style.transform = "rotate(180)";
+	});
+
+	modeSwitch.addEventListener("click", () => {
+		body.classList.toggle("dark");
+		modeText.innerText = body.classList.contains("dark")
+			? "Light mode"
+			: "Dark mode";
+	});
+});
+
