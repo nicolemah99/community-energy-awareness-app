@@ -1,3 +1,4 @@
+/** 
 // Use the turbolinks:load event instead of DOMContentLoaded
 document.addEventListener("DOMContentLoaded",handleScreenSizeChange);
 window.addEventListener("resize", handleScreenSizeChange);
@@ -12,9 +13,9 @@ var maxWidth768 = window.matchMedia("(max-width: 768px)");
 var minWidth1025 = window.matchMedia("(min-width: 1025px)");
 var maxWidth1024 = window.matchMedia("(max-width: 1024px)");
 
-/**
+
  * Handles the screen size change event and adjusts the layout and display based on the screen size.
- */
+
 function handleScreenSizeChange() {
 	// Get references to elements that will be modified
 	slideMenu = document.getElementById("slide-menu");
@@ -49,9 +50,10 @@ function handleScreenSizeChange() {
 
 /**
  * Toggles the hamburger menu open or closed.
- */
+ 
 function toggleHamburgerMenu() {
 	// Toggle the menu open or closed based on the current state
 	slideMenu.style.left = isMenuOpen ? "-110%" : "0";
 	isMenuOpen = !isMenuOpen;
 }
+*/
