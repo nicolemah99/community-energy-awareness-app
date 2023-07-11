@@ -48,7 +48,7 @@ class MainController < ApplicationController
         else
             @battery_state = "Not charging"
         end
-        
+
         ## Diesel Savings Feature 
         savings_dates = []
         savings_array = []
@@ -63,10 +63,8 @@ class MainController < ApplicationController
             savings_array.push @dollar_savings
         end
 
-        @cumulative_savings = savings_array.each_with_object([]) do |datapoint, array|
-            array << (array.last || 0) + datapoint
-        end
-        
+        @cumulative_savings = cumulative_sum(savings_array)
+
         gon.complete_savings_dates = savings_dates
         gon.savings_datapoints = @cumulative_savings
 
@@ -76,13 +74,15 @@ class MainController < ApplicationController
         current_month = Date.today.strftime("%m")
         @current_month_str = Date.today.strftime("%B")
         current_month_data = GenerationBreakdown.where(dateTime: "2021-#{current_month}-01 00:00:00"..past_hour)
-        current_month_kwh_savings = (current_month_data.last().year_total_renew) - (current_month_data.first().year_total_renew)
+        cumulative_month_savings = cumulative_sum(current_month_data.pluck(:renew))
+        current_month_kwh_savings = cumulative_month_savings.last()
         @current_month_dollar_savings = (current_month_kwh_savings/KWH_PER_GALLON)*DIESEL_PRICE
 
         #daily savings
         @current_day = Date.today.strftime("%d")
         current_daily_data = GenerationBreakdown.where(dateTime: "2021-#{current_month}-#{@current_day} 00:00:00"..past_hour)
-        current_daily_kwh_savings = (current_daily_data.last().year_total_renew) - (current_daily_data.first().year_total_renew)
+        cumulative_day_savings = cumulative_sum(current_daily_data.pluck(:renew))
+        current_daily_kwh_savings = cumulative_day_savings.last()
         @current_daily_dollar_savings = (current_daily_kwh_savings/KWH_PER_GALLON)*DIESEL_PRICE
         @day_format = current_time.strftime("%B #{current_time.day.ordinalize}")
 
@@ -97,6 +97,12 @@ class MainController < ApplicationController
 
         return percent
 
+    end
+
+    def cumulative_sum(array)
+        array.each_with_object([]) do |datapoint, cumulative_array|
+          cumulative_array << (cumulative_array.last || 0) + datapoint
+        end
     end
 
     def data
