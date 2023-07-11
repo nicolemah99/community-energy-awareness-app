@@ -188,8 +188,14 @@ body.dark .sidebar header .toggle{
     background-color: var(--primary-color);
 }
 
-.sidebar li a:hover{
+.sidebar li a:hover,
+body.dark .sidebar li a.active:hover{
     background-color: var(--primary-color-light);
+}
+
+.sidebar li a.active:hover .icon,
+.sidebar li a.active:hover .text{
+    color: var(--text-color);
 }
 
 .sidebar li a.active .icon,
@@ -197,9 +203,22 @@ body.dark .sidebar header .toggle{
     color: var(--sidebar-color);
 }
 body.dark .sidebar li a:hover .icon,
-body.dark .sidebar li a:hover .text{
+body.dark .sidebar li a:hover .text,
+body.dark .sidebar li a.active:hover .icon,
+body.dark .sidebar li a.active:hover .text{
     color: var(--text-color);
 }
+
+body.dark .sidebar li a.active{
+    background-color: var(--toggle-color);
+}
+
+body.dark .sidebar li a.active .icon,
+body.dark .sidebar li a.active .text{
+    color: var(--primary-color);
+}
+
+
 
 .sidebar .menu-bar{
     height: calc(100% - 55px);
