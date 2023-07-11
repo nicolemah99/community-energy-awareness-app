@@ -1,38 +1,87 @@
-// Global variables
-let windKwh, solarKwh, dieselKwh;
-const labels = gon.complete_savings_dates;
-const savingsDataPoints = gon.complete_savings;
+let windKwh;
+let solarKwh;
+let dieselKwh;
+let labels = gon.complete_savings_dates;
+let savingsDataPoints = gon.complete_savings;
 
-// Selectors
-const elecGenMain = document.getElementById("doughnut-main");
-const elecGenOverview = document.getElementById("doughnut-overview");
-const savingsChartElement = document.getElementById("savings-chart");
-const startDate = document.getElementById("startdate");
-const endDate = document.getElementById("enddate");
+/**
+ * Fetch data from /dashboard_data.json, update global variables and return a promise
+ */
 
-// Fetch data from /dashboard_data.json, update global variables and return a promise
-async function getChartData() {
-	try {
-		const response = await fetch("/dashboard_data.json");
-		if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-		const json = await response.json();
-		windKwh = json.wind_kwh;
-		solarKwh = json.solar_kwh;
-		dieselKwh = json.diesel_kwh;
-		return { success: true };
-	} catch (error) {
-		console.log(
-			"There was a problem with the fetch operation: " + error.message
-		);
-		return { success: false, error: error.message };
-	}
+function getChartData() {
+	return fetch("/dashboard_data.json")
+		.then((response) => {
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+			return response.json();
+		})
+		.then((json) => {
+			windKwh = json.wind_kwh;
+			solarKwh = json.solar_kwh;
+			dieselKwh = json.diesel_kwh;
+			return { success: true };
+		})
+		.catch((e) => {
+			console.log("There was a problem with the fetch operation: " + e.message);
+			return { success: false, error: e.message };
+		});
 }
+function drawSavingsChart() {
+	const savingsChart = document.getElementById("savings-chart");
+	var maxvalue = savingsDataPoints[savingsDataPoints.length - 1].y;
+	var maxticks = Math.round(maxvalue / 50000) * 50000 + 50000;
 
-// Your existing functions...
+	const savingsData = {
+		labels: labels,
+		datasets: [
+			{
+				label: "$ Diesel Savings",
+				data: savingsDataPoints,
+				borderWidth: 2.5,
+				fill: true,
+			},
+		],
+	};
+	const configSavings = {
+		type: "line",
+		data: savingsData,
+		options: {
+			responsive: true,
+			pointRadius: 0,
+			pointHoverRadius: 5,
+			maintainAspectRatio: false,
+			scales: {
+				x: {
+					title: {
+						display: true,
+						text: "Date",
+					},
+				},
+				y: {
+					title: {
+						display: true,
+						text: "Dollar",
+					},
+					beginAtZero: true,
+					max: maxticks,
+				},
+			},
+		},
+	};
 
+	// If charts already exist, destroy them to prevent multiple instances
+	if (window.savingsChart) window.savingsChart.destroy();
+
+	// Draw new chart
+	window.savingsChart = new Chart(savingsChart, configSavings);
+}
+/**
+ * Draw doughnut chart using fetched data after checking whether elements exist
+ */
 function drawDoughnutChart() {
-	// If elements do not exist, exit the function
-	if (!elecGenMain || !elecGenOverview) return;
+	const elecGenMain = document.getElementById("doughnut-main");
+	const elecGenOverview = document.getElementById("doughnut-overview");
 
 	const generationData = {
 		labels: ["Solar", "Wind", "Diesel"],
@@ -70,6 +119,9 @@ function drawDoughnutChart() {
 	window.genChartOverview = new Chart(elecGenOverview, configDoughnut);
 }
 
+/**
+ * Load chart data and then draw the chart
+ */
 function loadCharts() {
 	getChartData().then((result) => {
 		if (result.success) {
@@ -82,16 +134,19 @@ function loadCharts() {
 
 // Listen for Turbo's page load event, then load the charts
 document.addEventListener("turbo:load", () => {
+	const elecGenMain = document.getElementById("doughnut-main");
+	const elecGenOverview = document.getElementById("doughnut-overview");
+	const savingsChart = document.getElementById("savings-chart");
 	if (elecGenMain && elecGenOverview) {
 		loadCharts();
 	}
 
-	if (savingsChartElement) {
+	if (savingsChart) {
 		drawSavingsChart();
 	}
 });
 
-// Debounce function for the window resize event
+// Create a debounce function for the window resize event
 let resizeTimeout;
 window.addEventListener("resize", () => {
 	clearTimeout(resizeTimeout);
