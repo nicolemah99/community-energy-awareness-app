@@ -276,7 +276,7 @@
 									<tr>
 										<td colspan="3">This year - <%= @current_year %>
 										</td>
-										<td>$<%= number_with_precision(@dollar_savings, :precision=> 1, :delimiter => ',
+										<td>$<%= number_with_precision(@cumulative_savings.last(), :precision=> 1, :delimiter => ',
 												') %></td>
 									</tr>
 									<tr class="curr-month">

@@ -48,24 +48,27 @@ class MainController < ApplicationController
         else
             @battery_state = "Not charging"
         end
-
-        ## Diesel Savings Feature
-        @savings_dates = []
-        savings_date_and_amount = []
+        
+        ## Diesel Savings Feature 
+        savings_dates = []
+        savings_array = []
         collected_data = GenerationBreakdown.where(dateTime: "2021-01-01 00:00:00"..past_hour)
-        @curr_savings = @current_record_breakdown.year_total_renew
         
         # cycle through all dates
         collected_data.each do |record|
             # day and month 
             reading_time = record.dateTime.strftime("%e %b")
-            @savings_dates.push reading_time
-            @dollar_savings = (record.year_total_renew / KWH_PER_GALLON) * DIESEL_PRICE
-            savings_formatted = {:x => reading_time, :y => @dollar_savings}
-            savings_date_and_amount.push savings_formatted
+            savings_dates.push reading_time
+            @dollar_savings = (record.renew / KWH_PER_GALLON) * DIESEL_PRICE
+            savings_array.push @dollar_savings
         end
-        gon.complete_savings_dates = @savings_dates
-        gon.complete_savings = savings_date_and_amount
+
+        @cumulative_savings = savings_array.each_with_object([]) do |datapoint, array|
+            array << (array.last || 0) + datapoint
+        end
+        
+        gon.complete_savings_dates = savings_dates
+        gon.savings_datapoints = @cumulative_savings
 
         @current_year = Date.today.strftime("%Y")
 

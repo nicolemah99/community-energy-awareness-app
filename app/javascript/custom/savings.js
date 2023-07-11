@@ -1,9 +1,9 @@
 Chart.defaults.font.size = 15;
 
 const labels = gon.complete_savings_dates
-const datapoints = gon.complete_savings
+const datapoints = gon.savings_datapoints
 
-var maxvalue = datapoints[datapoints.length-1].y
+var maxvalue = datapoints[datapoints.length-1]
 var maxticks = (Math.round(maxvalue/50000)*50000) + 50000
 
 
