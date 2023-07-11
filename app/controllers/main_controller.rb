@@ -96,7 +96,7 @@ class MainController < ApplicationController
 
     end
 
-    #This function is bad and needs to not repeat code from above, just using to work on displaying chart data in dashboardCharts.js
+    #This function is bad and needs to be optimized to not repeat code from above, just using to work on displaying chart data in dashboardCharts.js
     def chartData
         current_time = DateTime.now
         current_hour = current_time.strftime "2021-%m-%d %H:00:00"

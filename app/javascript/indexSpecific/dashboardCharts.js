@@ -6,6 +6,8 @@ let savingsDataPoints;
 let maxValue;
 let maxTicks;
 
+
+
 /**
  * Fetch data from /dashboard_data.json, update global variables and return a promise
  */
@@ -34,9 +36,7 @@ function getChartData() {
 		});
 }
 function drawSavingsChart() {
-	const savingsChart = document.getElementById("savings-chart");
-	
-
+	const savingsChart = document.getElementById("savingsChart");
 	const savingsData = {
 		labels: labels,
 		datasets: [
@@ -76,17 +76,17 @@ function drawSavingsChart() {
 	};
 
 	// If charts already exist, destroy them to prevent multiple instances
-	if (window.savingsChart) window.savingsChart.destroy();
+	if (window.savingsChartObj) window.savingsChartObj.destroy();
 
 	// Draw new chart
-	window.savingsChart = new Chart(savingsChart, configSavings);
+	window.savingsChartObj = new Chart(savingsChart, configSavings);
 }
 /**
  * Draw doughnut chart using fetched data after checking whether elements exist
  */
 function drawDoughnutChart() {
-	const elecGenMain = document.getElementById("doughnut-main");
-	const elecGenOverview = document.getElementById("doughnut-overview");
+	const elecGenMainChart = document.getElementById("elecGenMainChart");
+	const elecGenOverviewChart = document.getElementById("elecGenOverviewChart");
 
 	const generationData = {
 		labels: ["Solar", "Wind", "Diesel"],
@@ -101,7 +101,7 @@ function drawDoughnutChart() {
 		],
 	};
 
-	const configDoughnut = {
+	const configElecGen = {
 		type: "doughnut",
 		data: generationData,
 		options: {
@@ -116,12 +116,12 @@ function drawDoughnutChart() {
 	};
 
 	// If charts already exist, destroy them to prevent multiple instances
-	if (window.genChartMain) window.genChartMain.destroy();
-	if (window.genChartOverview) window.genChartOverview.destroy();
+	if (window.genChartMainObj) window.genChartMainObj.destroy();
+	if (window.genChartOverviewObj) window.genChartOverviewObj.destroy();
 
 	// Draw new charts
-	window.genChartMain = new Chart(elecGenMain, configDoughnut);
-	window.genChartOverview = new Chart(elecGenOverview, configDoughnut);
+	window.genChartMainObj = new Chart(elecGenMainChart, configElecGen);
+	window.genChartOverviewObj = new Chart(elecGenOverviewChart, configElecGen);
 }
 
 /**
@@ -140,15 +140,11 @@ function loadCharts() {
 
 // Listen for Turbo's page load event, then load the charts
 document.addEventListener("turbo:load", () => {
-	const elecGenMain = document.getElementById("doughnut-main");
-	const elecGenOverview = document.getElementById("doughnut-overview");
-	const savingsChart = document.getElementById("savings-chart");
-	if (elecGenMain && elecGenOverview) {
+	const elecGenMainChart = document.getElementById("elecGenMainChart");
+	const elecGenOverviewChart = document.getElementById("elecGenOverviewChart");
+	const savingsChart = document.getElementById("savingsChart");
+	if (elecGenMainChart && elecGenOverviewChart && savingsChart) {
 		loadCharts();
-	}
-
-	if (savingsChart) {
-		drawSavingsChart();
 	}
 });
 
