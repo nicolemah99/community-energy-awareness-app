@@ -32,27 +32,17 @@ function toggleHamburgerMenu() {
 
 //Add event listeners for sidebar everytime a new page loads
 document.addEventListener("turbo:load", () => {
-	// Select the body element
+	// Selectors
 	const body = document.body;
-
-	// Select the sidebar element
 	const sidebar = document.querySelector("nav");
-
-	// Select the toggle element
 	const toggle = document.querySelector(".toggle");
-
-	// Select the mode switch element
 	const modeSwitch = document.querySelector(".toggle-switch");
-
-	// Select the mode text element
 	const modeText = document.querySelector(".mode-text");
 
 	// Event listener for toggle click
 	toggle.addEventListener("click", () => {
 		// Toggle the 'close' class on the sidebar element
 		sidebar.classList.toggle("close");
-
-		// Rotate the toggle element 180 degrees
 		toggle.style.transform = "rotate(180)";
 	});
 
