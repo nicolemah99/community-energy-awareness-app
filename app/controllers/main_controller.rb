@@ -96,6 +96,7 @@ class MainController < ApplicationController
 
     end
 
+    #This function is bad and needs to not repeat code from above, just using to work on displaying chart data in dashboardCharts.js
     def chartData
         current_time = DateTime.now
         current_hour = current_time.strftime "2021-%m-%d %H:00:00"
@@ -106,9 +107,24 @@ class MainController < ApplicationController
         wind_kwh = @current_record_breakdown.wind.round(1)
         diesel_kwh = @current_record_breakdown.nonRenew.round(1)
 
+        @savings_dates = []
+        savings_date_and_amount = []
+        collected_data = GenerationBreakdown.where(dateTime: "2021-01-01 00:00:00"..past_hour)
+        @curr_savings = @current_record_breakdown.year_total_renew
+        
+        # cycle through all dates
+        collected_data.each do |record|
+            # day and month 
+            reading_time = record.dateTime.strftime("%e %b")
+            @savings_dates.push reading_time
+            @dollar_savings = (record.year_total_renew / KWH_PER_GALLON) * DIESEL_PRICE
+            savings_formatted = {:x => reading_time, :y => @dollar_savings}
+            savings_date_and_amount.push savings_formatted
+        end
+
         respond_to do |format|
         format.json {
-            render json: {wind_kwh: wind_kwh, solar_kwh: solar_kwh, diesel_kwh: diesel_kwh}
+            render json: {wind_kwh: wind_kwh, solar_kwh: solar_kwh, diesel_kwh: diesel_kwh, labels: @savings_dates, savingsData: savings_date_and_amount}
         }
     end
 end

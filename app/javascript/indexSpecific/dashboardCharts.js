@@ -1,8 +1,10 @@
 let windKwh;
 let solarKwh;
 let dieselKwh;
-let labels = gon.complete_savings_dates;
-let savingsDataPoints = gon.complete_savings;
+let labels;
+let savingsDataPoints;
+let maxValue;
+let maxTicks;
 
 /**
  * Fetch data from /dashboard_data.json, update global variables and return a promise
@@ -20,6 +22,10 @@ function getChartData() {
 			windKwh = json.wind_kwh;
 			solarKwh = json.solar_kwh;
 			dieselKwh = json.diesel_kwh;
+			savingsDataPoints = json.savingsData;
+			labels = json.labels;
+			maxValue = savingsDataPoints[savingsDataPoints.length - 1].y;
+			maxTicks = Math.round(maxValue / 50000) * 50000 + 50000;
 			return { success: true };
 		})
 		.catch((e) => {
@@ -29,8 +35,7 @@ function getChartData() {
 }
 function drawSavingsChart() {
 	const savingsChart = document.getElementById("savings-chart");
-	var maxvalue = savingsDataPoints[savingsDataPoints.length - 1].y;
-	var maxticks = Math.round(maxvalue / 50000) * 50000 + 50000;
+	
 
 	const savingsData = {
 		labels: labels,
@@ -64,7 +69,7 @@ function drawSavingsChart() {
 						text: "Dollar",
 					},
 					beginAtZero: true,
-					max: maxticks,
+					max: maxTicks,
 				},
 			},
 		},
@@ -126,6 +131,7 @@ function loadCharts() {
 	getChartData().then((result) => {
 		if (result.success) {
 			drawDoughnutChart();
+			drawSavingsChart();
 		} else {
 			console.log("Failed to fetch data:", result.error);
 		}
