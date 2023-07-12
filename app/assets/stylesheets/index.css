@@ -369,6 +369,11 @@ body.dark #home .text{
   background-color: #333;
   margin-bottom: 5px;
 }
+.mobile-home {
+	width: 100%;
+	left: 0;
+}
+
 
 #slide-menu {
   position: fixed;

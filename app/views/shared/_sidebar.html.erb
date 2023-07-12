@@ -1,4 +1,4 @@
-<nav id="sidebarWrapper" class="sidebar close">
+<nav id="sidebar-wrapper" class="sidebar close">
     <header>
         <div class="image-text">
             <span class="image">
@@ -15,11 +15,10 @@
         <div class="menu">
             <ul class="menu-links">
                 <li class="nav-link">
-                    <%= link_to root_path,
-                        class: "#{'active' if current_page?(root_path)}" do %> <i class='bx bx-home-alt icon'></i>
+                    <%= link_to root_path, class: "#{'active' if current_page?(root_path)}" do %> <i
+                            class='bx bx-home-alt icon'></i>
                         <span class="text nav-text">Dashboard</span>
                         <% end %>
-                        
                 </li>
                 <li class="nav-link">
                     <%= link_to about_path, class: "#{'active' if current_page?(about_path)}" do %> <i
@@ -35,7 +34,7 @@
                     <i class='bx bx-moon icon moon'></i>
                     <i class='bx bx-sun icon sun'></i>
                 </div>
-                <span class="mode-text text">Dark mode</span>
+                <span class="mode-text text">Dark Mode</span>
                 <div class="toggle-switch">
                     <span class="switch"></span>
                 </div>

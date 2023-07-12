@@ -6,8 +6,6 @@ let savingsDataPoints;
 let maxValue;
 let maxTicks;
 
-
-
 /**
  * Fetch data from /dashboard_data.json, update global variables and return a promise
  */
@@ -139,24 +137,28 @@ function loadCharts() {
 }
 
 // Listen for Turbo's page load event, then load the charts
-document.addEventListener("turbo:load", () => {
-	const elecGenMainChart = document.getElementById("elecGenMainChart");
-	const elecGenOverviewChart = document.getElementById("elecGenOverviewChart");
-	const savingsChart = document.getElementById("savingsChart");
-	if (elecGenMainChart && elecGenOverviewChart && savingsChart) {
-		loadCharts();
+document.addEventListener("turbo:load", (event) => {
+	const rootPath = "/";
+	const url = new URL(event.detail.url);
+
+	//If user clicked on root link
+	if (url.pathname == rootPath) {
+		const elecGenMainChart = document.getElementById("elecGenMainChart");
+		const elecGenOverviewChart = document.getElementById(
+			"elecGenOverviewChart"
+		);
+		const savingsChart = document.getElementById("savingsChart");
+		if (elecGenMainChart && elecGenOverviewChart && savingsChart) {
+			loadCharts();
+		}
 	}
 });
 
 // Create a debounce function for the window resize event
-let resizeTimeout;
 window.addEventListener("resize", () => {
-	clearTimeout(resizeTimeout);
-	resizeTimeout = setTimeout(() => {
-		drawDoughnutChart();
-		drawSavingsChart();
-	}, 250);
-});
+	drawDoughnutChart();
+	drawSavingsChart();
+})
 
 function filterSavingsData() {
 	const dates2 = [...labels];
