@@ -1,0 +1,21 @@
+<!-- _mobileNav.html.erb -->
+<div class="row">
+    <div class="d-flex" id="slide-menu">
+        <div class="menu">
+            <ul class="menu-links">
+                <li class="nav-link">
+                    <%= link_to root_path, class: "#{'active' if current_page?(root_path)}" do %> <i
+                            class='bx bx-home-alt icon'></i>
+                        <span class="text nav-text">Dashboard</span>
+                        <% end %>
+                </li>
+                <li class="nav-link">
+                    <%= link_to about_path, class: "#{'active' if current_page?(about_path)}" do %> <i
+                            class='bx bx-group icon'></i>
+                        <span class="text nav-text">About</span>
+                        <% end %>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

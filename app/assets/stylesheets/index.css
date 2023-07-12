@@ -352,28 +352,21 @@ body.dark #home .text{
   min-height: 100vh;
 }
 
-#hamburger-btn {
-  margin-right: auto;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 30px;
-  height: 20px;
-  cursor: pointer;
+#hamburger-btn-wrapper{
+    min-width: 100vw;
+    background-color: var(--sidebar-color);
+
 }
 
-#hamburger-btn span {
-  display: block;
-  width: 1.375rem;
-  height: 0.125rem;
-  background-color: #333;
-  margin-bottom: 5px;
+#hamburger-btn {
+
+    cursor: pointer;
 }
+
 .mobile-home {
 	width: 100%;
 	left: 0;
 }
-
 
 #slide-menu {
   position: fixed;

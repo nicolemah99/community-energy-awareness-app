@@ -7,6 +7,7 @@ class MainController < ApplicationController
     DIESEL_PRICE = 5.00
     
     def index
+        @page_name = "Dashboard"
         current_time = DateTime.now
         current_hour = current_time.strftime "2021-%m-%d %H:00:00"
         past_hour = (Time.parse(current_hour) - 60 * 60).strftime "%2021-%m-%d %H:00:00"

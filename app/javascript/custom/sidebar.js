@@ -1,4 +1,5 @@
 let isMenuOpen = false;
+const desktopPageTitle = document.querySelectorAll(".desktopPageTitle");
 
 // Handles the screen size change and adjusts the layout and display based on the screen size.
 function mobileTabletScreen() {
