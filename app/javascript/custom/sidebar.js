@@ -1,5 +1,5 @@
 let isMenuOpen = false;
-const desktopPageTitle = document.querySelectorAll(".desktopPageTitle");
+
 
 // Handles the screen size change and adjusts the layout and display based on the screen size.
 function mobileTabletScreen() {
@@ -7,6 +7,13 @@ function mobileTabletScreen() {
 	const sidebar = document.getElementById("sidebar-wrapper");
 	const hamburgerBtn = document.getElementById("hamburger-btn");
 	const hamburgerBtnWrapper = document.getElementById("hamburger-btn-wrapper");
+	const desktopPageTitles = document.querySelectorAll(".desktopPageTitle");
+
+	desktopPageTitles.forEach((title)=>{
+		title.classList.add("d-none");
+	})
+
+
 	hamburgerBtn.removeEventListener("click", toggleHamburgerMenu);
 	hamburgerBtn.addEventListener("click", toggleHamburgerMenu);
 	homeDiv.style.width = "100%";
@@ -19,6 +26,10 @@ function desktopScreen() {
 	const homeDiv = document.getElementById("home");
 	const sidebar = document.getElementById("sidebar-wrapper");
 	const hamburgerBtnWrapper = document.getElementById("hamburger-btn-wrapper");
+	const desktopPageTitles = document.querySelectorAll(".desktopPageTitle");
+	desktopPageTitles.forEach((title) => {
+		title.classList.remove("d-none");
+	});
 	addSidebarEvents();
 	homeDiv.style.width = "";
 	homeDiv.style.left = "";
@@ -69,5 +80,6 @@ function handleScreenSize() {
 	}
 }
 //Add event listeners for sidebar everytime a new page loads
+document.addEventListener("DOMContentLoaded", handleScreenSize)
 document.addEventListener("turbo:load", handleScreenSize);
 window.addEventListener("resize", handleScreenSize);
