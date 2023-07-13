@@ -26,7 +26,7 @@ function mobileTabletScreen() {
 }
 
 function desktopScreen() {
-	
+
 	desktopPageTitles.forEach((title) => {
 		title.classList.remove("d-none");
 	});
@@ -36,6 +36,8 @@ function desktopScreen() {
 	homeDiv.style.width = "";
 	homeDiv.style.left = "";
 	sidebar.style.display = "";
+	sidebar.addEventListener("mouseover",toggleSidebar);
+	sidebar.addEventListener("mouseout", toggleSidebar);
 	hamburgerBtnWrapper.classList.add("d-none"); // Hide the hamburger button
 }
 
