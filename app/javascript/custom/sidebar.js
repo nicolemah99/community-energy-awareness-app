@@ -1,4 +1,3 @@
-let isMenuOpen = false;
 const maxWidth768 = window.matchMedia("(max-width: 768px)");
 let homeDiv;
 let sidebar;
@@ -17,8 +16,9 @@ function mobileTabletScreen() {
 		title.classList.add("d-none");
 	});
 
-	hamburgerBtn.removeEventListener("click", toggleHamburgerMenu);
-	hamburgerBtn.addEventListener("click", toggleHamburgerMenu);
+	hamburgerBtn.addEventListener("click", () => {
+		toggleHamburgerMenu();
+	});
 	homeDiv.style.width = "100%";
 	homeDiv.style.left = "0";
 	sidebar.style.display = "none";
@@ -26,7 +26,6 @@ function mobileTabletScreen() {
 }
 
 function desktopScreen() {
-
 	desktopPageTitles.forEach((title) => {
 		title.classList.remove("d-none");
 	});
@@ -35,22 +34,21 @@ function desktopScreen() {
 	homeDiv.style.width = "";
 	homeDiv.style.left = "";
 	sidebar.style.display = "";
-	sidebar.addEventListener("mouseover",toggleSidebar);
+	sidebar.addEventListener("mouseover", toggleSidebar);
 	sidebar.addEventListener("mouseout", toggleSidebar);
 	hamburgerBtnWrapper.classList.add("d-none"); // Hide the hamburger button
 }
 
 // Toggles the hamburger menu open or closed.
 function toggleHamburgerMenu() {
-	slideMenu.style.left = isMenuOpen ? "-110%" : "0";
-	isMenuOpen = !isMenuOpen;
+	slideMenu.classList.toggle("close");
 
-	if (isMenuOpen) {
-		hamburgerBtn.classList.add("bx-x");
-		hamburgerBtn.classList.remove("bx-menu");
-	} else {
+	if (slideMenu.classList.contains("close")) {
 		hamburgerBtn.classList.add("bx-menu");
 		hamburgerBtn.classList.remove("bx-x");
+	} else {
+		hamburgerBtn.classList.add("bx-x");
+		hamburgerBtn.classList.remove("bx-menu");
 	}
 }
 
@@ -89,6 +87,5 @@ function handleScreenSize() {
 }
 
 //Add event listeners for sidebar everytime a new page loads
-document.addEventListener("DOMContentLoaded", handleScreenSize);
 document.addEventListener("turbo:load", handleScreenSize);
 window.addEventListener("resize", handleScreenSize);
