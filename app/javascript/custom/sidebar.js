@@ -1,17 +1,21 @@
 let isMenuOpen = false;
-
+const maxWidth768 = window.matchMedia("(max-width: 768px)");
+let homeDiv;
+let sidebar;
+let hamburgerBtn;
+let hamburgerBtnWrapper;
+let desktopPageTitles;
+let toggle;
+let modeSwitch;
+let modeText;
+let slideMenu;
+let body;
 
 // Handles the screen size change and adjusts the layout and display based on the screen size.
 function mobileTabletScreen() {
-	const homeDiv = document.getElementById("home");
-	const sidebar = document.getElementById("sidebar-wrapper");
-	const hamburgerBtn = document.getElementById("hamburger-btn");
-	const hamburgerBtnWrapper = document.getElementById("hamburger-btn-wrapper");
-	const desktopPageTitles = document.querySelectorAll(".desktopPageTitle");
-
-	desktopPageTitles.forEach((title)=>{
+	desktopPageTitles.forEach((title) => {
 		title.classList.add("d-none");
-	})
+	});
 
 	hamburgerBtn.removeEventListener("click", toggleHamburgerMenu);
 	hamburgerBtn.addEventListener("click", toggleHamburgerMenu);
@@ -22,38 +26,28 @@ function mobileTabletScreen() {
 }
 
 function desktopScreen() {
-	const homeDiv = document.getElementById("home");
-	const sidebar = document.getElementById("sidebar-wrapper");
-	const hamburgerBtnWrapper = document.getElementById("hamburger-btn-wrapper");
-	const desktopPageTitles = document.querySelectorAll(".desktopPageTitle");
+	
 	desktopPageTitles.forEach((title) => {
 		title.classList.remove("d-none");
 	});
-	addSidebarEvents();
+
+	toggle.addEventListener("click", toggleSidebar);
+	modeSwitch.addEventListener("click", toggleDarkMode);
 	homeDiv.style.width = "";
 	homeDiv.style.left = "";
 	sidebar.style.display = "";
 	hamburgerBtnWrapper.classList.add("d-none"); // Hide the hamburger button
 }
 
-function addSidebarEvents() {
-	const toggle = document.querySelector(".toggle");
-	const modeSwitch = document.querySelector(".toggle-switch");
-	toggle.addEventListener("click", toggleSidebar);
-	modeSwitch.addEventListener("click", toggleDarkMode);
-}
-
 // Toggles the hamburger menu open or closed.
 function toggleHamburgerMenu() {
-	const slideMenu = document.getElementById("slide-menu");
-	const hamburgerBtn = document.getElementById("hamburger-btn");
 	slideMenu.style.left = isMenuOpen ? "-110%" : "0";
 	isMenuOpen = !isMenuOpen;
 
-	if (isMenuOpen){
+	if (isMenuOpen) {
 		hamburgerBtn.classList.add("bx-x");
 		hamburgerBtn.classList.remove("bx-menu");
-	}else{
+	} else {
 		hamburgerBtn.classList.add("bx-menu");
 		hamburgerBtn.classList.remove("bx-x");
 	}
@@ -61,33 +55,39 @@ function toggleHamburgerMenu() {
 
 // Toggles the sidebar open or closed.
 function toggleSidebar() {
-	const sidebar = document.querySelector("nav");
-	const toggle = document.querySelector(".toggle");
-
 	sidebar.classList.toggle("close");
 	toggle.style.transform = "rotate(180)";
 }
 
 // Toggles the mode light or dark.
 function toggleDarkMode() {
-	const body = document.body;
-	const modeText = document.querySelector(".mode-text");
-
 	body.classList.toggle("dark");
 	modeText.innerText = body.classList.contains("dark")
 		? "Light Mode"
 		: "Dark Mode";
 }
+
 function handleScreenSize() {
-	const maxWidth768 = window.matchMedia("(max-width: 768px)");
+	homeDiv = document.getElementById("home");
+	sidebar = document.getElementById("sidebar-wrapper");
+	hamburgerBtnWrapper = document.getElementById("hamburger-btn-wrapper");
+	desktopPageTitles = document.querySelectorAll(".desktopPageTitle");
 
 	if (maxWidth768.matches) {
+		hamburgerBtn = document.getElementById("hamburger-btn");
+		slideMenu = document.getElementById("slide-menu");
 		mobileTabletScreen();
 	} else {
+		body = document.body;
+		modeText = document.querySelector(".mode-text");
+		sidebar = document.querySelector("nav");
+		toggle = document.querySelector(".toggle");
+		modeSwitch = document.querySelector(".toggle-switch");
 		desktopScreen();
 	}
 }
+
 //Add event listeners for sidebar everytime a new page loads
-document.addEventListener("DOMContentLoaded", handleScreenSize)
+document.addEventListener("DOMContentLoaded", handleScreenSize);
 document.addEventListener("turbo:load", handleScreenSize);
 window.addEventListener("resize", handleScreenSize);
