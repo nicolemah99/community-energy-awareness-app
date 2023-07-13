@@ -31,7 +31,6 @@ function desktopScreen() {
 		title.classList.remove("d-none");
 	});
 
-	toggle.addEventListener("click", toggleSidebar);
 	modeSwitch.addEventListener("click", toggleDarkMode);
 	homeDiv.style.width = "";
 	homeDiv.style.left = "";
