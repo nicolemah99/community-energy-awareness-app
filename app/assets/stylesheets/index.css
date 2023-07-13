@@ -65,7 +65,7 @@ body.dark{
 .mobileNav .nav-link a .mobile-nav-text{
     font-size: 17px;
     color: var(--text-color);
-    padding: 12px 40px;
+    padding: 12px 32px;
 }
 /* ===== Reusable code - Here ===== */
 .mobileNav li,
@@ -373,6 +373,7 @@ body.dark #home .text{
 #hamburger-btn-wrapper{
     min-width: 100vw;
     background-color: var(--sidebar-color);
+    border-bottom: 1px solid var(--text-color);
 
 }
 

@@ -13,7 +13,6 @@ function mobileTabletScreen() {
 		title.classList.add("d-none");
 	})
 
-
 	hamburgerBtn.removeEventListener("click", toggleHamburgerMenu);
 	hamburgerBtn.addEventListener("click", toggleHamburgerMenu);
 	homeDiv.style.width = "100%";
@@ -47,8 +46,17 @@ function addSidebarEvents() {
 // Toggles the hamburger menu open or closed.
 function toggleHamburgerMenu() {
 	const slideMenu = document.getElementById("slide-menu");
+	const hamburgerBtn = document.getElementById("hamburger-btn");
 	slideMenu.style.left = isMenuOpen ? "-110%" : "0";
 	isMenuOpen = !isMenuOpen;
+
+	if (isMenuOpen){
+		hamburgerBtn.classList.add("bx-x");
+		hamburgerBtn.classList.remove("bx-menu");
+	}else{
+		hamburgerBtn.classList.add("bx-menu");
+		hamburgerBtn.classList.remove("bx-x");
+	}
 }
 
 // Toggles the sidebar open or closed.
