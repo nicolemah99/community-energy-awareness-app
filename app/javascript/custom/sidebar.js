@@ -87,5 +87,6 @@ function handleScreenSize() {
 }
 
 //Add event listeners for sidebar everytime a new page loads
+document.addEventListener("DOMContentLoaded", handleScreenSize);
 document.addEventListener("turbo:load", handleScreenSize);
 window.addEventListener("resize", handleScreenSize);
