@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   root 'main#index'
-  get '/about', to: 'main#about'
-  get 'dashboard_data', to: 'main#data'
+  get '/about', to: 'about#index'
+  get 'dashboard_data', to: 'main#chartData'
   get "modals/com_usage_modal"
   get "modals/elec_gen_modal"
   get "modals/savingsmodal"

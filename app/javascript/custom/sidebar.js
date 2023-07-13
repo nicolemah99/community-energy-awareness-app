@@ -1,57 +1,92 @@
-// Use the turbolinks:load event instead of DOMContentLoaded
-document.addEventListener("DOMContentLoaded",handleScreenSizeChange);
-window.addEventListener("resize", handleScreenSizeChange);
+const maxWidth768 = window.matchMedia("(max-width: 768px)");
+let homeDiv;
+let sidebar;
+let hamburgerBtn;
+let hamburgerBtnWrapper;
+let desktopPageTitles;
+let toggle;
+let modeSwitch;
+let modeText;
+let slideMenu;
+let body;
 
-// Get references to the slide menu and hamburger button
-var slideMenu;
-var hamburgerBtn;
-var isMenuOpen = false;
+// Handles the screen size change and adjusts the layout and display based on the screen size.
+function mobileTabletScreen() {
+	desktopPageTitles.forEach((title) => {
+		title.classList.add("d-none");
+	});
 
-// Media queries for different screen sizes
-var maxWidth768 = window.matchMedia("(max-width: 768px)");
-var minWidth1025 = window.matchMedia("(min-width: 1025px)");
-var maxWidth1024 = window.matchMedia("(max-width: 1024px)");
+	hamburgerBtn.addEventListener("click", () => {
+		toggleHamburgerMenu();
+	});
+	homeDiv.style.width = "100%";
+	homeDiv.style.left = "0";
+	sidebar.style.display = "none";
+	hamburgerBtnWrapper.classList.remove("d-none"); // Show the hamburger button
+}
 
-/**
- * Handles the screen size change event and adjusts the layout and display based on the screen size.
- */
-function handleScreenSizeChange() {
-	// Get references to elements that will be modified
-	slideMenu = document.getElementById("slide-menu");
-	hamburgerBtn = document.getElementById("hamburger-btn");
-	hamburgerBtn.removeEventListener("click", toggleHamburgerMenu);
-	hamburgerBtn.addEventListener("click", toggleHamburgerMenu);
+function desktopScreen() {
+	desktopPageTitles.forEach((title) => {
+		title.classList.remove("d-none");
+	});
 
-	var main = document.getElementById("main-container");
-	var sidebar = document.getElementById("sidebar");
-	var navNames = document.getElementsByClassName("nav-name");
+	modeSwitch.addEventListener("click", toggleDarkMode);
+	homeDiv.style.width = "";
+	homeDiv.style.left = "";
+	sidebar.style.display = "";
+	sidebar.addEventListener("mouseover", toggleSidebar);
+	sidebar.addEventListener("mouseout", toggleSidebar);
+	hamburgerBtnWrapper.classList.add("d-none"); // Hide the hamburger button
+}
+
+// Toggles the hamburger menu open or closed.
+function toggleHamburgerMenu() {
+	slideMenu.classList.toggle("close");
+
+	if (slideMenu.classList.contains("close")) {
+		hamburgerBtn.classList.add("bx-menu");
+		hamburgerBtn.classList.remove("bx-x");
+	} else {
+		hamburgerBtn.classList.add("bx-x");
+		hamburgerBtn.classList.remove("bx-menu");
+	}
+}
+
+// Toggles the sidebar open or closed.
+function toggleSidebar() {
+	sidebar.classList.toggle("close");
+	toggle.style.transform = "rotate(180)";
+}
+
+// Toggles the mode light or dark.
+function toggleDarkMode() {
+	body.classList.toggle("dark");
+	modeText.innerText = body.classList.contains("dark")
+		? "Light Mode"
+		: "Dark Mode";
+}
+
+function handleScreenSize() {
+	homeDiv = document.getElementById("home");
+	sidebar = document.getElementById("sidebar-wrapper");
+	hamburgerBtnWrapper = document.getElementById("hamburger-btn-wrapper");
+	desktopPageTitles = document.querySelectorAll(".desktopPageTitle");
 
 	if (maxWidth768.matches) {
-		// Code for screens with a maximum width of 768px
-		sidebar.style.display = "none"; // Hide the sidebar
-		main.classList.add("col-auto"); // Add class for smaller screen size
-		main.classList.remove("col-10"); // Remove class for larger screen size
-		hamburgerBtn.classList.remove("d-none"); // Show the hamburger button
+		hamburgerBtn = document.getElementById("hamburger-btn");
+		slideMenu = document.getElementById("slide-menu");
+		mobileTabletScreen();
 	} else {
-		// Code for screens larger than 768px
-		sidebar.style.display = "block"; // Show the sidebar
-		main.classList.remove("col-auto"); // Remove class for smaller screen size
-		main.classList.add("col-10"); // Add class for larger screen size
-		hamburgerBtn.classList.add("d-none"); // Hide the hamburger button
+		body = document.body;
+		modeText = document.querySelector(".mode-text");
+		sidebar = document.querySelector("nav");
+		toggle = document.querySelector(".toggle");
+		modeSwitch = document.querySelector(".toggle-switch");
+		desktopScreen();
 	}
-
-	// Iterate over navNames and adjust display based on screen size
-	var navNamesArray = [...navNames];
-	navNamesArray.forEach(function (name) {
-		name.style.display = maxWidth1024.matches ? "none" : "block";
-	});
 }
 
-/**
- * Toggles the hamburger menu open or closed.
- */
-function toggleHamburgerMenu() {
-	// Toggle the menu open or closed based on the current state
-	slideMenu.style.left = isMenuOpen ? "-110%" : "0";
-	isMenuOpen = !isMenuOpen;
-}
+//Add event listeners for sidebar everytime a new page loads
+document.addEventListener("DOMContentLoaded", handleScreenSize);
+document.addEventListener("turbo:load", handleScreenSize);
+window.addEventListener("resize", handleScreenSize);

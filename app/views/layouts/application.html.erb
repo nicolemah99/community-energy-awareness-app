@@ -13,23 +13,21 @@
 		<%= favicon_link_tag asset_path('ACEP-logo.png') %>
 		<!-- Bootstrap -->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-		<!-- Fonts and icons -->
-		<!-- Boxicons CSS -->
+		<!-- Fonts and Boxicons -->
 		<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-		<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+		<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" as="style" />
 		<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 	</head>
 	<body>
 		<%= render partial: "shared/sidebar" %>
-		<section class="home">
-			<div class="text">Kotzebue</div>
+		<section id="home">
 		<div class="container-fluid p-0">
 			<div class="row m-0">
 				<div class="col-auto p-0" id="main-container">
 					<div class="row m-0 text-center sticky-top">
 						<%= render partial: "shared/header" %>
 					</div>
-					<%= render partial: "shared/navbar" %>
+					<%= render partial: "shared/mobileNav" %>
 						<div class="row p-0 m-0">
 							<div id="content-div" class="container-fluid m-0 p-3 text-center">
 								<%= yield %>
@@ -41,6 +39,5 @@
 		</div>
 
 		</section>
-
 	</body>
 </html>
