@@ -50,37 +50,41 @@ class MainController < ApplicationController
             @battery_state = "Not charging"
         end
 
-        ## Diesel Savings Feature
-        @savings_dates = []
-        savings_date_and_amount = []
+        ## Diesel Savings Feature 
+        savings_array = []
+        savings_dates = []
         collected_data = GenerationBreakdown.where(dateTime: "2021-01-01 00:00:00"..past_hour)
-        @curr_savings = @current_record_breakdown.year_total_renew
         
         # cycle through all dates
         collected_data.each do |record|
-            # day and month 
-            reading_time = record.dateTime.strftime("%e %b")
-            @savings_dates.push reading_time
-            @dollar_savings = (record.year_total_renew / KWH_PER_GALLON) * DIESEL_PRICE
-            savings_formatted = {:x => reading_time, :y => @dollar_savings}
-            savings_date_and_amount.push savings_formatted
+            reading_time_date = record.dateTime.strftime("%Y-%m-%d %H:%M:%S")
+            savings_dates.push reading_time_date
+            @dollar_savings = (record.renew / KWH_PER_GALLON) * DIESEL_PRICE
+            savings_array.push @dollar_savings
         end
-        gon.complete_savings_dates = @savings_dates
-        gon.complete_savings = savings_date_and_amount
+
+        @cumulative_savings = cumulative_sum(savings_array)
+
+        gon.complete_savings_dates = savings_dates
+        gon.savings_raw_datapoints = savings_array
 
         @current_year = Date.today.strftime("%Y")
+
+        @current_date = Date.today.strftime("2021-%m-%d %H:00:00")
 
         # current monthly savings
         current_month = Date.today.strftime("%m")
         @current_month_str = Date.today.strftime("%B")
         current_month_data = GenerationBreakdown.where(dateTime: "2021-#{current_month}-01 00:00:00"..past_hour)
-        current_month_kwh_savings = (current_month_data.last().year_total_renew) - (current_month_data.first().year_total_renew)
+        cumulative_month_savings = cumulative_sum(current_month_data.pluck(:renew))
+        current_month_kwh_savings = cumulative_month_savings.last()
         @current_month_dollar_savings = (current_month_kwh_savings/KWH_PER_GALLON)*DIESEL_PRICE
 
         #daily savings
         @current_day = Date.today.strftime("%d")
         current_daily_data = GenerationBreakdown.where(dateTime: "2021-#{current_month}-#{@current_day} 00:00:00"..past_hour)
-        current_daily_kwh_savings = (current_daily_data.last().year_total_renew) - (current_daily_data.first().year_total_renew)
+        cumulative_day_savings = cumulative_sum(current_daily_data.pluck(:renew))
+        current_daily_kwh_savings = cumulative_day_savings.last()
         @current_daily_dollar_savings = (current_daily_kwh_savings/KWH_PER_GALLON)*DIESEL_PRICE
         @day_format = current_time.strftime("%B #{current_time.day.ordinalize}")
 
@@ -96,6 +100,13 @@ class MainController < ApplicationController
         return percent
 
     end
+
+    def cumulative_sum(array)
+        array.each_with_object([]) do |datapoint, cumulative_array|
+          cumulative_array << (cumulative_array.last || 0) + datapoint
+        end
+    end
+
 
     #This function is bad and needs to be optimized to not repeat code from above, just using to work on displaying chart data in dashboardCharts.js
     def chartData
