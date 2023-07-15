@@ -70,7 +70,7 @@ class MainController < ApplicationController
 
         @current_year = Date.today.strftime("%Y")
 
-        @current_date = Date.today.strftime("2021-%m-%d %H:00:00")
+        @current_date = past_hour
 
         # current monthly savings
         current_month = Date.today.strftime("%m")
@@ -119,24 +119,21 @@ class MainController < ApplicationController
         wind_kwh = @current_record_breakdown.wind.round(1)
         diesel_kwh = @current_record_breakdown.nonRenew.round(1)
 
-        @savings_dates = []
-        savings_date_and_amount = []
+        savings_array = []
+        savings_dates = []
         collected_data = GenerationBreakdown.where(dateTime: "2021-01-01 00:00:00"..past_hour)
-        @curr_savings = @current_record_breakdown.year_total_renew
         
         # cycle through all dates
         collected_data.each do |record|
-            # day and month 
-            reading_time = record.dateTime.strftime("%e %b")
-            @savings_dates.push reading_time
-            @dollar_savings = (record.year_total_renew / KWH_PER_GALLON) * DIESEL_PRICE
-            savings_formatted = {:x => reading_time, :y => @dollar_savings}
-            savings_date_and_amount.push savings_formatted
+            reading_time_date = record.dateTime.strftime("%Y-%m-%d %H:%M:%S")
+            savings_dates.push reading_time_date
+            @dollar_savings = (record.renew / KWH_PER_GALLON) * DIESEL_PRICE
+            savings_array.push @dollar_savings
         end
 
         respond_to do |format|
         format.json {
-            render json: {wind_kwh: wind_kwh, solar_kwh: solar_kwh, diesel_kwh: diesel_kwh, labels: @savings_dates, savingsData: savings_date_and_amount}
+            render json: {wind_kwh: wind_kwh, solar_kwh: solar_kwh, diesel_kwh: diesel_kwh, labels: savings_dates, savingsData: savings_array}
         }
     end
 end

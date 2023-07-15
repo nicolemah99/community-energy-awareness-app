@@ -1,24 +1,23 @@
 // savings chart
-//Chart.defaults.font.size = 15;
+Chart.defaults.font.size = 15;
 
 const dates = gon.complete_savings_dates
 const datapoints = gon.savings_raw_datapoints
-const testObject = {
+const dataObject = {
   data: [
     datapoints
   ]
 };
 
 const accumulate = array => array.map((sum => value => sum += value)(0));
-const cumulativeSumArray = accumulate(testObject.data[0]);
-testObject.data.push(cumulativeSumArray)
-console.log(testObject.data[1])
+const cumulativeSumArray = accumulate(dataObject.data[0]);
+dataObject.data.push(cumulativeSumArray)
 
 const data = {
     labels: dates,
     datasets: [{
       label: '$ Diesel Savings',
-      data: testObject.data[1].map(x => Number(x.toFixed(2))),
+      data: dataObject.data[1].map(x => Number(x.toFixed(2))),
       borderWidth: 2.5,
       fill: true,
     }]
@@ -53,12 +52,13 @@ const config = {
     },
   };
 
-const ctx = new Chart(document.getElementById('savings-chart'), config);
+const ctx = new Chart(document.getElementById('savingsChart'), config);
 
 
 // Selecting savings dates range
 let currentHourDate = new Date();
 currentHourDate.setFullYear(2021); 
+currentHourDate.setHours(currentHourDate.getHours() - 1);
 currentHourDate.setMinutes(0);
 currentHourDate.setSeconds(0);
 
@@ -93,10 +93,10 @@ function filterData(){
   const filterDate = dates2.slice(indexstartdate, indexenddate +1);
   
   ctx.config.data.labels = filterDate;
-  const datapoints2 = [...testObject.data[0]];
+  const datapoints2 = [...dataObject.data[0]];
   const filterDatapoints = datapoints2.slice(indexstartdate, indexenddate + 1);
   const cumulativeSumArray2 = accumulate(filterDatapoints);
-  testObject.data.push(cumulativeSumArray2)
+  dataObject.data.push(cumulativeSumArray2)
   
   ctx.config.data.datasets[0].data = cumulativeSumArray2.map(x => Number(x.toFixed(2)));
 
