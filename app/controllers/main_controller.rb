@@ -50,15 +50,14 @@ class MainController < ApplicationController
         end
 
         ## Diesel Savings Feature 
-        savings_dates = []
         savings_array = []
+        savings_dates = []
         collected_data = GenerationBreakdown.where(dateTime: "2021-01-01 00:00:00"..past_hour)
         
         # cycle through all dates
         collected_data.each do |record|
-            # day and month 
-            reading_time = record.dateTime.strftime("%e %b")
-            savings_dates.push reading_time
+            reading_time_date = record.dateTime.strftime("%Y-%m-%d %H:%M:%S")
+            savings_dates.push reading_time_date
             @dollar_savings = (record.renew / KWH_PER_GALLON) * DIESEL_PRICE
             savings_array.push @dollar_savings
         end
@@ -66,9 +65,11 @@ class MainController < ApplicationController
         @cumulative_savings = cumulative_sum(savings_array)
 
         gon.complete_savings_dates = savings_dates
-        gon.savings_datapoints = @cumulative_savings
+        gon.savings_raw_datapoints = savings_array
 
         @current_year = Date.today.strftime("%Y")
+
+        @current_date = Date.today.strftime("2021-%m-%d %H:00:00")
 
         # current monthly savings
         current_month = Date.today.strftime("%m")

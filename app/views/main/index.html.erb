@@ -264,6 +264,15 @@
 						<div class="savings-chart-area">
 							<canvas id="savings-chart"></canvas>
 						</div>
+						<div class="date-selector">
+						<br>
+							<strong>From: </strong>
+							<input type="text" class="datepicker" id="startdate" value="2021-01-01 00:00:00">
+							<br>
+							<strong>To:</strong>
+							<input type="text" class="datepicker" id="enddate" value="<%= @current_date %>">
+						</div>
+						<br>
 						<div class="savings-table">
 							<table class="table table-hover">
 								<thead>
@@ -276,19 +285,19 @@
 									<tr>
 										<td colspan="3">This year - <%= @current_year %>
 										</td>
-										<td>$<%= number_with_precision(@cumulative_savings.last(), :precision=> 1, :delimiter => ',
+										<td>$<%= number_with_precision(@cumulative_savings.last(), :precision=> 2, :delimiter => ',
 												') %></td>
 									</tr>
 									<tr class="curr-month">
 										<td colspan="3">This month - <%= @current_month_str %>
 										</td>
-										<td>$<%= number_with_precision(@current_month_dollar_savings, :precision=> 1,
+										<td>$<%= number_with_precision(@current_month_dollar_savings, :precision=> 2,
 												:delimiter => ', ') %></td>
 									</tr>
 									<tr class="curr-day">
 										<td colspan="3">Today - <%= @day_format %>
 										</td>
-										<td>$<%= number_with_precision(@current_daily_dollar_savings, :precision=> 1,
+										<td>$<%= number_with_precision(@current_daily_dollar_savings, :precision=> 2,
 												:delimiter => ', ') %></td>
 									</tr>
 								</tbody>
