@@ -1,5 +1,5 @@
 // savings chart
-//Chart.defaults.font.size = 15;
+Chart.defaults.font.size = 15;
 
 const dates = gon.complete_savings_dates
 const datapoints = gon.savings_raw_datapoints
