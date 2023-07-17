@@ -52,7 +52,7 @@ const config = {
     },
   };
 
-const ctx = new Chart(document.getElementById('savingsChart'), config);
+const ctx = new Chart(document.getElementById('savings-chart'), config);
 
 
 // Selecting savings dates range
@@ -62,14 +62,14 @@ currentHourDate.setHours(currentHourDate.getHours() - 1);
 currentHourDate.setMinutes(0);
 currentHourDate.setSeconds(0);
 
-flatpickr("#startdate", {
+let startPicker = flatpickr("#startdate", {
   enableTime: true,
   dateFormat: "Y-m-d H:00:00",
   maxDate: currentHourDate,
   minDate: '2021-01-01 00:00:00',
 });
 
-flatpickr("#enddate", {
+let endPicker = flatpickr("#enddate", {
   enableTime: true,
   dateFormat: "Y-m-d H:00:00",
   maxDate: currentHourDate,
@@ -90,16 +90,54 @@ function filterData(){
   const indexenddate = dates2.indexOf(enddate.value);
   console.log(indexstartdate);
 
-  const filterDate = dates2.slice(indexstartdate, indexenddate +1);
+  const filterDate = dates2.slice(indexstartdate, indexenddate + 1);
   
-  ctx.config.data.labels = filterDate;
+  ctx.data.labels = filterDate;
   const datapoints2 = [...dataObject.data[0]];
   const filterDatapoints = datapoints2.slice(indexstartdate, indexenddate + 1);
   const cumulativeSumArray2 = accumulate(filterDatapoints);
-  dataObject.data.push(cumulativeSumArray2)
   
-  ctx.config.data.datasets[0].data = cumulativeSumArray2.map(x => Number(x.toFixed(2)));
+  ctx.data.datasets[0].data = cumulativeSumArray2.map(x => Number(x.toFixed(2)));
 
   ctx.update();
-
 };
+
+document.getElementById('lastHour').addEventListener('click', () => displaySavings('hour'));
+document.getElementById('lastWeek').addEventListener('click', () => displaySavings('week'));
+document.getElementById('lastMonth').addEventListener('click', () => displaySavings('month'));
+
+function displaySavings(period){
+  let endDate = new Date();
+  endDate.setFullYear(2021);
+  endDate.setHours(endDate.getHours() - 1);
+  endDate.setMinutes(0);
+  endDate.setSeconds(0);
+  let startDate = new Date(endDate); 
+
+  switch(period){
+    case 'hour':
+      startDate.setHours(startDate.getHours() - 1);
+      break;
+    case 'week':
+      startDate.setDate(startDate.getDate() - 7);
+      break;
+    case 'month':
+      startDate.setMonth(startDate.getMonth() - 1);
+      break;
+  }
+  
+   new Promise((resolve, reject) => {
+    startPicker.setDate(startDate);
+    endPicker.setDate(endDate);
+    // check if the enddate has been changed from the current date
+    if (endPicker.selectedDates[0] && endPicker.selectedDates[0].getTime() !== endDate.getTime()) {
+      endPicker.setDate(endDate);
+    }
+    setTimeout(() => {
+      resolve(true);
+    }, 200);
+  })
+  .then(() => {
+    filterData();
+  });
+}
