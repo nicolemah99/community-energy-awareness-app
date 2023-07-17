@@ -1,13 +1,40 @@
 .overview a {
-    text-decoration: none;
-    color: inherit;
-  }
-  
-.card {
-    scroll-margin-top: 100px; /* Height of navbar */
-  }
+	text-decoration: none;
+	color: inherit;
+}
 
-.overview-card:hover{
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+.card {
+	scroll-margin-top: 100px; /* Height of navbar */
+}
+
+.overview-card:hover {
+	transform: scale(1.05);
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Put in Media queries Here for mobile and desktop min and max width */
+
+/* Desktop */
+@media screen and (min-width: 1024px) {
+	#elec-gen-card {
+		min-width: 600px;
+    max-width: 800px;
+	}
+
+	#savings-card {
+		min-width: 600px;
+    max-width: 800px;
+	}
+
+
+}
+
+/* Tablet */
+@media screen and (min-width: 767px) and (max-width: 1023px) {
+
+}
+
+/* Mobile */
+
+@media screen and (max-width: 767px) {
 }
