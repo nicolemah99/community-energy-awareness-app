@@ -3,9 +3,42 @@ let solarKwh;
 let dieselKwh;
 let labels;
 let savingsDataPoints;
-let maxValue;
-let maxTicks;
 
+// function for acumulate savings
+const accumulate = array => array.map((sum => value => sum += value)(0));
+
+// date selection 
+document.getElementById('lastHour').addEventListener('click', () => displaySavings('hour'));
+document.getElementById('lastWeek').addEventListener('click', () => displaySavings('week'));
+document.getElementById('lastMonth').addEventListener('click', () => displaySavings('month'));
+
+document.querySelector('#startdate').addEventListener('change', filterData);
+document.querySelector('#enddate').addEventListener('change', filterData);
+
+let currentHourDate = new Date();
+currentHourDate.setFullYear(2021); 
+currentHourDate.setHours(currentHourDate.getHours() - 1);
+currentHourDate.setMinutes(0);
+currentHourDate.setSeconds(0);
+
+let startPicker = flatpickr("#startdate", {
+  enableTime: true,
+  dateFormat: "Y-m-d H:00:00",
+  maxDate: currentHourDate,
+  minDate: '2021-01-01 00:00:00',
+});
+
+let endPicker = flatpickr("#enddate", {
+  enableTime: true,
+  dateFormat: "Y-m-d H:00:00",
+  maxDate: currentHourDate,
+  minDate: '2021-01-01 01:00:00',
+});
+
+const savingsDataObject = {
+	data: [
+	]
+  };
 /**
  * Fetch data from /dashboard_data.json, update global variables and return a promise
  */
@@ -22,10 +55,8 @@ function getChartData() {
 			windKwh = json.wind_kwh;
 			solarKwh = json.solar_kwh;
 			dieselKwh = json.diesel_kwh;
-			savingsDataPoints = json.savingsData;
+			savingsDataObject.data[0] = json.savingsData;
 			labels = json.labels;
-			maxValue = savingsDataPoints[savingsDataPoints.length - 1].y;
-			maxTicks = Math.round(maxValue / 50000) * 50000 + 50000;
 			return { success: true };
 		})
 		.catch((e) => {
@@ -33,52 +64,63 @@ function getChartData() {
 			return { success: false, error: e.message };
 		});
 }
-function drawSavingsChart() {
-	const savingsChart = document.getElementById("savingsChart");
-	const savingsData = {
-		labels: labels,
-		datasets: [
-			{
-				label: "$ Diesel Savings",
-				data: savingsDataPoints,
-				borderWidth: 2.5,
-				fill: true,
-			},
-		],
-	};
-	const configSavings = {
-		type: "line",
-		data: savingsData,
-		options: {
-			responsive: true,
-			pointRadius: 0,
-			pointHoverRadius: 5,
-			maintainAspectRatio: false,
-			scales: {
-				x: {
-					title: {
-						display: true,
-						text: "Date",
-					},
-				},
-				y: {
-					title: {
-						display: true,
-						text: "Dollar",
-					},
-					beginAtZero: true,
-					max: maxTicks,
-				},
-			},
-		},
-	};
 
+let configSavings = {
+	type: "line",
+	options: {
+	  responsive: true,
+	  pointRadius: 0,
+	  pointHoverRadius: 5,
+	  maintainAspectRatio: false,
+	  scales: {
+		x: {
+		  title: {
+			display: true,
+			text: 'Date'
+		  },
+		  type: 'time',
+		  time: {
+			unit: 'day'
+		  }
+		},
+		y: {
+		  title: {
+			display: true,
+			text: 'Dollar'
+		  },
+		  beginAtZero: true
+		}
+	  },
+	},
+  };
+  
+  function drawSavingsChart() {
+	const savingsChart = document.getElementById("savingsChart");
+	const cumulativeSumArray = accumulate(savingsDataObject.data[0]);
+	savingsDataObject.data.push(cumulativeSumArray)
+	const savingsData = {
+	  labels: labels,
+	  datasets: [
+		{
+		  label: "$ Diesel Savings",
+		  data: savingsDataObject.data[1].map(x => Number(x.toFixed(2))),
+		  borderWidth: 2.5,
+		  fill: true,
+		},
+	  ],
+	};
+  
+	// Assign the data to configSavings
+	configSavings.data = savingsData;
+  
 	// If charts already exist, destroy them to prevent multiple instances
 	if (window.savingsChartObj) window.savingsChartObj.destroy();
-
+  
 	// Draw new chart
 	window.savingsChartObj = new Chart(savingsChart, configSavings);
-}
+  }
+  
+  
 /**
  * Draw doughnut chart using fetched data after checking whether elements exist
  */
@@ -160,25 +202,60 @@ window.addEventListener("resize", () => {
 	drawSavingsChart();
 })
 
-function filterSavingsData() {
+function displaySavings(period){
+	let endDate = new Date();
+	endDate.setFullYear(2021);
+	endDate.setHours(endDate.getHours() - 1);
+	endDate.setMinutes(0);
+	endDate.setSeconds(0);
+	let startDate = new Date(endDate); 
+  
+	switch(period){
+	  case 'hour':
+		startDate.setHours(startDate.getHours() - 1);
+		break;
+	  case 'week':
+		startDate.setDate(startDate.getDate() - 7);
+		break;
+	  case 'month':
+		startDate.setMonth(startDate.getMonth() - 1);
+		break;
+	}
+	
+	 new Promise((resolve, reject) => {
+	  startPicker.setDate(startDate);
+	  endPicker.setDate(endDate);
+	  // check if the enddate has been changed from the current date
+	  if (endPicker.selectedDates[0] && endPicker.selectedDates[0].getTime() !== endDate.getTime()) {
+		endPicker.setDate(endDate);
+	  }
+	  setTimeout(() => {
+		resolve(true);
+	  }, 200);
+	})
+	.then(() => {
+	  filterData();
+	});
+  }
+  
+function filterData(){
 	const dates2 = [...labels];
 	console.log(dates2);
-
-	const indexStartDate = dates2.indexOf(startDate.value);
-	const indexEndDate = dates2.indexOf(endDate.value);
-	console.log(indexStartDate);
-
-	const filterDate = dates2.slice(indexStartDate, indexEndDate + 1);
-
-	savingsChart.config.data.labels = filterDate;
-
-	const dataPointsArray = [...savingsDataPoints];
-	const filterDataPoints = dataPointsArray.slice(
-		indexStartDate,
-		indexEndDate + 1
-	);
-
-	savingsChart.config.data.datasets[0].data = filterDataPoints;
-
-	savingsChart.update();
-}
+	const startdate = document.getElementById('startdate');
+	const enddate = document.getElementById('enddate');
+  
+	const indexstartdate = dates2.indexOf(startdate.value);
+	const indexenddate = dates2.indexOf(enddate.value);
+	console.log(indexstartdate);
+  
+	const filterDate = dates2.slice(indexstartdate, indexenddate + 1);
+	
+	configSavings.data.labels = filterDate;
+	const datapoints2 = [...savingsDataObject.data[0]];
+	const filterDatapoints = datapoints2.slice(indexstartdate, indexenddate + 1);
+	const cumulativeSumArray2 = accumulate(filterDatapoints);
+	
+	configSavings.data.datasets[0].data = cumulativeSumArray2.map(x => Number(x.toFixed(2)));
+  
+	window.savingsChartObj.update();
+  };
