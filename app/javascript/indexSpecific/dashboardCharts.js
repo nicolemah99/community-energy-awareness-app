@@ -3,37 +3,44 @@ let solarKwh;
 let dieselKwh;
 let labels;
 let savingsDataPoints;
+let startPicker;
+let endPicker;
 
 // function for acumulate savings
 const accumulate = array => array.map((sum => value => sum += value)(0));
 
 // date selection 
-document.getElementById('lastHour').addEventListener('click', () => displaySavings('hour'));
-document.getElementById('lastWeek').addEventListener('click', () => displaySavings('week'));
-document.getElementById('lastMonth').addEventListener('click', () => displaySavings('month'));
+function setUpEventListeners() {
+	document.getElementById('lastHour').addEventListener('click', () => displaySavings('hour'));
+	document.getElementById('lastWeek').addEventListener('click', () => displaySavings('week'));
+	document.getElementById('lastMonth').addEventListener('click', () => displaySavings('month'));
+}
 
-document.querySelector('#startdate').addEventListener('change', filterData);
-document.querySelector('#enddate').addEventListener('change', filterData);
+function setUpDatePickers() {
 
-let currentHourDate = new Date();
-currentHourDate.setFullYear(2021); 
-currentHourDate.setHours(currentHourDate.getHours() - 1);
-currentHourDate.setMinutes(0);
-currentHourDate.setSeconds(0);
+	document.querySelector('#startdate').addEventListener('change', filterData);
+	document.querySelector('#enddate').addEventListener('change', filterData);
 
-let startPicker = flatpickr("#startdate", {
-  enableTime: true,
-  dateFormat: "Y-m-d H:00:00",
-  maxDate: currentHourDate,
-  minDate: '2021-01-01 00:00:00',
-});
+	let currentHourDate = new Date();
+	currentHourDate.setFullYear(2021); 
+	currentHourDate.setHours(currentHourDate.getHours() - 1);
+	currentHourDate.setMinutes(0);
+	currentHourDate.setSeconds(0);
 
-let endPicker = flatpickr("#enddate", {
-  enableTime: true,
-  dateFormat: "Y-m-d H:00:00",
-  maxDate: currentHourDate,
-  minDate: '2021-01-01 01:00:00',
-});
+	startPicker = flatpickr("#startdate", {
+	enableTime: true,
+	dateFormat: "Y-m-d H:00:00",
+	maxDate: currentHourDate,
+	minDate: '2021-01-01 00:00:00',
+	});
+
+	endPicker = flatpickr("#enddate", {
+	enableTime: true,
+	dateFormat: "Y-m-d H:00:00",
+	maxDate: currentHourDate,
+	minDate: '2021-01-01 01:00:00',
+	});
+}
 
 const savingsDataObject = {
 	data: [
@@ -192,6 +199,8 @@ document.addEventListener("turbo:load", (event) => {
 		const savingsChart = document.getElementById("savingsChart");
 		if (elecGenMainChart && elecGenOverviewChart && savingsChart) {
 			loadCharts();
+			setUpDatePickers();
+      		setUpEventListeners();
 		}
 	}
 });
