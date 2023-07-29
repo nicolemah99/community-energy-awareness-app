@@ -5,10 +5,23 @@
 				<% end %>
 					<!--Chart JS -->
 					<script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+					<!-- Cal-HeatMap-->
+					<script src="https://d3js.org/d3.v7.min.js"></script>
+					<script src="https://unpkg.com/cal-heatmap/dist/cal-heatmap.min.js"></script>
+					<link rel="stylesheet" href="https://unpkg.com/cal-heatmap/dist/cal-heatmap.css">
+					<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+					<script src="https://unpkg.com/@popperjs/core@2"></script>
+					<script src="https://unpkg.com/cal-heatmap/dist/plugins/Tooltip.min.js"></script>
+					<script src="https://unpkg.com/cal-heatmap/dist/plugins/Legend.min.js"></script>
+					<!-- Apex Charts-->
+					<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+					<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
 					<% end %>
 						<!--Row 1: Title-->
 						<div class="row m-0">
-							<h1 class="text desktopPageTitle"><%= @page_name %></h1>
+							<h1 class="text desktopPageTitle">
+								<%= @page_name %>
+							</h1>
 						</div>
 						<!--Row 1: End-->
 						<!-- Row 2: Last Updated Time -->
@@ -271,23 +284,30 @@
 										<br>
 										<div class="date-selector">
 											<div data-toggle="buttons">
-												<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-													<input type="radio" class="btn-check" name="btnradio" id="lastHour" autocomplete="off">
-													<label class="btn btn-outline-primary" for="lastHour">Last Hour</label>
-												
-													<input type="radio" class="btn-check" name="btnradio" id="lastWeek" autocomplete="off">
-													<label class="btn btn-outline-primary" for="lastWeek">Last Week</label>
-												
-													<input type="radio" class="btn-check" name="btnradio" id="lastMonth" autocomplete="off">
-													<label class="btn btn-outline-primary" for="lastMonth">Last Month</label>
+												<div class="btn-group" role="group"
+													aria-label="Basic radio toggle button group">
+													<input type="radio" class="btn-check" name="btnradio" id="lastHour"
+														autocomplete="off">
+													<label class="btn btn-outline-primary" for="lastHour">Last
+														Hour</label>
+													<input type="radio" class="btn-check" name="btnradio" id="lastWeek"
+														autocomplete="off">
+													<label class="btn btn-outline-primary" for="lastWeek">Last
+														Week</label>
+													<input type="radio" class="btn-check" name="btnradio" id="lastMonth"
+														autocomplete="off">
+													<label class="btn btn-outline-primary" for="lastMonth">Last
+														Month</label>
 												</div>
 											</div>
 											<br>
 											<strong>From: </strong>
-											<input type="text" class="datepicker" id="startdate" value="2021-01-01 00:00:00">
+											<input type="text" class="datepicker" id="startdate"
+												value="2021-01-01 00:00:00">
 											<br>
 											<strong>To:</strong>
-											<input type="text" class="datepicker" id="enddate" value="<%= @current_date %>">
+											<input type="text" class="datepicker" id="enddate"
+												value="<%= @current_date %>">
 										</div>
 										<br>
 										<div class="savings-table">
@@ -302,20 +322,20 @@
 													<tr>
 														<td colspan="3">This year - <%= @current_year %>
 														</td>
-														<td>$<%= number_with_precision(@cumulative_savings.last(), :precision=> 2, :delimiter => ',
-																') %></td>
+														<td>$<%= number_with_precision(@cumulative_savings.last(),
+																:precision=> 2, :delimiter => ', ') %></td>
 													</tr>
 													<tr class="curr-month">
 														<td colspan="3">This month - <%= @current_month_str %>
 														</td>
-														<td>$<%= number_with_precision(@current_month_dollar_savings, :precision=> 2,
-																:delimiter => ', ') %></td>
+														<td>$<%= number_with_precision(@current_month_dollar_savings,
+																:precision=> 2, :delimiter => ', ') %></td>
 													</tr>
 													<tr class="curr-day">
 														<td colspan="3">Today - <%= @day_format %>
 														</td>
-														<td>$<%= number_with_precision(@current_daily_dollar_savings, :precision=> 2,
-																:delimiter => ', ') %></td>
+														<td>$<%= number_with_precision(@current_daily_dollar_savings,
+																:precision=> 2, :delimiter => ', ') %></td>
 													</tr>
 												</tbody>
 											</table>
