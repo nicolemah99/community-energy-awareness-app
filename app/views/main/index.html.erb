@@ -203,7 +203,7 @@
 											<h3 class="card-title"> Electricity Generation Breakdown</h3>
 										</div>
 										<div class="col">
-											<canvas class="m-auto" id="elecGenMainChart"></canvas>
+											<div id="doughnutMain"></div>
 										</div>
 										<div class="col">
 											<div class="breakdown-table">
@@ -211,27 +211,16 @@
 													<thead>
 														<tr>
 															<th scope="col" colspan="3"></th>
-															<th scope="col">Kilowatt-hour (kWh)</th>
-															<th scope="col">Percentage (%)</th>
+															<th scope="col">Usage</th>
+															<th scope="col">Amount (%)</th>
 														</tr>
 													</thead>
 													<tbody>
-														<tr>
-															<td colspan="3"><strong>TOTAL</strong></td>
-															<td>
-																<%= @total_kwh %> kWh
-															</td>
-															<td>100.00 %</td>
-														</tr>
 														<tr class="non-renew">
 															<td></td>
 															<td colspan="2"><strong>Non Renewables</strong></td>
-															<td><strong>
-																	<%= @non_renew_kwh %> kWh
-																</strong></td>
-															<td><strong>
-																	<%= @non_renew_percent %> %
-																</strong></td>
+															<td></td>
+															<td></td>
 														</tr>
 														<tr>
 															<td></td>
@@ -249,12 +238,8 @@
 														<tr class="renew">
 															<td></td>
 															<td colspan="2"><strong>Renewables</strong></td>
-															<td><strong>
-																	<%=@renew_kwh %> kWh
-																</strong></td>
-															<td><strong>
-																	<%= @renew_percent %> %
-																</strong></td>
+															<td></td>
+															<td></td>
 														</tr>
 														<tr>
 															<td></td>
