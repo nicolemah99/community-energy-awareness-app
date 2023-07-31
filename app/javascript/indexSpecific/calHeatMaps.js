@@ -660,12 +660,14 @@ var chart = new ApexCharts(doughnutMain, doughnutMainConfig);
 chart.render();
 
 //Leaflet Map
-var map = L.map("map").setView([66.8938995, -162.5991843], 12.5);
+var lat = 66.8938995;
+var lon = -162.5991843;
+var map = L.map("map").setView([lat, lon], 12.5);
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
 	maxZoom: 17,
 	attribution: "© OpenStreetMap",
 }).addTo(map);
-var marker = L.marker([66.8938995, -162.5991843]).addTo(map);
+var marker = L.marker([lat, lon]).addTo(map);
 marker.bindPopup("<b>Kotzebue Electric Association</b>").openPopup();
 
 //Hourly Apex Bar chart
@@ -854,3 +856,71 @@ var optionsBar = {
 
 var apexBarChart = new ApexCharts(apexBar, optionsBar);
 apexBarChart.render();
+
+//Open Weather Map
+var apiKey = "5da8a595b998f8d21930856ef8458525";
+var units = "imperial";
+var queryURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=${units}&appid=${apiKey}`;
+var weatherData;
+const locationElement = document.getElementById("location");
+const tempElement = document.getElementById("temp");
+const feelsLikeElement = document.getElementById("feelsLike");
+const humidityElement = document.getElementById("humidity");
+const windProfileElement = document.getElementById("windProfile");
+const weatherIconElement = document.getElementById("weatherIcon");
+const weatherElement = document.getElementById("weather");
+function degreesToCompassDirection(degrees) {
+	var val = Math.floor(degrees / 22.5 + 0.5);
+	var arr = [
+		"N",
+		"NNE",
+		"NE",
+		"ENE",
+		"E",
+		"ESE",
+		"SE",
+		"SSE",
+		"S",
+		"SSW",
+		"SW",
+		"WSW",
+		"W",
+		"WNW",
+		"NW",
+		"NNW",
+	];
+	return arr[val % 16];
+}
+
+function createWeatherMap(data) {
+	let location = data.name;
+	let feels_like = Math.round(data.main.feels_like);
+	let temp = Math.round(data.main.temp);
+	let humidity = Math.round(data.main.humidity);
+	let wind_speed = Math.round(data.wind.speed);
+	let wind_degree = data.wind.deg;
+	let wind_direction = degreesToCompassDirection(data.wind.deg);
+	let weather_description = data.weather[0].description;
+	let weather = data.weather[0].main;
+	let iconCode = data.weather[0].icon;
+	locationElement.textContent = `${location}, AK`;
+	tempElement.textContent = `${temp} °F`;
+	feelsLikeElement.textContent = `Feels like ${feels_like} °F`;
+	windProfileElement.textContent = `${wind_speed} mph ${wind_direction}`;
+	humidityElement.textContent = `Humidity: ${humidity} %`;
+	weatherElement.textContent = `${weather}`;
+    weatherIconElement.src = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+}
+fetch(queryURL)
+	.then((response) => {
+		if (!response.ok) {
+			throw new Error(`HTTP error! status: ${response.status}`);
+		}
+		return response.json();
+	})
+	.then((data) => {
+		createWeatherMap(data);
+	})
+	.catch((e) => {
+		console.log("There was a problem with your fetch operation: " + e.message);
+	});

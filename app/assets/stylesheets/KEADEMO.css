@@ -45,3 +45,18 @@ text {
    display: flex;
    justify-content: center;
 }
+
+.xl{
+    font-size: 48px;
+}
+
+#weatherDescWrapper{
+    border-left: 2px #eb6e4b solid;
+}
+#weatherDescWrapper > p {
+    margin-bottom: 0;
+}
+
+strong > p{
+    margin-bottom: 0;
+}
