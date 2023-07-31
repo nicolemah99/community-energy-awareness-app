@@ -16,6 +16,11 @@
 					<!-- Apex Charts-->
 					<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 					<script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js'></script>
+					<!--Leaflet.js-->
+					<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+						integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+					<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+						integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 					<% end %>
 						<!--Row 1: Title-->
 						<div class="row m-0">
@@ -43,7 +48,7 @@
 							<div class="col">
 								<div class="card">
 									<div class="card-body overview">
-										<h3 class="card-title">Daily Overview (So far today...)</h3>
+										<h3 class="card-title">Daily Overview</h3>
 										<div class="row gy-3 m-0">
 											<!-- Battery Percentage -->
 											<div class="col">
@@ -51,7 +56,7 @@
 													<div class="card p-3 h-100 overview-card">
 														<div class="card-body">
 															<div class="titleWrapper">
-																<i class='bx bx-battery small'></i>
+																<i class='bx bxs-battery-charging small'></i>
 																<h5 class="card-title">Battery Percentage</h5>
 															</div>
 															<h1>
@@ -71,7 +76,8 @@
 														<div class="card-body">
 															<div class="titleWrapper">
 																<i class='bx bx-plug small'></i>
-																<h5 class="card-title">Electricity Generation Breakdown</h5>
+																<h5 class="card-title">Electricity Generation Breakdown
+																</h5>
 															</div>
 															<div id="doughnutOV"></div>
 														</div>
@@ -86,7 +92,6 @@
 															<div class="titleWrapper">
 																<i class='bx bx-sun small'></i>
 																<h5 class="card-title">Weather</h5>
-																
 															</div>
 														</div>
 													</div>
@@ -100,7 +105,6 @@
 															<div class="titleWrapper">
 																<i class='bx bx-dollar small'></i>
 																<h5 class="card-title">Savings</h5>
-																
 															</div>
 															<h1>$ <%=
 																	number_with_precision(@current_daily_dollar_savings,
@@ -141,6 +145,7 @@
 											<i class='bx bx-map big'></i>
 											<h3 class="card-title"> Kotzebue, Alaska</h3>
 										</div>
+										<div id="map"></div>
 									</div>
 								</div>
 							</div>
@@ -149,7 +154,7 @@
 								<div class="card p-3 h-100" id="battery-card">
 									<div class="card-body">
 										<div class="titleWrapper">
-											<i class='bx bx-battery big'></i>
+											<i class='bx bxs-battery-charging big'></i>
 											<h3 class="card-title">State of Battery: <strong>
 													<%= @battery_state %>
 												</strong></h3>
@@ -365,6 +370,18 @@
 									</div>
 								</div>
 							</div>
+							<!-- Today's Usage -->
+							<div class="col">
+								<div class="card p-3 h-100" id="bar-chart-card">
+									<div class="titleWrapper">
+										<i class='bx bx-bar-chart-alt-2 big'></i>
+										<h3 class="card-title">Electricity Usage Today</h3>
+									</div>
+									<div class="card-body">
+										<div id="apexBar"></div>
+									</div>
+								</div>
+							</div>
 							<!-- Community Usage Chart -->
 							<div class="col">
 								<div class="card p-3 h-100" id="usage-card">
@@ -392,7 +409,10 @@
 							<!-- Green Energy Usage Chart -->
 							<div class="col">
 								<div class="card p-3 h-100">
-									<h3 class="card-title">Green Energy Usage Chart</h3>
+									<div class="titleWrapper">
+										<i class='bx bx-leaf big'></i>
+										<h3 class="card-title">Green Energy Usage Chart</h3>
+									</div>
 									<div class="card-body">
 										<div class="helpers">
 											<div class="legend" id="calHeatMap-legendGreen"></div>
@@ -402,11 +422,6 @@
 											</div>
 										</div>
 										<div id='calGreen'></div>
-									</div>
-									<!-- Button trigger modal -->
-									<div class="info-button">
-										<%= link_to 'Learn More' , modals_com_usage_modal_path, data: {
-											turbo_frame: "modal" }, class: "btn btn-primary" %>
 									</div>
 								</div>
 							</div>

@@ -29,3 +29,19 @@ text {
     justify-content: center;
     align-content: center;
 }
+
+#map{
+    height: 90%;
+    width: 100%;
+    z-index: 0;
+}
+
+#map-card{
+    min-width: 450px;
+    min-height: 300px;
+}
+#apexBar{
+   min-width: 1000px;
+   display: flex;
+   justify-content: center;
+}

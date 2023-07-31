@@ -564,13 +564,13 @@ prevBtn2.addEventListener("click", function () {
 
 const doughnutOV = document.getElementById("doughnutOV");
 const doughnutMain = document.getElementById("doughnutMain");
-const dataKwh = [210.24, 438, 1103.73];
-const labels = ["Solar", "Wind", "Diesel"];
+const doughnutDataKwh = [210.24, 438, 1103.73];
+const doughnutLabels = ["Solar", "Wind", "Diesel"];
 const colors = ["#fdd90db3", "#0095ffb3", "#8b7f00b3"];
 
 const doughnutOVConfig = {
-	series: dataKwh,
-	labels: labels,
+	series: doughnutDataKwh,
+	labels: doughnutLabels,
 	colors: colors,
 	legend: {
 		show: true,
@@ -605,8 +605,8 @@ var chart = new ApexCharts(doughnutOV, doughnutOVConfig);
 chart.render();
 
 const doughnutMainConfig = {
-	series: dataKwh,
-	labels: labels,
+	series: doughnutDataKwh,
+	labels: doughnutLabels,
 	colors: colors,
 	legend: {
 		show: true,
@@ -622,7 +622,7 @@ const doughnutMainConfig = {
 		redrawOnWindowResize: true,
 		selection: {
 			enabled: false,
-		}
+		},
 	},
 	dataLabels: {
 		enabled: true,
@@ -658,3 +658,199 @@ const doughnutMainConfig = {
 
 var chart = new ApexCharts(doughnutMain, doughnutMainConfig);
 chart.render();
+
+//Leaflet Map
+var map = L.map("map").setView([66.8938995, -162.5991843], 12.5);
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+	maxZoom: 17,
+	attribution: "© OpenStreetMap",
+}).addTo(map);
+var marker = L.marker([66.8938995, -162.5991843]).addTo(map);
+marker.bindPopup("<b>Kotzebue Electric Association</b>").openPopup();
+
+//Hourly Apex Bar chart
+function getColor(value) {
+	if (value > 1700 && value <= 1737.5) {
+		return "#e6e6ff";
+	} else if (value > 1737.6 && value <= 1775) {
+		return "#d9d9ff";
+	} else if (value > 1775.1 && value <= 1812.5) {
+		return "#e6e6ff";
+	} else if (value > 1812.6 && value <= 1850) {
+		return "#bfbfff";
+	} else if (value > 1850.1 && value <= 1887.5) {
+		return "#b3b3ff";
+	} else if (value > 1887.6 && value <= 1962.5) {
+		return "#9999ff";
+	} else if (value > 1962.6 && value <= 2000) {
+		return "#8c8cff";
+	} else if (value > 2000.1 && value <= 2037.5) {
+		return "#8080ff";
+	} else if (value > 2037.6 && value <= 2075) {
+		return "#7373ff";
+	} else if (value > 2075.1 && value <= 2112.5) {
+		return "#6666ff";
+	} else if (value > 2112.6 && value <= 2150) {
+		return "#5959ff";
+	} else if (value > 2150.1 && value <= 2187.5) {
+		return "#4d4dff";
+	} else if (value > 2187.6 && value <= 2225) {
+		return "#4040ff";
+	} else if (value > 2225.1 && value <= 2262.5) {
+		return "#3333ff";
+	} else if (value > 2262.6 && value <= 2300) {
+		return "#2626ff";
+	} else if (value > 2300.1 && value <= 2337.5) {
+		return "#0d0dff";
+	} else if (value > 2337.6 && value <= 2375) {
+		return "#0d0dff";
+	} else if (value > 2375.1 && value <= 2415) {
+		return "#0000ff";
+	} else {
+		return "#ffffff";
+	}
+}
+const apexBar = document.getElementById("apexBar");
+
+const dataKwhWithColors = [
+	{
+		x: "12AM",
+		y: 1876.9,
+		fillColor: getColor(1876.9),
+	},
+	{
+		x: "1AM",
+		y: 1811.69,
+		fillColor: getColor(1811.69),
+	},
+	{
+		x: "2AM",
+		y: 1775.28,
+		fillColor: getColor(1775.28),
+	},
+	{
+		x: "3AM",
+		y: 1742.16,
+		fillColor: getColor(1742.16),
+	},
+	{
+		x: "4AM",
+		y: 1708.76,
+		fillColor: getColor(1708.76),
+	},
+	{
+		x: "5AM",
+		y: 1753.73,
+		fillColor: getColor(1753.73),
+	},
+	{
+		x: "6AM",
+		y: 1841,
+		fillColor: getColor(1841),
+	},
+	{
+		x: "7AM",
+		y: 2023.68,
+		fillColor: getColor(2023.68),
+	},
+	{
+		x: "8AM",
+		y: 2187.39,
+		fillColor: getColor(2187.39),
+	},
+	{
+		x: "9AM",
+		y: 2227.7,
+		fillColor: getColor(2227.7),
+	},
+	{
+		x: "10AM",
+		y: 2276.34,
+		fillColor: getColor(2276.34),
+	},
+	{
+		x: "11AM",
+		y: 2322.62,
+		fillColor: getColor(2322.62),
+	},
+	{
+		x: "12PM",
+		y: 2372.28,
+		fillColor: getColor(2372.28),
+	},
+	{
+		x: "1PM",
+		y: 2413.7,
+		fillColor: getColor(2413.7),
+	},
+	{
+		x: "2PM",
+		y: 2375.22,
+		fillColor: getColor(2375.22),
+	},
+	{
+		x: "3PM",
+		y: 2358.39,
+		fillColor: getColor(2358.39),
+	},
+	{
+		x: "4PM",
+		y: 2400.51,
+		fillColor: getColor(2400.51),
+	},
+	{
+		x: "5PM",
+		y: 2361.39,
+		fillColor: getColor(2361.39),
+	},
+	{
+		x: "6PM",
+		y: 2295.82,
+		fillColor: getColor(2295.82),
+	},
+	{
+		x: "7PM",
+		y: 2209.27,
+		fillColor: getColor(2209.27),
+	},
+	{
+		x: "8PM",
+		y: 2138.59,
+		fillColor: getColor(2138.59),
+	},
+	{
+		x: "9PM",
+		y: 2086.74,
+		fillColor: getColor(2086.74),
+	},
+	{
+		x: "10PM",
+		y: 2013.54,
+		fillColor: getColor(2013.54),
+	},
+	{
+		x: "11PM",
+		y: 1941.17,
+		fillColor: getColor(1941.17),
+	},
+];
+//Apex Charts Bar Chart
+var optionsBar = {
+	series: [
+		{
+			name: "Hour",
+			data: dataKwhWithColors,
+		},
+	],
+	chart: {
+		height: 300,
+		type: "bar",
+		redrawOnWindowResize: true,
+	},
+	dataLabels: {
+		enabled: false,
+	},
+};
+
+var apexBarChart = new ApexCharts(apexBar, optionsBar);
+apexBarChart.render();

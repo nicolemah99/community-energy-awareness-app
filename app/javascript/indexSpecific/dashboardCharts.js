@@ -177,7 +177,7 @@ function drawDoughnutChart() {
 function loadCharts() {
 	getChartData().then((result) => {
 		if (result.success) {
-			drawDoughnutChart();
+			//drawDoughnutChart();
 			drawSavingsChart();
 		} else {
 			console.log("Failed to fetch data:", result.error);
@@ -192,12 +192,12 @@ document.addEventListener("turbo:load", (event) => {
 
 	//If user clicked on root link
 	if (url.pathname == rootPath) {
-		const elecGenMainChart = document.getElementById("elecGenMainChart");
-		const elecGenOverviewChart = document.getElementById(
-			"elecGenOverviewChart"
-		);
+		//const elecGenMainChart = document.getElementById("elecGenMainChart");
+		//const elecGenOverviewChart = document.getElementById(
+		//	"elecGenOverviewChart"
+		//);
 		const savingsChart = document.getElementById("savingsChart");
-		if (elecGenMainChart && elecGenOverviewChart && savingsChart) {
+		if (savingsChart) {
 			loadCharts();
 			setUpDatePickers();
       		setUpEventListeners();
