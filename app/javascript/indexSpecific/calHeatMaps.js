@@ -559,3 +559,43 @@ nextBtn2.addEventListener("click", function () {
 prevBtn2.addEventListener("click", function () {
 	calGreen.previous();
 });
+
+//Apex Charts
+
+const doughnutOV = document.getElementById("doughnutOV");
+
+const dataKwh = [210.24, 438, 1103.73];
+const labels = ["Solar", "Wind", "Diesel"];
+const colors = ["#fdd90db3", "#0095ffb3", "#8b7f00b3"];
+
+const doughnutOVConfig = {
+	series: dataKwh,
+	labels: labels,
+	colors: colors,
+	legend: {
+		show: true,
+		fontSize: "16px",
+		position: "top",
+	},
+	chart: {
+		width: '350px',
+		type: "donut",
+	},
+	dataLabels: {
+		enabled: true,
+		dropShadow:{
+			enabled: false,
+		}
+	},
+	plotOptions: {
+		pie:{
+			donut:{
+				size: "45%"
+			}
+		}
+
+	},
+};
+
+var chart = new ApexCharts(doughnutOV, doughnutOVConfig);
+chart.render();
