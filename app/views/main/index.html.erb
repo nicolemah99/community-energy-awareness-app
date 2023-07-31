@@ -44,8 +44,10 @@
 															<h1>
 																<%= @current_charge %> % <% if
 																		@battery_state=="Charging" %>
+																			<i class='bx bx-up-arrow-alt up'></i>
 																		<% elsif @battery_state=="Discharging" %>
-																			<% end %>
+																			<i class='bx bx-down-arrow-alt down'></i>
+																<% end %>
 															</h1>
 														</div>
 													</div>
