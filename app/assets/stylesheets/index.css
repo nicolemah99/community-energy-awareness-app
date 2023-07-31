@@ -415,3 +415,23 @@ body.dark #home .text {
 	box-shadow: 0 5px 10px 0 rgb(0 0 0 / 40%), 0 10px 20px 0 rgb(0 0 0 / 20%);
 	border-bottom: 0;
 }
+
+
+.titleWrapper{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+
+}
+
+.titleWrapper > i {
+	margin-right: 5px;
+}
+
+i.big{
+	font-size: 30px;
+}
+
+i.small{
+	font-size: 24px;
+}
