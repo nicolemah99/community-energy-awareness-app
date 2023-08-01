@@ -10,7 +10,7 @@
 
 :root {
 	/* ===== Colors ===== */
-	--body-color: #e4eff7;
+	--body-color: #f5f6fa;
 	--sidebar-color: #fff;
 	--primary-color: #00a1e4;
 	--primary-color-light: #c4edff;
@@ -22,6 +22,9 @@
 	--tran-03: all 0.3s ease;
 	--tran-04: all 0.4s ease;
 	--tran-05: all 0.5s ease;
+}
+#overview-card{
+	background-color: var(--toggle-color);
 }
 
 body {

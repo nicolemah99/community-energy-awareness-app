@@ -5,8 +5,10 @@
 
 .card {
 	scroll-margin-top: 100px; /* Height of navbar */
+	box-shadow: 0 1px 15px 0 rgba(123, 123, 123, 0.05);
+	border: 0.0625rem solid rgba(34, 42, 66, 0.05);
 }
-
+ 
 .overview-card:hover {
 	transform: scale(1.05);
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);

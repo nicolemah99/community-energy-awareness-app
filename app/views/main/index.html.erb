@@ -46,29 +46,10 @@
 						<!--Row 3: Overview Start-->
 						<div class="row gy-3 m-0">
 							<div class="col">
-								<div class="card">
+								<div id="overview-card" class="card">
 									<div class="card-body overview">
 										<h3 class="card-title">Daily Overview</h3>
 										<div class="row gy-3 m-0">
-											<!-- Battery Percentage -->
-											<div class="col">
-												<a href="#battery-card">
-													<div class="card p-3 h-100 overview-card">
-														<div class="card-body">
-															<div class="titleWrapper">
-																<i class='bx bxs-battery-charging small'></i>
-																<h5 class="card-title">Battery Percentage</h5>
-															</div>
-															<h1>
-																<%= @current_charge %> % <% if
-																		@battery_state=="Charging" %>
-																		<% elsif @battery_state=="Discharging" %>
-																			<% end %>
-															</h1>
-														</div>
-													</div>
-												</a>
-											</div>
 											<!-- Electricity Generation Breakdown -->
 											<div class="col">
 												<a href="#elec-gen-card">
@@ -112,37 +93,57 @@
 													</div>
 												</a>
 											</div>
-											<!-- Savings -->
 											<div class="col">
-												<a href="#savings-card">
-													<div class="card p-3 h-100 overview-card">
-														<div class="card-body">
-															<div class="titleWrapper">
-																<i class='bx bx-dollar small'></i>
-																<h5 class="card-title">Savings</h5>
+												<!-- Battery Percentage -->
+												<div class="row mb-3">
+													<a href="#battery-card">
+														<div class="card p-3 h-100 overview-card">
+															<div class="card-body">
+																<div class="titleWrapper">
+																	<i class='bx bxs-battery-charging small'></i>
+																	<h5 class="card-title">Battery Percentage</h5>
+																</div>
+																<h2>
+																	<%= @current_charge %> % <% if @battery_state=="Charging" %>
+																			<% elsif @battery_state=="Discharging" %>
+																				<% end %>
+																</h2>
 															</div>
-															<h1>$ <%=
-																	number_with_precision(@current_daily_dollar_savings,
-																	:precision=> 1, :delimiter => ', ') %></h1>
 														</div>
-													</div>
-												</a>
-											</div>
-											<!-- Community Electricity Usage -->
-											<div class="col">
-												<a href="#usage-card">
-													<div class="card p-3 h-100 overview-card">
-														<div class="card-body">
-															<div class="titleWrapper">
-																<i class='bx bx-group small'></i>
-																<h5 class="card-title">Community Usage</h5>
+													</a>
+												</div>
+												<!-- Savings -->
+												<div class="row mb-3">
+													<a href="#savings-card">
+														<div class="card p-3 h-100 overview-card">
+															<div class="card-body">
+																<div class="titleWrapper">
+																	<i class='bx bx-dollar small'></i>
+																	<h5 class="card-title">Savings</h5>
+																</div>
+																<h2>$ <%=
+																		number_with_precision(@current_daily_dollar_savings,
+																		:precision=> 1, :delimiter => ', ') %></h2>
 															</div>
-															<h1>
-																<%= @total_kwh %> kWh
-															</h1>
 														</div>
-													</div>
-												</a>
+													</a>
+												</div>
+												<!-- Community Electricity Usage -->
+												<div class="row">
+													<a href="#usage-card">
+														<div class="card p-3 h-100 overview-card">
+															<div class="card-body">
+																<div class="titleWrapper">
+																	<i class='bx bx-group small'></i>
+																	<h5 class="card-title">Community Usage</h5>
+																</div>
+																<h2>
+																	<%= @total_kwh %> kWh
+																</h2>
+															</div>
+														</div>
+													</a>
+												</div>
 											</div>
 										</div>
 									</div>
