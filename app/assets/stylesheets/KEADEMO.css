@@ -60,3 +60,7 @@ text {
 strong > p{
     margin-bottom: 0;
 }
+
+h5{
+    font-weight: 700;
+}

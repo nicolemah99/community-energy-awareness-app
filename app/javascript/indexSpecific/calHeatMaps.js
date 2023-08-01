@@ -207,6 +207,10 @@ const commUsageData = [
 	{ date: "2023-07-25", value: 38929 },
 	{ date: "2023-07-26", value: 43171 },
 	{ date: "2023-07-27", value: 39987 },
+	{ date: "2023-07-28", value: 40463 },
+	{ date: "2023-07-29", value: 40652 },
+	{ date: "2023-07-30", value: 45171 },
+	{ date: "2023-07-31", value: 41523}
 ];
 
 const greenData = [
@@ -418,6 +422,10 @@ const greenData = [
 	{ date: "2023-07-25", value: 55 },
 	{ date: "2023-07-26", value: 26 },
 	{ date: "2023-07-27", value: 51 },
+	{ date: "2023-07-28", value: 58 },
+	{ date: "2023-07-29", value: 18 },
+	{ date: "2023-07-30", value: 17 },
+	{ date: "2023-07-31", value: 26 },
 ];
 
 const maxDate = new Date();

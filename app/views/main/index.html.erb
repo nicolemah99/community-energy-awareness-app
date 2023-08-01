@@ -80,7 +80,8 @@
 																	<img src="" alt="" id="weatherIcon">
 																	<h2 id="temp" class="my-2"></h2>
 																</div>
-																<div id="weatherDescWrapper" class="d-flex flex-column align-items-start ps-3">
+																<div id="weatherDescWrapper"
+																	class="d-flex flex-column align-items-start ps-3">
 																	<strong>
 																		<p id="weather"></p>
 																	</strong>
@@ -93,6 +94,7 @@
 													</div>
 												</a>
 											</div>
+											<!-- Battery & Savings-->
 											<div class="col">
 												<!-- Battery Percentage -->
 												<div class="row mb-3">
@@ -104,7 +106,8 @@
 																	<h5 class="card-title">Battery Percentage</h5>
 																</div>
 																<h2>
-																	<%= @current_charge %> % <% if @battery_state=="Charging" %>
+																	<%= @current_charge %> % <% if
+																			@battery_state=="Charging" %>
 																			<% elsif @battery_state=="Discharging" %>
 																				<% end %>
 																</h2>
@@ -113,13 +116,13 @@
 													</a>
 												</div>
 												<!-- Savings -->
-												<div class="row mb-3">
+												<div class="row">
 													<a href="#savings-card">
 														<div class="card p-3 h-100 overview-card">
 															<div class="card-body">
 																<div class="titleWrapper">
 																	<i class='bx bx-dollar small'></i>
-																	<h5 class="card-title">Savings</h5>
+																	<h5 class="card-title">Today's Savings</h5>
 																</div>
 																<h2>$ <%=
 																		number_with_precision(@current_daily_dollar_savings,
@@ -128,8 +131,11 @@
 														</div>
 													</a>
 												</div>
+											</div>
+											<!-- Community Usage & Green Usage-->
+											<div class="col">
 												<!-- Community Electricity Usage -->
-												<div class="row">
+												<div class="row mb-3">
 													<a href="#usage-card">
 														<div class="card p-3 h-100 overview-card">
 															<div class="card-body">
@@ -139,6 +145,22 @@
 																</div>
 																<h2>
 																	<%= @total_kwh %> kWh
+																</h2>
+															</div>
+														</div>
+													</a>
+												</div>
+												<!-- Green Usage -->
+												<div class="row">
+													<a href="#green-card">
+														<div class="card p-3 h-100 overview-card">
+															<div class="card-body">
+																<div class="titleWrapper">
+																	<i class='bx bx-leaf small'></i>
+																	<h5 class="card-title">Green Energy Usage</h5>
+																</div>
+																<h2>
+																	36 %
 																</h2>
 															</div>
 														</div>
@@ -403,7 +425,7 @@
 								<div class="card p-3 h-100" id="usage-card">
 									<div class="titleWrapper">
 										<i class='bx bx-group big'></i>
-										<h3 class="card-title">Community Usage Chart</h3>
+										<h3 class="card-title">Community Usage</h3>
 									</div>
 									<div class="card-body">
 										<div class="helpers">
@@ -424,10 +446,10 @@
 							</div>
 							<!-- Green Energy Usage Chart -->
 							<div class="col">
-								<div class="card p-3 h-100">
+								<div class="card p-3 h-100" id="green-card">
 									<div class="titleWrapper">
 										<i class='bx bx-leaf big'></i>
-										<h3 class="card-title">Green Energy Usage Chart</h3>
+										<h3 class="card-title">Green Energy Usage</h3>
 									</div>
 									<div class="card-body">
 										<div class="helpers">
