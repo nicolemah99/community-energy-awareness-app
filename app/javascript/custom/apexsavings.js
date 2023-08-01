@@ -1,3 +1,21 @@
+function prepareDataForApexChart(dates, labels) {
+  if (dates.length !== labels.length) {
+      throw new Error('Dates and labels arrays must have the same length');
+  }
+
+  var result = {
+      series: [{
+          name: "series-1",
+          data: labels
+      }],
+      xaxis: {
+          categories: dates
+      }
+  };
+
+  return result;
+}
+
 var today = new Date();
 // Set start date to January 1st of the current year
 var startDate = new Date(today.getFullYear(), 0, 1);
@@ -29,7 +47,7 @@ console.log(dates)
 var options = {
     series: [{
     name: 'Savings',
-    data: dates
+    data: prepareDataForApexChart(dates, labels)
   }],
     chart: {
     type: 'area',
