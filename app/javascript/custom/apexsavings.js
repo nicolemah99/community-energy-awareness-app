@@ -14,6 +14,16 @@ for (var d = startDate; d <= today; d.setHours(d.getHours() + 1)) {
     });
 }
 
+const savingsDataObject = {
+	data: [
+	]
+  };
+
+savingsDataObject.data[0] = gon.savings_raw_datapoints;
+const accumulate = array => array.map((sum => value => sum += value)(0));
+const cumulativeSumArray = accumulate(savingsDataObject.data[0]);
+savingsDataObject.data.push(cumulativeSumArray)
+
 console.log(dates)
 
 var options = {
