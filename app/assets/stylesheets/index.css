@@ -24,7 +24,6 @@
 	--tran-05: all 0.5s ease;
 }
 
-
 body {
 	background-color: var(--body-color);
 	transition: var(--tran-05);
@@ -55,7 +54,7 @@ body.dark {
 	background: var(--sidebar-color);
 	transition: var(--tran-05);
 	z-index: 100;
-    box-shadow: 0 5px 10px 0 rgb(0 0 0 / 40%), 0 10px 20px 0 rgb(0 0 0 / 20%);
+	box-shadow: 0 5px 10px 0 rgb(0 0 0 / 40%), 0 10px 20px 0 rgb(0 0 0 / 20%);
 }
 
 .sidebar.close {
@@ -412,22 +411,30 @@ body.dark #home .text {
 	border-bottom: 0;
 }
 
-
-.titleWrapper{
+.titleWrapper {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
-
 }
 
 .titleWrapper > i {
 	margin-right: 5px;
 }
 
-i.big{
+i.big {
 	font-size: 30px;
 }
 
-i.small{
+i.small {
 	font-size: 24px;
+}
+
+i.up {
+	color: rgb(13, 161, 13);
+	font-size: 45px;
+}
+
+i.down {
+	color: rgb(246, 31, 31);
+	font-size: 45px;
 }

@@ -44,7 +44,7 @@
 						</div>
 						<!--Row 2: End-->
 						<!--Row 3: Overview Start-->
-						<div class="row gy-3 m-0">
+						<div class="row gy-3 m-0 d-flex flex-row">
 							<div class="col">
 								<div id="overview-card" class="card">
 									<div class="card-body overview">
@@ -95,76 +95,85 @@
 												</a>
 											</div>
 											<!-- Battery & Savings-->
-											<div class="col">
+											<div class="col d-flex flex-column">
 												<!-- Battery Percentage -->
-												<div class="row mb-3">
-													<a href="#battery-card">
-														<div class="card p-3 h-100 overview-card">
-															<div class="card-body">
-																<div class="titleWrapper">
-																	<i class='bx bxs-battery-charging small'></i>
-																	<h5 class="card-title">Battery Percentage</h5>
+												<div class="row flex-grow-1 mb-3">
+													<div class="col">
+														<a href="#battery-card">
+															<div class="card p-3 h-100 overview-card">
+																<div class="card-body">
+																	<div class="titleWrapper">
+																		<i class='bx bxs-battery-charging small'></i>
+																		<h5 class="card-title">Battery Percentage</h5>
+																	</div>
+																	<h2>
+																		<%= @current_charge %> % <% if @battery_state=="Charging" %>
+																				<i class='bx bx-up-arrow-alt up'></i>
+																				<% elsif @battery_state=="Discharging" %>
+																					<i class='bx bx-down-arrow-alt down'></i>
+																					<% end %>
+																	</h2>
 																</div>
-																<h2>
-																	<%= @current_charge %> % <% if
-																			@battery_state=="Charging" %>
-																			<% elsif @battery_state=="Discharging" %>
-																				<% end %>
-																</h2>
 															</div>
-														</div>
-													</a>
+														</a>
+													</div>
 												</div>
 												<!-- Savings -->
-												<div class="row">
-													<a href="#savings-card">
-														<div class="card p-3 h-100 overview-card">
-															<div class="card-body">
-																<div class="titleWrapper">
-																	<i class='bx bx-dollar small'></i>
-																	<h5 class="card-title">Today's Savings</h5>
+												<div class="row flex-grow-1">
+													<div class="col">
+														<a href="#savings-card">
+															<div class="card p-3 h-100 overview-card">
+																<div class="card-body">
+																	<div class="titleWrapper">
+																		<i class='bx bx-dollar small'></i>
+																		<h5 class="card-title">Today's Savings</h5>
+																	</div>
+																	<h2>$ <%=
+																			number_with_precision(@current_daily_dollar_savings,
+																			:precision=> 1, :delimiter => ',') %></h2>
 																</div>
-																<h2>$ <%=
-																		number_with_precision(@current_daily_dollar_savings,
-																		:precision=> 1, :delimiter => ',') %></h2>
 															</div>
-														</div>
-													</a>
+														</a>
+													</div>
 												</div>
 											</div>
 											<!-- Community Usage & Green Usage-->
-											<div class="col">
+											<div class="col d-flex flex-column">
 												<!-- Community Electricity Usage -->
-												<div class="row mb-3">
-													<a href="#usage-card">
-														<div class="card p-3 h-100 overview-card">
-															<div class="card-body">
-																<div class="titleWrapper">
-																	<i class='bx bx-group small'></i>
-																	<h5 class="card-title">Community Usage</h5>
+												<div class="row flex-grow-1 mb-3">
+													<div class="col">
+														<a href="#usage-card">
+															<div class="card p-3 h-100 overview-card">
+																<div class="card-body">
+																	<div class="titleWrapper">
+																		<i class='bx bx-group small'></i>
+																		<h5 class="card-title">Community Usage</h5>
+																	</div>
+																	<h2>
+																		<%= @total_kwh %> kWh
+																	</h2>
 																</div>
-																<h2>
-																	<%= @total_kwh %> kWh
-																</h2>
 															</div>
-														</div>
-													</a>
+														</a>
+													</div>
 												</div>
 												<!-- Green Usage -->
-												<div class="row">
-													<a href="#green-card">
-														<div class="card p-3 h-100 overview-card">
-															<div class="card-body">
-																<div class="titleWrapper">
-																	<i class='bx bx-leaf small'></i>
-																	<h5 class="card-title">Green Energy Usage</h5>
+												<div class="row flex-grow-1">
+													<div class="col">
+														<a href="#green-card">
+															<div class="card p-3 h-100 overview-card">
+																<div class="card-body">
+																	<div class="titleWrapper">
+																		<i class='bx bx-leaf small'></i>
+																		<h5 class="card-title">Green Electricity Usage</h5>
+																	</div>
+																	<h2>
+																		36 %
+																	</h2>
 																</div>
-																<h2>
-																	36 %
-																</h2>
 															</div>
-														</div>
-													</a>
+														</a>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -197,10 +206,10 @@
 													<%= @battery_state %>
 												</strong></h3>
 										</div>
-										<strong>Current state of Charge: </strong>
-										<%= @current_charge %> <br>
-											<strong>Charge one hour ago: </strong>
-											<%= @past_charge %> <br>
+										<strong>Current charge level: </strong>
+										<%= @current_charge %>%<br>
+											<strong>Charge level one hour ago: </strong>
+											<%= @past_charge %>% <br>
 												<br>
 												<div class="battery-container">
 													<div class="battery">
@@ -245,7 +254,7 @@
 											<i class='bx bx-plug big'></i>
 											<h3 class="card-title"> Electricity Generation Breakdown</h3>
 										</div>
-										<div class="col">
+										<div class="col d-flex justify-content-center">
 											<div id="doughnutMain"></div>
 										</div>
 										<div class="col">
@@ -449,7 +458,7 @@
 								<div class="card p-3 h-100" id="green-card">
 									<div class="titleWrapper">
 										<i class='bx bx-leaf big'></i>
-										<h3 class="card-title">Green Energy Usage</h3>
+										<h3 class="card-title">Green Electricity Usage</h3>
 									</div>
 									<div class="card-body">
 										<div class="helpers">

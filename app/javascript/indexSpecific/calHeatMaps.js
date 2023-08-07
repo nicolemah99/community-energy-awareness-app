@@ -210,7 +210,10 @@ const commUsageData = [
 	{ date: "2023-07-28", value: 40463 },
 	{ date: "2023-07-29", value: 40652 },
 	{ date: "2023-07-30", value: 45171 },
-	{ date: "2023-07-31", value: 41523}
+	{ date: "2023-07-31", value: 41523},
+	{ date: "2023-08-01", value: 38234},
+	{ date: "2023-08-02", value: 40234},
+	{ date: "2023-08-03", value: 41959}
 ];
 
 const greenData = [
@@ -426,6 +429,9 @@ const greenData = [
 	{ date: "2023-07-29", value: 18 },
 	{ date: "2023-07-30", value: 17 },
 	{ date: "2023-07-31", value: 26 },
+	{ date: "2023-08-01", value: 59 },
+    { date: "2023-08-02", value: 58 },
+    { date: "2023-08-03", value: 39 },
 ];
 
 const maxDate = new Date();
@@ -492,7 +498,7 @@ cal.paint(
 const calGreen = new CalHeatmap();
 calGreen.paint(
 	{
-		range: 1,
+		range: 12,
 		itemSelector: "#calGreen",
 		data: {
 			source: greenData,
@@ -681,41 +687,41 @@ marker.bindPopup("<b>Kotzebue Electric Association</b>").openPopup();
 //Hourly Apex Bar chart
 function getColor(value) {
 	if (value > 1700 && value <= 1737.5) {
-		return "#e6e6ff";
+		return "#ffffe8";
 	} else if (value > 1737.6 && value <= 1775) {
-		return "#d9d9ff";
+		return "#ffffd9";
 	} else if (value > 1775.1 && value <= 1812.5) {
-		return "#e6e6ff";
+		return "#f5ffc0";
 	} else if (value > 1812.6 && value <= 1850) {
-		return "#bfbfff";
+		return "#edf8b1";
 	} else if (value > 1850.1 && value <= 1887.5) {
-		return "#b3b3ff";
+		return "#daf8ca";
 	} else if (value > 1887.6 && value <= 1962.5) {
-		return "#9999ff";
+		return "#c7e9b4";
 	} else if (value > 1962.6 && value <= 2000) {
-		return "#8c8cff";
+		return "#97dbae";
 	} else if (value > 2000.1 && value <= 2037.5) {
-		return "#8080ff";
+		return "#7fcdbb";
 	} else if (value > 2037.6 && value <= 2075) {
-		return "#7373ff";
+		return "#41b6c4";
 	} else if (value > 2075.1 && value <= 2112.5) {
-		return "#6666ff";
+		return "#1d91c0";
 	} else if (value > 2112.6 && value <= 2150) {
-		return "#5959ff";
+		return "#1b89b5";
 	} else if (value > 2150.1 && value <= 2187.5) {
-		return "#4d4dff";
+		return "#225ea8";
 	} else if (value > 2187.6 && value <= 2225) {
-		return "#4040ff";
+		return "#1d4f8c";
 	} else if (value > 2225.1 && value <= 2262.5) {
-		return "#3333ff";
+		return "#0c2c84";
 	} else if (value > 2262.6 && value <= 2300) {
-		return "#2626ff";
+		return "#0a2676";
 	} else if (value > 2300.1 && value <= 2337.5) {
-		return "#0d0dff";
+		return "#092574";
 	} else if (value > 2337.6 && value <= 2375) {
-		return "#0d0dff";
+		return "#081f63";
 	} else if (value > 2375.1 && value <= 2415) {
-		return "#0000ff";
+		return "#081c55";
 	} else {
 		return "#ffffff";
 	}
@@ -800,48 +806,48 @@ const dataKwhWithColors = [
 	},
 	{
 		x: "3PM",
-		y: 2358.39,
-		fillColor: getColor(2358.39),
+		y: 0,
+		fillColor: getColor(0),
 	},
 	{
 		x: "4PM",
-		y: 2400.51,
-		fillColor: getColor(2400.51),
+		y: 0,
+		fillColor: getColor(0),
 	},
 	{
 		x: "5PM",
-		y: 2361.39,
-		fillColor: getColor(2361.39),
+		y: 0,
+		fillColor: getColor(0),
 	},
 	{
 		x: "6PM",
-		y: 2295.82,
-		fillColor: getColor(2295.82),
+		y: 0,
+		fillColor: getColor(0),
 	},
 	{
 		x: "7PM",
-		y: 2209.27,
-		fillColor: getColor(2209.27),
+		y: 0,
+		fillColor: getColor(0),
 	},
 	{
 		x: "8PM",
-		y: 2138.59,
-		fillColor: getColor(2138.59),
+		y: 0,
+		fillColor: getColor(0),
 	},
 	{
 		x: "9PM",
 		y: 2086.74,
-		fillColor: getColor(2086.74),
+		fillColor: getColor(0),
 	},
 	{
 		x: "10PM",
-		y: 2013.54,
-		fillColor: getColor(2013.54),
+		y: 0,
+		fillColor: getColor(0),
 	},
 	{
 		x: "11PM",
-		y: 1941.17,
-		fillColor: getColor(1941.17),
+		y: 0,
+		fillColor: getColor(0),
 	},
 ];
 //Apex Charts Bar Chart
