@@ -50,6 +50,25 @@
 									<div class="card-body overview">
 										<h3 class="card-title">Daily Overview</h3>
 										<div class="row gy-3 m-0">
+											<!-- Battery Percentage -->
+											<div class="col">
+												<a href="#battery-card">
+													<div class="card p-3 h-100 overview-card">
+														<div class="card-body">
+															<div class="titleWrapper">
+																<i class='bx bx-battery small'></i>
+																<h5 class="card-title">Battery Percentage</h5>
+															</div>
+															<h1>
+																<%= @current_charge %> % <% if
+																		@battery_state=="Charging" %>
+																		<% elsif @battery_state=="Discharging" %>
+																			<% end %>
+															</h1>
+														</div>
+													</div>
+												</a>
+											</div>
 											<!-- Electricity Generation Breakdown -->
 											<div class="col">
 												<a href="#elec-gen-card">
