@@ -129,19 +129,43 @@
 											</div>
 											<!-- Community Usage & Green Usage -->
 											<div class="col d-flex flex-column">
-												<a href="#usage-card">
-													<div class="card p-3 h-100 overview-card">
-														<div class="card-body">
-															<div class="titleWrapper">
-																<i class='bx bx-group small'></i>
-																<h5 class="card-title">Community Usage</h5>
+												<!-- Community Electricity Usage -->
+												<div class="row flex-grow-1 mb-3">
+													<div class="col">
+														<a href="#usage-card">
+															<div class="card p-3 h-100 overview-card">
+																<div class="card-body">
+																	<div class="titleWrapper">
+																		<i class='bx bx-group small'></i>
+																		<h5 class="card-title">Community Usage</h5>
+																	</div>
+																	<h2>
+																		<%= @total_kwh %> kWh
+																	</h2>
+																</div>
 															</div>
-															<h1>
-																<%= @total_kwh %> kWh
-															</h1>
-														</div>
+														</a>
 													</div>
-												</a>
+												</div>
+												<!-- Green Usage -->
+												<div class="row flex-grow-1">
+													<div class="col">
+														<a href="#green-card">
+															<div class="card p-3 h-100 overview-card">
+																<div class="card-body">
+																	<div class="titleWrapper">
+																		<i class='bx bx-leaf small'></i>
+																		<h5 class="card-title">Green Electricity Usage
+																		</h5>
+																	</div>
+																	<h2>
+																		36 %
+																	</h2>
+																</div>
+															</div>
+														</a>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
