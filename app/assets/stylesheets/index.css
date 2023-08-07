@@ -1,6 +1,7 @@
 /* Stylesheet for Entire Dashboard */
 /* Google Font Import - Poppins */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
 * {
 	margin: 0;
 	padding: 0;
@@ -10,7 +11,7 @@
 
 :root {
 	/* ===== Colors ===== */
-	--body-color: #e4eff7;
+	--body-color: #f5f6fa;
 	--sidebar-color: #fff;
 	--primary-color: #00a1e4;
 	--primary-color-light: #c4edff;
@@ -54,7 +55,7 @@ body.dark {
 	background: var(--sidebar-color);
 	transition: var(--tran-05);
 	z-index: 100;
-    box-shadow: 0 5px 10px 0 rgb(0 0 0 / 40%), 0 10px 20px 0 rgb(0 0 0 / 20%);
+	box-shadow: 0 5px 10px 0 rgb(0 0 0 / 40%), 0 10px 20px 0 rgb(0 0 0 / 20%);
 }
 
 .sidebar.close {
@@ -113,9 +114,11 @@ body.dark {
 	white-space: nowrap;
 	opacity: 1;
 }
+
 .sidebar.close .text {
 	opacity: 0;
 }
+
 /* =========================== */
 
 .sidebar header {
@@ -126,10 +129,12 @@ body.dark {
 	display: flex;
 	align-items: center;
 }
+
 .sidebar header .logo-text {
 	display: flex;
 	flex-direction: column;
 }
+
 header .image-text .name {
 	margin-top: 2px;
 	font-size: 18px;
@@ -251,9 +256,11 @@ body.dark .sidebar li a.active .text {
 	justify-content: space-between;
 	overflow-y: scroll;
 }
+
 .menu-bar::-webkit-scrollbar {
 	display: none;
 }
+
 .sidebar .menu-bar .mode {
 	border-radius: 6px;
 	background-color: var(--primary-color-light);
@@ -269,12 +276,15 @@ body.dark .sidebar li a.active .text {
 .mode .sun-moon i {
 	position: absolute;
 }
+
 .mode .sun-moon i.sun {
 	opacity: 0;
 }
+
 body.dark .mode .sun-moon i.sun {
 	opacity: 1;
 }
+
 body.dark .mode .sun-moon i.moon {
 	opacity: 0;
 }
@@ -290,6 +300,7 @@ body.dark .mode .sun-moon i.moon {
 	border-radius: 6px;
 	cursor: pointer;
 }
+
 .toggle-switch .switch {
 	position: relative;
 	height: 22px;
@@ -326,6 +337,7 @@ body.dark .switch::before {
 	background-color: var(--body-color);
 	transition: var(--tran-05);
 }
+
 #home .text {
 	font-size: 30px;
 	font-weight: 500;
@@ -333,10 +345,11 @@ body.dark .switch::before {
 	padding: 12px 60px;
 }
 
-.sidebar.close ~ #home {
+.sidebar.close~#home {
 	left: 78px;
 	width: calc(100% - 78px);
 }
+
 body.dark #home .text {
 	color: var(--text-color);
 }
@@ -417,31 +430,103 @@ body.dark #home .text {
 }
 
 
-.titleWrapper{
+.titleWrapper {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 
 }
 
-.titleWrapper > i {
+.titleWrapper>i {
 	margin-right: 5px;
 }
 
-i.big{
+i.big {
 	font-size: 30px;
 }
 
-i.small{
+i.small {
 	font-size: 24px;
 }
 
-i.up{
+i.up {
 	color: rgb(13, 161, 13);
 	font-size: 45px;
 }
 
-i.down{
+i.down {
 	color: rgb(246, 31, 31);
 	font-size: 45px;
 }
+
+/* From KEADEMO.css */
+.helpers {
+	display: flex;
+	justify-content: space-between;
+	padding-left: 50px;
+	padding-right: 50px;
+	align-content: center;
+}
+
+
+.ch-domain-text {
+	font-size: 16px;
+}
+
+.ch-subdomain-text {
+	font-size: 16px;
+}
+
+text {
+	font-size: 16px;
+}
+
+#ch-tooltip {
+	font-size: 16px;
+}
+
+#cal,
+#calGreen {
+	padding-top: 25px;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+}
+
+#map {
+	height: 90%;
+	width: 100%;
+	z-index: 0;
+}
+
+#map-card {
+	min-width: 450px;
+	min-height: 300px;
+}
+
+#apexBar {
+	min-width: 1000px;
+	display: flex;
+	justify-content: center;
+}
+
+.xl {
+	font-size: 48px;
+}
+
+#weatherDescWrapper {
+	border-left: 2px #eb6e4b solid;
+}
+
+#weatherDescWrapper>p {
+	margin-bottom: 0;
+}
+
+strong>p {
+	margin-bottom: 0;
+}
+
+h5 {
+	font-weight: 700;
+}
+
