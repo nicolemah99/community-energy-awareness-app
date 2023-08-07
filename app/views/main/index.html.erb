@@ -8,7 +8,9 @@
 					<% end %>
 						<!--Row 1: Title-->
 						<div class="row m-0">
-							<h1 class="text desktopPageTitle"><%= @page_name %></h1>
+							<h1 class="text desktopPageTitle">
+								<%= @page_name %>
+							</h1>
 						</div>
 						<!--Row 1: End-->
 						<!-- Row 2: Last Updated Time -->
@@ -26,33 +28,12 @@
 						</div>
 						<!--Row 2: End-->
 						<!--Row 3: Overview Start-->
-						<div class="row gy-3 m-0">
+						<div class="row gy-3 m-0 d-flex flex-row">
 							<div class="col">
-								<div class="card">
+								<div id="overview-card" class="card">
 									<div class="card-body overview">
-										<h3 class="card-title">Daily Overview (So far today...)</h3>
+										<h3 class="card-title">Daily Overview</h3>
 										<div class="row gy-3 m-0">
-											<!-- Battery Percentage -->
-											<div class="col">
-												<a href="#battery-card">
-													<div class="card p-3 h-100 overview-card">
-														<div class="card-body">
-															<div class="titleWrapper">
-																<i class='bx bx-battery small'></i>
-																<h5 class="card-title">Battery Percentage</h5>
-															</div>
-															<h1>
-																<%= @current_charge %> % <% if
-																		@battery_state=="Charging" %>
-																			<i class='bx bx-up-arrow-alt up'></i>
-																		<% elsif @battery_state=="Discharging" %>
-																			<i class='bx bx-down-arrow-alt down'></i>
-																<% end %>
-															</h1>
-														</div>
-													</div>
-												</a>
-											</div>
 											<!-- Electricity Generation Breakdown -->
 											<div class="col">
 												<a href="#elec-gen-card">
@@ -60,7 +41,8 @@
 														<div class="card-body">
 															<div class="titleWrapper">
 																<i class='bx bx-plug small'></i>
-																<h5 class="card-title">Electricity Generation Breakdown</h5>
+																<h5 class="card-title">Electricity Generation Breakdown
+																</h5>
 															</div>
 															<canvas id="elecGenOverviewChart"></canvas>
 														</div>
@@ -75,44 +57,111 @@
 															<div class="titleWrapper">
 																<i class='bx bx-sun small'></i>
 																<h5 class="card-title">Weather</h5>
-																
+															</div>
+															<div class="d-flex flex-column">
+																<h3 id="location" class="my-2"></h3>
+																<div class="d-flex flex-row">
+																	<img src="" alt="" id="weatherIcon">
+																	<h2 id="temp" class="my-2"></h2>
+																</div>
+																<div id="weatherDescWrapper" class="d-flex flex-column align-items-start ps-3">
+																	<strong>
+																		<p id="weather"></p>
+																	</strong>
+																	<p id="feelsLike"></p>
+																	<p id="humidity"></p>
+																	<p id="windProfile"></p>
+																</div>
 															</div>
 														</div>
 													</div>
 												</a>
 											</div>
-											<!-- Savings -->
-											<div class="col">
-												<a href="#savings-card">
-													<div class="card p-3 h-100 overview-card">
-														<div class="card-body">
-															<div class="titleWrapper">
-																<i class='bx bx-dollar small'></i>
-																<h5 class="card-title">Savings</h5>
-																
+											<!-- Battery & Savings -->
+											<div class="col d-flex flex-column">
+												<!-- Battery Percentage -->
+												<div class="row flex-grow-1 mb-3">
+													<div class="col">
+														<a href="#battery-card">
+															<div class="card p-3 h-100 overview-card">
+																<div class="card-body">
+																	<div class="titleWrapper">
+																		<i class='bx bxs-battery-charging small'></i>
+																		<h5 class="card-title">Battery Percentage</h5>
+																	</div>
+																	<h2>
+																		<%= @current_charge %> % <% if
+																				@battery_state=="Charging" %>
+																				<i class='bx bx-up-arrow-alt up'></i>
+																				<% elsif @battery_state=="Discharging"
+																					%>
+																					<i
+																						class='bx bx-down-arrow-alt down'></i>
+																					<% end %>
+																	</h2>
+																</div>
 															</div>
-															<h1>$ <%=
-																	number_with_precision(@current_daily_dollar_savings,
-																	:precision=> 1, :delimiter => ', ') %></h1>
-														</div>
+														</a>
 													</div>
-												</a>
+												</div>
+												<!-- Savings -->
+												<div class="row flex-grow-1">
+													<div class="col">
+														<a href="#savings-card">
+															<div class="card p-3 h-100 overview-card">
+																<div class="card-body">
+																	<div class="titleWrapper">
+																		<i class='bx bx-dollar small'></i>
+																		<h5 class="card-title">Today's Savings</h5>
+																	</div>
+																	<h2>$ <%=
+																			number_with_precision(@current_daily_dollar_savings,
+																			:precision=> 1, :delimiter => ',') %></h2>
+																</div>
+															</div>
+														</a>
+													</div>
+												</div>
 											</div>
-											<!-- Community Electricity Usage -->
-											<div class="col">
-												<a href="#usage-card">
-													<div class="card p-3 h-100 overview-card">
-														<div class="card-body">
-															<div class="titleWrapper">
-																<i class='bx bx-group small'></i>
-																<h5 class="card-title">Community Usage</h5>
+											<!-- Community Usage & Green Usage -->
+											<div class="col d-flex flex-column">
+												<!-- Community Electricity Usage -->
+												<div class="row flex-grow-1 mb-3">
+													<div class="col">
+														<a href="#usage-card">
+															<div class="card p-3 h-100 overview-card">
+																<div class="card-body">
+																	<div class="titleWrapper">
+																		<i class='bx bx-group small'></i>
+																		<h5 class="card-title">Community Usage</h5>
+																	</div>
+																	<h2>
+																		<%= @total_kwh %> kWh
+																	</h2>
+																</div>
 															</div>
-															<h1>
-																<%= @total_kwh %> kWh
-															</h1>
-														</div>
+														</a>
 													</div>
-												</a>
+												</div>
+												<!-- Green Usage -->
+												<div class="row flex-grow-1">
+													<div class="col">
+														<a href="#green-card">
+															<div class="card p-3 h-100 overview-card">
+																<div class="card-body">
+																	<div class="titleWrapper">
+																		<i class='bx bx-leaf small'></i>
+																		<h5 class="card-title">Green Electricity Usage
+																		</h5>
+																	</div>
+																	<h2>
+																		36 %
+																	</h2>
+																</div>
+															</div>
+														</a>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -138,7 +187,7 @@
 								<div class="card p-3 h-100" id="battery-card">
 									<div class="card-body">
 										<div class="titleWrapper">
-											<i class='bx bx-battery big'></i>
+											<i class='bx bxs-battery-charging big'></i>
 											<h3 class="card-title">State of Battery: <strong>
 													<%= @battery_state %>
 												</strong></h3>
@@ -305,23 +354,32 @@
 										<br>
 										<div class="date-selector">
 											<div data-toggle="buttons">
-												<div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-													<input type="radio" class="btn-check" name="btnradio" id="lastHour" autocomplete="off">
-													<label class="btn btn-outline-primary" for="lastHour">Last Hour</label>
-												
-													<input type="radio" class="btn-check" name="btnradio" id="lastWeek" autocomplete="off">
-													<label class="btn btn-outline-primary" for="lastWeek">Last Week</label>
-												
-													<input type="radio" class="btn-check" name="btnradio" id="lastMonth" autocomplete="off">
-													<label class="btn btn-outline-primary" for="lastMonth">Last Month</label>
+												<div class="btn-group" role="group"
+													aria-label="Basic radio toggle button group">
+													<input type="radio" class="btn-check" name="btnradio" id="lastHour"
+														autocomplete="off">
+													<label class="btn btn-outline-primary" for="lastHour">Last
+														Hour</label>
+
+													<input type="radio" class="btn-check" name="btnradio" id="lastWeek"
+														autocomplete="off">
+													<label class="btn btn-outline-primary" for="lastWeek">Last
+														Week</label>
+
+													<input type="radio" class="btn-check" name="btnradio" id="lastMonth"
+														autocomplete="off">
+													<label class="btn btn-outline-primary" for="lastMonth">Last
+														Month</label>
 												</div>
 											</div>
 											<br>
 											<strong>From: </strong>
-											<input type="text" class="datepicker" id="startdate" value="2021-01-01 00:00:00">
+											<input type="text" class="datepicker" id="startdate"
+												value="2021-01-01 00:00:00">
 											<br>
 											<strong>To:</strong>
-											<input type="text" class="datepicker" id="enddate" value="<%= @current_date %>">
+											<input type="text" class="datepicker" id="enddate"
+												value="<%= @current_date %>">
 										</div>
 										<br>
 										<div class="savings-table">
@@ -336,19 +394,22 @@
 													<tr>
 														<td colspan="3">This year - <%= @current_year %>
 														</td>
-														<td>$<%= number_with_precision(@cumulative_savings.last(), :precision=> 2, :delimiter => ',
+														<td>$<%= number_with_precision(@cumulative_savings.last(),
+																:precision=> 2, :delimiter => ',
 																') %></td>
 													</tr>
 													<tr class="curr-month">
 														<td colspan="3">This month - <%= @current_month_str %>
 														</td>
-														<td>$<%= number_with_precision(@current_month_dollar_savings, :precision=> 2,
+														<td>$<%= number_with_precision(@current_month_dollar_savings,
+																:precision=> 2,
 																:delimiter => ', ') %></td>
 													</tr>
 													<tr class="curr-day">
 														<td colspan="3">Today - <%= @day_format %>
 														</td>
-														<td>$<%= number_with_precision(@current_daily_dollar_savings, :precision=> 2,
+														<td>$<%= number_with_precision(@current_daily_dollar_savings,
+																:precision=> 2,
 																:delimiter => ', ') %></td>
 													</tr>
 												</tbody>
