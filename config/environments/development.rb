@@ -6,6 +6,12 @@ Rails.application.configure do
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
+
+  ## Access environment variables from javascript
+  config.before_configuration do
+  ENV["OPEN_WEATHER_API_KEY"] = Rails.application.credentials.dig(:OPEN_WEATHER_API_KEY) || ENV["OPEN_WEATHER_API_KEY"]
+end
+
   config.cache_classes = false
 
   # Do not eager load code on boot.
