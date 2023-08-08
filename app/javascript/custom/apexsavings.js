@@ -1,4 +1,6 @@
 let formattedSavings;
+let startPicker;
+let endPicker;
 
 function accumulate(data) {
   let sum = 0;
@@ -6,6 +8,32 @@ function accumulate(data) {
     sum += item.y;
     return { x: item.x, y: sum };
   });
+}
+
+function setUpDatePickers() {
+
+	document.querySelector('#startdate').addEventListener('change', filterData);
+	document.querySelector('#enddate').addEventListener('change', filterData);
+
+	let currentHourDate = new Date();
+	currentHourDate.setFullYear(2021); 
+	currentHourDate.setHours(currentHourDate.getHours() - 1);
+	currentHourDate.setMinutes(0);
+	currentHourDate.setSeconds(0);
+
+	startPicker = flatpickr("#startdate", {
+	enableTime: true,
+	dateFormat: "Y-m-d H:00:00",
+	maxDate: currentHourDate,
+	minDate: '2021-01-01 00:00:00',
+	});
+
+	endPicker = flatpickr("#enddate", {
+	enableTime: true,
+	dateFormat: "Y-m-d H:00:00",
+	maxDate: currentHourDate,
+	minDate: '2021-01-01 01:00:00',
+	});
 }
 
 // Using fetch API for simplicity
@@ -19,7 +47,6 @@ function getChartData() {
 		})
 		.then((json) => {
       formattedSavings = json.formattedSavings;
-      console.log(formattedSavings)
 			return { success: true };
 		})
 		.catch((e) => {
@@ -29,9 +56,7 @@ function getChartData() {
 }
 
 function drawSavingsChart() {
-	const savingsChart = document.getElementById("apexchart");
-	//const cumulativeSumArray = accumulate(savingsDataObject.data[0]);
-	//savingsDataObject.data.push(cumulativeSumArray)
+	const savingsChart = document.getElementById("savingsChart");
 	var options = {
     series: [{
     name: 'Savings',
@@ -133,11 +158,26 @@ document.addEventListener("turbo:load", (event) => {
 		const elecGenOverviewChart = document.getElementById(
 			"elecGenOverviewChart"
 		);
-		const savingsChart = document.getElementById("apexchart");
+		const savingsChart = document.getElementById("savingsChart");
 		if (elecGenMainChart && elecGenOverviewChart && savingsChart) {
 			loadCharts();
-			//setUpDatePickers();
-      //setUpEventListeners();
+			setUpDatePickers();
 		}
 	}
 });
+
+function filterData(){
+  const startdateValue = new Date(document.getElementById('startdate').value).getTime();
+  const enddateValue = new Date(document.getElementById('enddate').value).getTime();
+
+  const filteredData = formattedSavings.filter(item => {
+      const itemDate = new Date(item.x).getTime();
+      return itemDate >= startdateValue && itemDate <= enddateValue;
+  });
+  
+  if (filteredData.length) {
+      const accumulatedData = accumulate(filteredData);
+      window.savingsChartObj.updateSeries([{ data: accumulatedData }]);
+    }
+  };
+  

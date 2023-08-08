@@ -247,25 +247,25 @@ function displaySavings(period){
 	});
   }
   
-function filterData(){
-	const dates2 = [...labels];
-	console.log(dates2);
-	const startdate = document.getElementById('startdate');
-	const enddate = document.getElementById('enddate');
+// function filterData(){
+// 	const dates2 = [...labels];
+// 	console.log(dates2);
+// 	const startdate = document.getElementById('startdate');
+// 	const enddate = document.getElementById('enddate');
   
-	const indexstartdate = dates2.indexOf(startdate.value);
-	const indexenddate = dates2.indexOf(enddate.value);
-	console.log(indexstartdate);
+// 	const indexstartdate = dates2.indexOf(startdate.value);
+// 	const indexenddate = dates2.indexOf(enddate.value);
+// 	console.log(indexstartdate);
   
-	const filterDate = dates2.slice(indexstartdate, indexenddate + 1);
+// 	const filterDate = dates2.slice(indexstartdate, indexenddate + 1);
 	
-	configSavings.data.labels = filterDate;
-	const datapoints2 = [...savingsDataObject.data[0]];
-	const filterDatapoints = datapoints2.slice(indexstartdate, indexenddate + 1);
-	const cumulativeSumArray2 = accumulate(filterDatapoints);
+// 	configSavings.data.labels = filterDate;
+// 	const datapoints2 = [...savingsDataObject.data[0]];
+// 	const filterDatapoints = datapoints2.slice(indexstartdate, indexenddate + 1);
+// 	const cumulativeSumArray2 = accumulate(filterDatapoints);
 	
-	configSavings.data.datasets[0].data = cumulativeSumArray2.map(x => Number(x.toFixed(2)));
+// 	configSavings.data.datasets[0].data = cumulativeSumArray2.map(x => Number(x.toFixed(2)));
   
-	window.savingsChartObj.update();
-  };
+// 	//window.savingsChartObj.update();
+//   };
   
