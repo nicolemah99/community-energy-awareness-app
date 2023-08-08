@@ -73,7 +73,7 @@
 														<div class="card-body">
 															<h5 class="card-title">Savings</h5>
 															<h1>$ <%=
-																	number_with_precision(@current_daily_dollar_savings,
+																	number_with_precision(@current_daily_fuel_savings,
 																	:precision=> 1, :delimiter => ', ') %></h1>
 														</div>
 													</div>
@@ -264,7 +264,7 @@
 							<div class="col">
 								<div class="card p-3 h-100" id="savings-card">
 									<div class="card-body">
-										<h3 class="card-title">Diesel Savings</h3>
+										<h3 class="card-title">Fuel Savings</h3>
 										<div class="savings-chart-area">
 											<canvas id="savingsChart"></canvas>
 										</div>
@@ -295,27 +295,27 @@
 												<thead>
 													<tr>
 														<th scope="col" colspan="3">Time Period</th>
-														<th scope="col">Dollar Savings ($)</th>
+														<th scope="col">Gallons  Saved</th>
 													</tr>
 												</thead>
 												<tbody>
 													<tr>
 														<td colspan="3">This year - <%= @current_year %>
 														</td>
-														<td>$<%= number_with_precision(@cumulative_savings.last(), :precision=> 2, :delimiter => ',
-																') %></td>
+														<td><%= number_with_precision(@cumulative_savings.last(), :precision=> 2, :delimiter => ',
+																') %> gal</td>
 													</tr>
 													<tr class="curr-month">
 														<td colspan="3">This month - <%= @current_month_str %>
 														</td>
-														<td>$<%= number_with_precision(@current_month_dollar_savings, :precision=> 2,
-																:delimiter => ', ') %></td>
+														<td><%= number_with_precision(@current_month_fuel_savings, :precision=> 2,
+																:delimiter => ', ') %> gal</td>
 													</tr>
 													<tr class="curr-day">
 														<td colspan="3">Today - <%= @day_format %>
 														</td>
-														<td>$<%= number_with_precision(@current_daily_dollar_savings, :precision=> 2,
-																:delimiter => ', ') %></td>
+														<td><%= number_with_precision(@current_daily_fuel_savings, :precision=> 2,
+																:delimiter => ', ') %> gal</td>
 													</tr>
 												</tbody>
 											</table>
@@ -344,13 +344,14 @@
 							</div>
 						</div>
 						<!-- Row 4: End -->
-						<div class="col">
+						<div class="row m-0">
+							<div class="col">
 								<div class="card p-3 h-100" id="usage-card">
 									<h3 class="card-title">Apex Savings chart</h3>
 									<div class="card-body">
-									<div id="apexchart">
+										<div id="apexchart">
 									</div>
-									</div>
-									
 								</div>
 							</div>
+						</div>
+					</div>

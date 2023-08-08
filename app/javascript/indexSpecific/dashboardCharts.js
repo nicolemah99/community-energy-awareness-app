@@ -2,9 +2,9 @@ let windKwh;
 let solarKwh;
 let dieselKwh;
 let labels;
-let savingsDataPoints;
-let startPicker;
-let endPicker;
+//let savingsDataPoints;
+//let startPicker;
+//let endPicker;
 
 // function for acumulate savings
 const accumulate = array => array.map((sum => value => sum += value)(0));
@@ -62,7 +62,7 @@ function getChartData() {
 			windKwh = json.wind_kwh;
 			solarKwh = json.solar_kwh;
 			dieselKwh = json.diesel_kwh;
-			savingsDataObject.data[0] = json.savingsData;
+			//savingsDataObject.data[0] = json.savingsData;
 			labels = json.labels;
 			return { success: true };
 		})
@@ -101,31 +101,31 @@ let configSavings = {
 	},
   };
   
-  function drawSavingsChart() {
-	const savingsChart = document.getElementById("savingsChart");
-	const cumulativeSumArray = accumulate(savingsDataObject.data[0]);
-	savingsDataObject.data.push(cumulativeSumArray)
-	const savingsData = {
-	  labels: labels,
-	  datasets: [
-		{
-		  label: "$ Diesel Savings",
-		  data: savingsDataObject.data[1].map(x => Number(x.toFixed(2))),
-		  borderWidth: 2.5,
-		  fill: true,
-		},
-	  ],
-	};
+//   function drawSavingsChart() {
+// 	const savingsChart = document.getElementById("savingsChart");
+// 	const cumulativeSumArray = accumulate(savingsDataObject.data[0]);
+// 	savingsDataObject.data.push(cumulativeSumArray)
+// 	const savingsData = {
+// 	  labels: labels,
+// 	  datasets: [
+// 		{
+// 		  label: "$ Diesel Savings",
+// 		  data: savingsDataObject.data[1].map(x => Number(x.toFixed(2))),
+// 		  borderWidth: 2.5,
+// 		  fill: true,
+// 		},
+// 	  ],
+// 	};
   
-	// Assign the data to configSavings
-	configSavings.data = savingsData;
+// 	// Assign the data to configSavings
+// 	configSavings.data = savingsData;
   
-	// If charts already exist, destroy them to prevent multiple instances
-	if (window.savingsChartObj) window.savingsChartObj.destroy();
+// 	// If charts already exist, destroy them to prevent multiple instances
+// 	if (window.savingsChartObj) window.savingsChartObj.destroy();
   
-	// Draw new chart
-	window.savingsChartObj = new Chart(savingsChart, configSavings);
-  }
+// 	// Draw new chart
+// 	window.savingsChartObj = new Chart(savingsChart, configSavings);
+//   }
   
   
 /**
@@ -178,7 +178,7 @@ function loadCharts() {
 	getChartData().then((result) => {
 		if (result.success) {
 			drawDoughnutChart();
-			drawSavingsChart();
+			//drawSavingsChart();
 		} else {
 			console.log("Failed to fetch data:", result.error);
 		}
@@ -196,11 +196,11 @@ document.addEventListener("turbo:load", (event) => {
 		const elecGenOverviewChart = document.getElementById(
 			"elecGenOverviewChart"
 		);
-		const savingsChart = document.getElementById("savingsChart");
+		//const savingsChart = document.getElementById("savingsChart");
 		if (elecGenMainChart && elecGenOverviewChart && savingsChart) {
 			loadCharts();
-			setUpDatePickers();
-      		setUpEventListeners();
+			//setUpDatePickers();
+      		//setUpEventListeners();
 		}
 	}
 });
@@ -208,7 +208,7 @@ document.addEventListener("turbo:load", (event) => {
 // Create a debounce function for the window resize event
 window.addEventListener("resize", () => {
 	drawDoughnutChart();
-	drawSavingsChart();
+	//drawSavingsChart();
 })
 
 function displaySavings(period){
@@ -268,3 +268,4 @@ function filterData(){
   
 	window.savingsChartObj.update();
   };
+  
