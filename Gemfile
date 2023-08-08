@@ -78,3 +78,7 @@ end
 gem "dockerfile-rails", ">= 1.2", :group => :development
 
 gem "cssbundling-rails", "~> 1.2"
+
+#Bootstrap
+gem 'bootstrap', '~> 5.0'
+gem 'sassc-rails'
