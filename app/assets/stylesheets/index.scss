@@ -55,7 +55,7 @@ body.dark {
 	background: var(--sidebar-color);
 	transition: var(--tran-05);
 	z-index: 100;
-	box-shadow: 0 5px 10px 0 rgb(0 0 0 / 40%), 0 10px 20px 0 rgb(0 0 0 / 20%);
+	box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.4), 0 10px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 .sidebar.close {
@@ -362,7 +362,7 @@ body.dark #home .text {
 	padding-right: 10%;
 	justify-content: space-between;
 	align-items: center;
-	box-shadow: 0 5px 10px 0 rgb(0 0 0 / 40%), 0 10px 20px 0 rgb(0 0 0 / 20%);
+	box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.4), 0 10px 20px 0 rgba(0, 0, 0, 0.2);
 	margin-left: 0px;
 	margin-right: 0px;
 	min-width: 100%;
@@ -412,7 +412,7 @@ body.dark #home .text {
 	background-color: var(--sidebar-color);
 	transition: left 0.3s;
 	z-index: 999;
-	box-shadow: 0 5px 10px 0 rgb(0 0 0 / 40%), 0 10px 20px 0 rgb(0 0 0 / 20%);
+	box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.4), 0 10px 20px 0 rgba(0, 0, 0, 0.2);
 	border-bottom: 0;
 }
 
@@ -425,7 +425,7 @@ body.dark #home .text {
 	background-color: var(--sidebar-color);
 	transition: left 0.3s;
 	z-index: 999;
-	box-shadow: 0 5px 10px 0 rgb(0 0 0 / 40%), 0 10px 20px 0 rgb(0 0 0 / 20%);
+	box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.4), 0 10px 20px 0 rgba(0, 0, 0, 0.2);
 	border-bottom: 0;
 }
 
