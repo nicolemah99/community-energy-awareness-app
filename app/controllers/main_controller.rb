@@ -51,27 +51,21 @@ class MainController < ApplicationController
 
         ## Diesel Savings Feature 
         savings_array = []
-        savings_dates = []
-        formatted_savings = []
+        savings_datapoints = []
         collected_data = GenerationBreakdown.where(dateTime: "2021-01-01 00:00:00"..past_hour)
         
         # cycle through all dates
         collected_data.each do |record|
             reading_time_date = record.dateTime.strftime("%Y-%m-%d %H:%M:%S")
-            savings_dates.push reading_time_date
             @fuel_savings = (record.renew / KWH_PER_GALLON)
             savings_array.push @fuel_savings
-            formatted_savings.push({
+            savings_datapoints.push({
                 x: reading_time_date,
                 y: @fuel_savings
             })
         end
         
         @cumulative_savings = cumulative_sum(savings_array)
-
-        gon.complete_savings_dates = savings_dates
-        gon.savings_raw_datapoints = savings_array
-        gon.savings_data = formatted_savings
 
         @current_year = Date.today.strftime("%Y")
 
@@ -123,18 +117,14 @@ class MainController < ApplicationController
         wind_kwh = @current_record_breakdown.wind.round(1)
         diesel_kwh = @current_record_breakdown.nonRenew.round(1)
 
-        savings_array = []
-        savings_dates = []
-        formatted_savings = []
+        savings_datapoints = []
         collected_data = GenerationBreakdown.where(dateTime: "2021-01-01 00:00:00"..past_hour)
         
         # cycle through all dates
         collected_data.each do |record|
             reading_time_date = record.dateTime.strftime("%Y-%m-%d %H:%M:%S")
-            savings_dates.push reading_time_date
             @fuel_savings = (record.renew / KWH_PER_GALLON)
-            savings_array.push @fuel_savings
-            formatted_savings.push({
+            savings_datapoints.push({
                 x: reading_time_date,
                 y: @fuel_savings
             })
@@ -142,7 +132,7 @@ class MainController < ApplicationController
 
         respond_to do |format|
         format.json {
-            render json: {wind_kwh: wind_kwh, solar_kwh: solar_kwh, diesel_kwh: diesel_kwh, labels: savings_dates, savingsData: savings_array, formattedSavings: formatted_savings}
+            render json: {wind_kwh: wind_kwh, solar_kwh: solar_kwh, diesel_kwh: diesel_kwh, savings_datapoints: savings_datapoints}
         }
     end
 end

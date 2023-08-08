@@ -1,4 +1,4 @@
-let formattedSavings;
+let savings_datapoints;
 let startPicker;
 let endPicker;
 
@@ -46,7 +46,7 @@ function getChartData() {
 			return response.json();
 		})
 		.then((json) => {
-      formattedSavings = json.formattedSavings;
+      savings_datapoints = json.savings_datapoints;
 			return { success: true };
 		})
 		.catch((e) => {
@@ -60,28 +60,27 @@ function drawSavingsChart() {
 	var options = {
     series: [{
     name: 'Savings',
-    data: accumulate(formattedSavings)
+    data: accumulate(savings_datapoints)
     }],
     chart: {
       type: 'area',
       events: {
         zoomed: function(chartContext, { xaxis }) {
-          let startIndex = formattedSavings.findIndex(item => new Date(item.x) >= new Date(xaxis.min));
-          let endIndex = formattedSavings.findIndex(item => new Date(item.x) >= new Date(xaxis.max));
+          let startIndex = savings_datapoints.findIndex(item => new Date(item.x) >= new Date(xaxis.min));
+          let endIndex = savings_datapoints.findIndex(item => new Date(item.x) >= new Date(xaxis.max));
           if (startIndex == endIndex){
             startIndex-= 1
           }
-          else if(startIndex > 0 && 0 < endIndex && endIndex < formattedSavings.length) {
-            let visibleData = formattedSavings.slice(startIndex, endIndex + 1);
+          else if(startIndex > 0 && 0 < endIndex && endIndex < savings_datapoints.length) {
+            let visibleData = savings_datapoints.slice(startIndex, endIndex + 1);
             let accumulatedVisibleData = accumulate(visibleData);
             window.savingsChartObj.updateSeries([{ data: accumulatedVisibleData }]);
           }
           else{
-            window.savingsChartObj.updateSeries([{ data: accumulate(formattedSavings) }]);
+            window.savingsChartObj.updateSeries([{ data: accumulate(savings_datapoints) }]);
           }
         }
       },
-      stacked: false,
       height: 350,
       zoom: {
         type: 'x',
@@ -103,14 +102,12 @@ function drawSavingsChart() {
       align: 'left'
     },
     fill: {
-      type: 'gradient',
-      gradient: {
-        shadeIntensity: 1,
-        inverseColors: false,
-        opacityFrom: 1,
-        opacityTo: 1,
-        stops: [0, 90, 100]
-      },
+      type: 'solid',
+      colors: ['#00a1e4'],
+      opacity: 0.65
+    },
+    stroke: {
+      colors: ['#00a1e4'],
     },
     yaxis: {
       labels: {
@@ -126,8 +123,8 @@ function drawSavingsChart() {
       type: 'datetime',
     },
     tooltip: {
-      shared: false,
-      y: {
+      x: {
+        format: 'dd MMM HH:mm'
       }
     }
   };
@@ -154,12 +151,8 @@ document.addEventListener("turbo:load", (event) => {
 
 	//If user clicked on root link
 	if (url.pathname == rootPath) {
-		const elecGenMainChart = document.getElementById("elecGenMainChart");
-		const elecGenOverviewChart = document.getElementById(
-			"elecGenOverviewChart"
-		);
 		const savingsChart = document.getElementById("savingsChart");
-		if (elecGenMainChart && elecGenOverviewChart && savingsChart) {
+		if (savingsChart) {
 			loadCharts();
 			setUpDatePickers();
 		}
@@ -170,7 +163,7 @@ function filterData(){
   const startdateValue = new Date(document.getElementById('startdate').value).getTime();
   const enddateValue = new Date(document.getElementById('enddate').value).getTime();
 
-  const filteredData = formattedSavings.filter(item => {
+  const filteredData = savings_datapoints.filter(item => {
       const itemDate = new Date(item.x).getTime();
       return itemDate >= startdateValue && itemDate <= enddateValue;
   });
