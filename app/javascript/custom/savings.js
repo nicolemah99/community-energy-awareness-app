@@ -1,3 +1,5 @@
+//= require apexcharts
+
 let savings_datapoints;
 let startPicker;
 let endPicker;

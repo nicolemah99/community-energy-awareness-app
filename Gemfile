@@ -82,3 +82,6 @@ gem "cssbundling-rails", "~> 1.2"
 #Bootstrap
 gem 'bootstrap', '~> 5.0'
 gem 'sassc-rails'
+
+#ApexCharts
+gem 'apexcharts'
