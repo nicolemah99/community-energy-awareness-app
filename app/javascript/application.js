@@ -9,3 +9,4 @@ import "./savings"
 import "./sidebar"
 import 'bootstrap';
 import '@popperjs/core';
+import './elecGenBreakdown';

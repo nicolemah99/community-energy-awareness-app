@@ -11,7 +11,8 @@
     "@popperjs/core": "^2.11.8",
     "apexcharts": "^3.41.1",
     "bootstrap": "^5.0.0",
-    "esbuild": "^0.19.0"
+    "esbuild": "^0.19.0",
+    "jquery": "^3.7.0"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=/assets"
