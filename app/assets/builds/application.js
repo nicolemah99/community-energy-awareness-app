@@ -10367,7 +10367,7 @@
             ).length;
           }
         });
-        var rootjQuery, rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))$/, init = jQuery.fn.init = function(selector, context, root) {
+        var rootjQuery, rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))$/, init2 = jQuery.fn.init = function(selector, context, root) {
           var match, elem;
           if (!selector) {
             return this;
@@ -10422,7 +10422,7 @@
           }
           return jQuery.makeArray(selector, this);
         };
-        init.prototype = jQuery.fn;
+        init2.prototype = jQuery.fn;
         rootjQuery = jQuery(document2);
         var rparentsprev = /^(?:parents|prev(?:Until|All))/, guaranteedUnique = {
           children: true,
@@ -27028,8 +27028,93 @@
 
   // app/javascript/elecGenBreakdown.js
   var import_jquery = __toESM(require_jquery());
-  (0, import_jquery.default)(document).ready(function() {
-  });
+  var import_apexcharts2 = __toESM(require_apexcharts_common());
+  var labels = ["Solar", "Wind", "Diesel"];
+  var colors = ["#fdd90db3", "#0095ffb3", "#8b7f00b3"];
+  var windKwh2;
+  var solarKwh2;
+  var dieselKwh2;
+  function getChartData3(callback) {
+    return import_jquery.default.ajax({
+      url: "/dashboard_data.json",
+      dataType: "json"
+    }).done(function(json) {
+      windKwh2 = json.wind_kwh;
+      solarKwh2 = json.solar_kwh;
+      dieselKwh2 = json.diesel_kwh;
+      if (typeof callback === "function") {
+        callback();
+      }
+      return { success: true };
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+      console.log("There was a problem with the fetch operation: " + errorThrown);
+      return { success: false, error: errorThrown };
+    });
+  }
+  function createChart(elementId, options) {
+    let chartDiv = (0, import_jquery.default)(`#${elementId}`);
+    let chart = new import_apexcharts2.default(chartDiv[0], options);
+    chart.render();
+  }
+  function setUpCharts() {
+    console.log(windKwh2, solarKwh2, dieselKwh2);
+    const chartMainOptions = {
+      series: [windKwh2, solarKwh2, dieselKwh2],
+      labels,
+      colors,
+      legend: {
+        show: true,
+        fontSize: "16px",
+        position: "top",
+        onItemClick: {
+          toggleDataSeries: false
+        }
+      },
+      chart: {
+        width: "550px",
+        type: "donut",
+        redrawOnWindowResize: true,
+        selection: {
+          enabled: false
+        }
+      },
+      dataLabels: {
+        enabled: true,
+        dropShadow: {
+          enabled: false
+        }
+      },
+      plotOptions: {
+        pie: {
+          expandOnClick: false,
+          donut: {
+            size: "45%",
+            labels: {
+              show: true,
+              name: {
+                show: true
+              },
+              value: { show: true, formatter: (value) => `${value} kWh` },
+              total: {
+                show: true,
+                color: "black",
+                formatter: function(w) {
+                  return `${w.globals.seriesTotals.reduce((a, b) => {
+                    return a + b;
+                  }, 0)} kWh`;
+                }
+              }
+            }
+          }
+        }
+      }
+    };
+    createChart("elecGenMain", chartMainOptions);
+  }
+  function init() {
+    getChartData3(setUpCharts);
+  }
+  (0, import_jquery.default)(document).ready(init);
 })();
 /*! Bundled license information:
 
