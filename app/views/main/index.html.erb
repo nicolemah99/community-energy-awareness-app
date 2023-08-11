@@ -43,13 +43,16 @@
 																<h5 class="card-title">Electricity Generation Breakdown
 																</h5>
 															</div>
+															<div id="elecGenOverview"></div>
+
 														</div>
 													</div>
 												</a>
 											</div>
 											<!-- Weather -->
 											<div class="col">
-												<a data-open-weather-key="<%= ENV['OPEN_WEATHER_API_KEY'] %>" href="#map-card">
+												<a data-open-weather-key="<%= ENV['OPEN_WEATHER_API_KEY'] %>"
+													href="#map-card">
 													<div class="card p-3 h-100 overview-card">
 														<div class="card-body">
 															<div class="titleWrapper">
@@ -62,7 +65,8 @@
 																	<img src="" alt="" id="weatherIcon">
 																	<h2 id="temp" class="my-2"></h2>
 																</div>
-																<div id="weatherDescWrapper" class="d-flex flex-column align-items-start ps-3">
+																<div id="weatherDescWrapper"
+																	class="d-flex flex-column align-items-start ps-3">
 																	<strong>
 																		<p id="weather"></p>
 																	</strong>
@@ -112,9 +116,10 @@
 																		<i class='bx bx-gas-pump small'></i>
 																		<h5 class="card-title">Today's Savings</h5>
 																	</div>
-																	<h2> <%=
-																			number_with_precision(@current_daily_fuel_savings,
-																			:precision=> 1, :delimiter => ',') %> gal</h2>
+																	<h2>
+																		<%= number_with_precision(@current_daily_fuel_savings,
+																			:precision=> 1, :delimiter => ',') %> gal
+																	</h2>
 																</div>
 															</div>
 														</a>
@@ -367,27 +372,36 @@
 												<thead>
 													<tr>
 														<th scope="col" colspan="3">Time Period</th>
-														<th scope="col">Gallons  Saved</th>
+														<th scope="col">Gallons Saved</th>
 													</tr>
 												</thead>
 												<tbody>
 													<tr>
 														<td colspan="3">This year - <%= @current_year %>
 														</td>
-														<td><%= number_with_precision(@cumulative_savings.last(), :precision=> 2, :delimiter => ',
-																') %> gal</td>
+														<td>
+															<%= number_with_precision(@cumulative_savings.last(),
+																:precision=> 2, :delimiter => ',
+																') %> gal
+														</td>
 													</tr>
 													<tr class="curr-month">
 														<td colspan="3">This month - <%= @current_month_str %>
 														</td>
-														<td><%= number_with_precision(@current_month_fuel_savings, :precision=> 2,
-																:delimiter => ', ') %> gal</td>
+														<td>
+															<%= number_with_precision(@current_month_fuel_savings,
+																:precision=> 2,
+																:delimiter => ', ') %> gal
+														</td>
 													</tr>
 													<tr class="curr-day">
 														<td colspan="3">Today - <%= @day_format %>
 														</td>
-														<td><%= number_with_precision(@current_daily_fuel_savings, :precision=> 2,
-																:delimiter => ', ') %> gal</td>
+														<td>
+															<%= number_with_precision(@current_daily_fuel_savings,
+																:precision=> 2,
+																:delimiter => ', ') %> gal
+														</td>
 													</tr>
 												</tbody>
 											</table>

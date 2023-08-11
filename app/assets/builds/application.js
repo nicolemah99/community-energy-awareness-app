@@ -10367,7 +10367,7 @@
             ).length;
           }
         });
-        var rootjQuery, rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))$/, init2 = jQuery.fn.init = function(selector, context, root) {
+        var rootjQuery, rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))$/, init = jQuery.fn.init = function(selector, context, root) {
           var match, elem;
           if (!selector) {
             return this;
@@ -10422,7 +10422,7 @@
           }
           return jQuery.makeArray(selector, this);
         };
-        init2.prototype = jQuery.fn;
+        init.prototype = jQuery.fn;
         rootjQuery = jQuery(document2);
         var rparentsprev = /^(?:parents|prev(?:Until|All))/, guaranteedUnique = {
           children: true,
@@ -27030,7 +27030,10 @@
   var import_jquery = __toESM(require_jquery());
   var import_apexcharts2 = __toESM(require_apexcharts_common());
   var labels = ["Solar", "Wind", "Diesel"];
-  var colors = ["#fdd90db3", "#0095ffb3", "#8b7f00b3"];
+  var windColor = "#0095ffb3";
+  var solarColor = "#8b7f00b3";
+  var dieselColor = "#fdd90db3";
+  var colors = [dieselColor, windColor, solarColor];
   var windKwh2;
   var solarKwh2;
   var dieselKwh2;
@@ -27057,7 +27060,6 @@
     chart.render();
   }
   function setUpCharts() {
-    console.log(windKwh2, solarKwh2, dieselKwh2);
     const chartMainOptions = {
       series: [windKwh2, solarKwh2, dieselKwh2],
       labels,
@@ -27109,12 +27111,42 @@
         }
       }
     };
+    const chartOverviewOptions = {
+      series: [windKwh2, solarKwh2, dieselKwh2],
+      labels,
+      colors,
+      legend: {
+        show: true,
+        fontSize: "16px",
+        position: "bottom",
+        onItemClick: {
+          toggleDataSeries: false
+        }
+      },
+      chart: {
+        width: "350px",
+        type: "donut",
+        redrawOnWindowResize: true
+      },
+      dataLabels: {
+        enabled: true,
+        dropShadow: {
+          enabled: false
+        }
+      },
+      plotOptions: {
+        pie: {
+          expandOnClick: false,
+          donut: {
+            size: "45%"
+          }
+        }
+      }
+    };
     createChart("elecGenMain", chartMainOptions);
+    createChart("elecGenOverview", chartOverviewOptions);
   }
-  function init() {
-    getChartData3(setUpCharts);
-  }
-  (0, import_jquery.default)(document).ready(init);
+  (0, import_jquery.default)(document).ready(getChartData3(setUpCharts));
 })();
 /*! Bundled license information:
 

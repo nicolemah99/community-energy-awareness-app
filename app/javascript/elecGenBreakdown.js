@@ -3,7 +3,10 @@ import ApexCharts from 'apexcharts';
 //1. Constants and Variables
 const DATA_URL = "/dashboard_data.json";
 const labels = ["Solar", "Wind", "Diesel"];
-const colors = ["#fdd90db3", "#0095ffb3", "#8b7f00b3"];
+const windColor = "#0095ffb3";
+const solarColor = "#8b7f00b3";
+const dieselColor = "#fdd90db3";
+const colors = [dieselColor, windColor, solarColor];
 let windKwh, solarKwh, dieselKwh;
 
 
@@ -38,7 +41,6 @@ function createChart(elementId, options) {
 
 // Process Data and Set up Charts
 function setUpCharts() {
-    console.log(windKwh, solarKwh, dieselKwh);
     const chartMainOptions = {
         series: [windKwh, solarKwh, dieselKwh],
         labels: labels,
@@ -91,14 +93,43 @@ function setUpCharts() {
         },
     };
 
+    const chartOverviewOptions = {
+        series: [windKwh, solarKwh, dieselKwh],
+        labels: labels,
+        colors: colors,
+        legend: {
+            show: true,
+            fontSize: "16px",
+            position: "bottom",
+            onItemClick: {
+                toggleDataSeries: false,
+            },
+        },
+        chart: {
+            width: "350px",
+            type: "donut",
+            redrawOnWindowResize: true,
+        },
+        dataLabels: {
+            enabled: true,
+            dropShadow: {
+                enabled: false,
+            },
+        },
+        plotOptions: {
+            pie: {
+                expandOnClick: false,
+                donut: {
+                    size: "45%",
+                },
+            },
+        },
+    };
+
     createChart("elecGenMain", chartMainOptions);
+    createChart("elecGenOverview", chartOverviewOptions);
 }
 
-
-
-function init() {
-    getChartData(setUpCharts);  
-};
 // Start process once document is ready
-$(document).ready(init);
+$(document).ready(getChartData(setUpCharts));
 
