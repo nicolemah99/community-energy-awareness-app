@@ -20,7 +20,7 @@ gem "pg", "~> 1.1"
 gem "puma", "~> 5.0"
 
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
-gem "importmap-rails"
+#gem "importmap-rails"
 
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
 gem "turbo-rails"
@@ -79,9 +79,7 @@ gem "dockerfile-rails", ">= 1.2", :group => :development
 
 gem "cssbundling-rails", "~> 1.2"
 
-#Bootstrap
-gem 'bootstrap', '~> 5.0'
 gem 'sassc-rails'
 
-#ApexCharts
-gem 'apexcharts'
+# Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
+gem "jsbundling-rails"

@@ -1,0 +1,19 @@
+{
+  "name": "CEA",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/nicolemah99/CEA.git",
+  "author": "nicolemah99 <nicolemah99@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^7.3.0",
+    "@popperjs/core": "^2.11.8",
+    "apexcharts": "^3.41.1",
+    "bootstrap": "^5.0.0",
+    "esbuild": "^0.19.0"
+  },
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=/assets"
+  }
+}

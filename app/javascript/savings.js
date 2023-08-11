@@ -1,4 +1,4 @@
-//= require apexcharts
+import ApexCharts from 'apexcharts';
 
 let savings_datapoints;
 let startPicker;
