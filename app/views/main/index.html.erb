@@ -4,8 +4,6 @@
 		<% module_name=File.basename(file_path, ".js" ) %>
 			<%= javascript_import_module_tag module_name %>
 				<% end %>
-					<!--Chart JS -->
-					<script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
 					<% end %>
 						<!--Row 1: Title-->
 						<div class="row m-0">
@@ -45,7 +43,6 @@
 																<h5 class="card-title">Electricity Generation Breakdown
 																</h5>
 															</div>
-															<canvas id="elecGenOverviewChart"></canvas>
 														</div>
 													</div>
 												</a>
@@ -242,7 +239,6 @@
 											<h3 class="card-title"> Electricity Generation Breakdown</h3>
 										</div>
 										<div class="col">
-											<canvas class="m-auto" id="elecGenMainChart"></canvas>
 										</div>
 										<div class="col">
 											<div class="breakdown-table">
