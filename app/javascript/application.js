@@ -7,3 +7,5 @@ import "./dashboardCharts"
 import "./heatmap"
 import "./savings"
 import "./sidebar"
+import 'bootstrap';
+import '@popperjs/core';
