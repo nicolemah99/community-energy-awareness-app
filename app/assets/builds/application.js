@@ -21558,84 +21558,20 @@
   })();
 
   // app/javascript/dashboardCharts.js
-  var windKwh;
-  var solarKwh;
-  var dieselKwh;
-  function getChartData() {
-    return fetch("/dashboard_data.json").then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    }).then((json) => {
-      windKwh = json.wind_kwh;
-      solarKwh = json.solar_kwh;
-      dieselKwh = json.diesel_kwh;
-      return { success: true };
-    }).catch((e) => {
-      console.log("There was a problem with the fetch operation: " + e.message);
-      return { success: false, error: e.message };
-    });
-  }
-  function drawDoughnutChart() {
-    const elecGenMainChart = document.getElementById("elecGenMainChart");
-    const elecGenOverviewChart = document.getElementById("elecGenOverviewChart");
-    const generationData = {
-      labels: ["Solar", "Wind", "Diesel"],
-      datasets: [
-        {
-          borderWidth: 0.25,
-          label: "kWh",
-          data: [solarKwh, windKwh, dieselKwh],
-          backgroundColor: ["#FDDA0D", "#0096FF", "#8B8000"],
-          hoverOffset: 4
-        }
-      ]
-    };
-    const configElecGen = {
-      type: "doughnut",
-      data: generationData,
-      options: {
-        layout: {
-          padding: {
-            bottom: 20
-          }
-        },
-        responsive: true,
-        maintainAspectRatio: true
-      }
-    };
-    if (window.genChartMainObj)
-      window.genChartMainObj.destroy();
-    if (window.genChartOverviewObj)
-      window.genChartOverviewObj.destroy();
-    window.genChartMainObj = new Chart(elecGenMainChart, configElecGen);
-    window.genChartOverviewObj = new Chart(elecGenOverviewChart, configElecGen);
-  }
-  function loadCharts() {
-    getChartData().then((result) => {
-      if (result.success) {
-        drawDoughnutChart();
-      } else {
-        console.log("Failed to fetch data:", result.error);
-      }
-    });
-  }
   document.addEventListener("turbo:load", (event) => {
     const rootPath = "/";
     const url = new URL(event.detail.url);
     if (url.pathname == rootPath) {
-      const elecGenMainChart = document.getElementById("elecGenMainChart");
-      const elecGenOverviewChart = document.getElementById(
+      const elecGenMainChart2 = document.getElementById("elecGenMainChart");
+      const elecGenOverviewChart2 = document.getElementById(
         "elecGenOverviewChart"
       );
-      if (elecGenMainChart && elecGenOverviewChart) {
+      if (elecGenMainChart2 && elecGenOverviewChart2) {
         loadCharts();
       }
     }
   });
   window.addEventListener("resize", () => {
-    drawDoughnutChart();
   });
 
   // app/javascript/savings.js
@@ -21671,7 +21607,7 @@
       minDate: "2021-01-01 01:00:00"
     });
   }
-  function getChartData2() {
+  function getChartData() {
     return fetch("/dashboard_data.json").then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -21762,7 +21698,7 @@
     window.savingsChartObj.render();
   }
   function loadCharts2() {
-    getChartData2().then((result) => {
+    getChartData().then((result) => {
       if (result.success) {
         drawSavingsChart();
       } else {
@@ -27033,18 +26969,19 @@
   var windColor = "#0095ffb3";
   var solarColor = "#8b7f00b3";
   var dieselColor = "#fdd90db3";
-  var colors = [dieselColor, windColor, solarColor];
-  var windKwh2;
-  var solarKwh2;
-  var dieselKwh2;
-  function getChartData3(callback) {
+  var windKwh;
+  var solarKwh;
+  var dieselKwh;
+  var mainChart;
+  var overviewChart;
+  function getChartData2(callback) {
     return import_jquery.default.ajax({
       url: "/dashboard_data.json",
       dataType: "json"
     }).done(function(json) {
-      windKwh2 = json.wind_kwh;
-      solarKwh2 = json.solar_kwh;
-      dieselKwh2 = json.diesel_kwh;
+      windKwh = json.wind_kwh;
+      solarKwh = json.solar_kwh;
+      dieselKwh = json.diesel_kwh;
       if (typeof callback === "function") {
         callback();
       }
@@ -27056,14 +26993,23 @@
   }
   function createChart(elementId, options) {
     let chartDiv = (0, import_jquery.default)(`#${elementId}`);
-    let chart = new import_apexcharts2.default(chartDiv[0], options);
-    chart.render();
+    let existingChart = elementId === "elecGenMain" ? mainChart : overviewChart;
+    if (existingChart) {
+      existingChart.destroy();
+    }
+    let newChart = new import_apexcharts2.default(chartDiv[0], options);
+    newChart.render();
+    if (elementId === "elecGenMain") {
+      mainChart = newChart;
+    } else {
+      overviewChart = newChart;
+    }
   }
   function setUpCharts() {
     const chartMainOptions = {
-      series: [windKwh2, solarKwh2, dieselKwh2],
+      series: [windKwh, solarKwh, dieselKwh],
       labels,
-      colors,
+      colors: [dieselColor, windColor, solarColor],
       legend: {
         show: true,
         fontSize: "16px",
@@ -27076,6 +27022,7 @@
         width: "550px",
         type: "donut",
         redrawOnWindowResize: true,
+        redrawOnParentResize: true,
         selection: {
           enabled: false
         }
@@ -27112,9 +27059,9 @@
       }
     };
     const chartOverviewOptions = {
-      series: [windKwh2, solarKwh2, dieselKwh2],
+      series: [windKwh, solarKwh, dieselKwh],
       labels,
-      colors,
+      colors: [dieselColor, windColor, solarColor],
       legend: {
         show: true,
         fontSize: "16px",
@@ -27126,7 +27073,8 @@
       chart: {
         width: "350px",
         type: "donut",
-        redrawOnWindowResize: true
+        redrawOnWindowResize: true,
+        redrawOnParentResize: true
       },
       dataLabels: {
         enabled: true,
@@ -27146,7 +27094,11 @@
     createChart("elecGenMain", chartMainOptions);
     createChart("elecGenOverview", chartOverviewOptions);
   }
-  (0, import_jquery.default)(document).ready(getChartData3(setUpCharts));
+  document.addEventListener("turbo:load", function() {
+    if (window.location.pathname === "/") {
+      getChartData2(setUpCharts);
+    }
+  });
 })();
 /*! Bundled license information:
 

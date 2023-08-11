@@ -14555,10 +14555,11 @@
   var windColor = "#0095ffb3";
   var solarColor = "#8b7f00b3";
   var dieselColor = "#fdd90db3";
-  var colors = [dieselColor, windColor, solarColor];
   var windKwh;
   var solarKwh;
   var dieselKwh;
+  var mainChart;
+  var overviewChart;
   function getChartData(callback) {
     return import_jquery.default.ajax({
       url: "/dashboard_data.json",
@@ -14578,14 +14579,23 @@
   }
   function createChart(elementId, options) {
     let chartDiv = (0, import_jquery.default)(`#${elementId}`);
-    let chart = new import_apexcharts.default(chartDiv[0], options);
-    chart.render();
+    let existingChart = elementId === "elecGenMain" ? mainChart : overviewChart;
+    if (existingChart) {
+      existingChart.destroy();
+    }
+    let newChart = new import_apexcharts.default(chartDiv[0], options);
+    newChart.render();
+    if (elementId === "elecGenMain") {
+      mainChart = newChart;
+    } else {
+      overviewChart = newChart;
+    }
   }
   function setUpCharts() {
     const chartMainOptions = {
       series: [windKwh, solarKwh, dieselKwh],
       labels,
-      colors,
+      colors: [dieselColor, windColor, solarColor],
       legend: {
         show: true,
         fontSize: "16px",
@@ -14598,6 +14608,7 @@
         width: "550px",
         type: "donut",
         redrawOnWindowResize: true,
+        redrawOnParentResize: true,
         selection: {
           enabled: false
         }
@@ -14636,7 +14647,7 @@
     const chartOverviewOptions = {
       series: [windKwh, solarKwh, dieselKwh],
       labels,
-      colors,
+      colors: [dieselColor, windColor, solarColor],
       legend: {
         show: true,
         fontSize: "16px",
@@ -14648,7 +14659,8 @@
       chart: {
         width: "350px",
         type: "donut",
-        redrawOnWindowResize: true
+        redrawOnWindowResize: true,
+        redrawOnParentResize: true
       },
       dataLabels: {
         enabled: true,
@@ -14668,7 +14680,11 @@
     createChart("elecGenMain", chartMainOptions);
     createChart("elecGenOverview", chartOverviewOptions);
   }
-  (0, import_jquery.default)(document).ready(getChartData(setUpCharts));
+  document.addEventListener("turbo:load", function() {
+    if (window.location.pathname === "/") {
+      getChartData(setUpCharts);
+    }
+  });
 })();
 /*! Bundled license information:
 

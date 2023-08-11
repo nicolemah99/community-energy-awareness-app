@@ -1,435 +1,419 @@
-<% content_for :head do %>
-
-	<% Dir.glob(Rails.root.join("app/javascript/indexSpecific/**/*.js")).each do |file_path| %>
-		<% module_name=File.basename(file_path, ".js" ) %>
-			<%= javascript_import_module_tag module_name %>
-				<% end %>
-					<% end %>
-						<!--Row 1: Title-->
-						<div class="row m-0">
-							<h1 class="text desktopPageTitle">
-								<%= @page_name %>
-							</h1>
-						</div>
-						<!--Row 1: End-->
-						<!-- Row 2: Last Updated Time -->
-						<div class="row m-0">
-							<div class="col">
-								<div class="card p-3">
+<!--Row 1: Title-->
+<div class="row m-0">
+	<h1 class="text desktopPageTitle">
+		<%= @page_name %>
+	</h1>
+</div>
+<!--Row 1: End-->
+<!-- Row 2: Last Updated Time -->
+<div class="row m-0">
+	<div class="col">
+		<div class="card p-3">
+			<div class="titleWrapper">
+				<i class='bx bxs-watch big'></i>
+				<h3 class="card-title">
+					<%= @last_updated %>
+				</h3>
+			</div>
+		</div>
+	</div>
+</div>
+<!--Row 2: End-->
+<!--Row 3: Overview Start-->
+<div class="row gy-3 m-0 d-flex flex-row">
+	<div class="col">
+		<div id="overview-card" class="card">
+			<div class="card-body overview">
+				<h3 class="card-title">Daily Overview</h3>
+				<div class="row gy-3 m-0">
+					<!-- Electricity Generation Breakdown -->
+					<div class="col">
+						<a href="#elec-gen-card">
+							<div class="card p-3 h-100 overview-card">
+								<div class="card-body">
 									<div class="titleWrapper">
-										<i class='bx bxs-watch big'></i>
-										<h3 class="card-title">
-											<%= @last_updated %>
+										<i class='bx bx-plug small'></i>
+										<h5 class="card-title">Electricity Generation Breakdown
+										</h5>
+									</div>
+									<div class="col d-flex justify-content-center">
+										<div id="elecGenOverview"></div>
+									</div>
+
+								</div>
+							</div>
+						</a>
+					</div>
+					<!-- Weather -->
+					<div class="col">
+						<a data-open-weather-key="<%= ENV['OPEN_WEATHER_API_KEY'] %>" href="#map-card">
+							<div class="card p-3 h-100 overview-card">
+								<div class="card-body">
+									<div class="titleWrapper">
+										<i class='bx bx-sun small'></i>
+										<h5 class="card-title">Weather</h5>
+									</div>
+									<div class="d-flex flex-column">
+										<h3 id="location" class="my-2"></h3>
+										<div class="d-flex flex-row">
+											<img src="" alt="" id="weatherIcon">
+											<h2 id="temp" class="my-2"></h2>
+										</div>
+										<div id="weatherDescWrapper" class="d-flex flex-column align-items-start ps-3">
+											<strong>
+												<p id="weather"></p>
+											</strong>
+											<p id="feelsLike"></p>
+											<p id="humidity"></p>
+											<p id="windProfile"></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+					<!-- Battery & Savings -->
+					<div class="col d-flex flex-column">
+						<!-- Battery Percentage -->
+						<div class="row flex-grow-1 mb-3">
+							<div class="col">
+								<a href="#battery-card">
+									<div class="card p-3 h-100 overview-card">
+										<div class="card-body">
+											<div class="titleWrapper">
+												<i class='bx bxs-battery-charging small'></i>
+												<h5 class="card-title">Battery Percentage</h5>
+											</div>
+											<h2>
+												<%= @current_charge %> % <% if @battery_state=="Charging" %>
+														<i class='bx bx-up-arrow-alt up'></i>
+														<% elsif @battery_state=="Discharging" %>
+															<i class='bx bx-down-arrow-alt down'></i>
+															<% end %>
+											</h2>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+						<!-- Savings -->
+						<div class="row flex-grow-1">
+							<div class="col">
+								<a href="#savings-card">
+									<div class="card p-3 h-100 overview-card">
+										<div class="card-body">
+											<div class="titleWrapper">
+												<i class='bx bx-gas-pump small'></i>
+												<h5 class="card-title">Today's Savings</h5>
+											</div>
+											<h2>
+												<%= number_with_precision(@current_daily_fuel_savings, :precision=> 1,
+													:delimiter => ',') %> gal
+											</h2>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<!-- Community Usage & Green Usage -->
+					<div class="col d-flex flex-column">
+						<!-- Community Electricity Usage -->
+						<div class="row flex-grow-1 mb-3">
+							<div class="col">
+								<a href="#usage-card">
+									<div class="card p-3 h-100 overview-card">
+										<div class="card-body">
+											<div class="titleWrapper">
+												<i class='bx bx-group small'></i>
+												<h5 class="card-title">Community Usage</h5>
+											</div>
+											<h2>
+												<%= @total_kwh %> kWh
+											</h2>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+						<!-- Green Usage -->
+						<div class="row flex-grow-1">
+							<div class="col">
+								<a href="#green-card">
+									<div class="card p-3 h-100 overview-card">
+										<div class="card-body">
+											<div class="titleWrapper">
+												<i class='bx bx-leaf small'></i>
+												<h5 class="card-title">Green Electricity Usage
+												</h5>
+											</div>
+											<h2>
+												36 %
+											</h2>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Row 3: End -->
+<!-- Row 4: Features (all in one row)-->
+<div class="row gy-3 m-0">
+	<!-- Map -->
+	<div class="col">
+		<div class="card p-3 h-100" id="map-card">
+			<div class="card-body">
+				<div class="titleWrapper">
+					<i class='bx bx-map big'></i>
+					<h3 class="card-title"> Kotzebue, Alaska</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Battery -->
+	<div class="col">
+		<div class="card p-3 h-100" id="battery-card">
+			<div class="card-body">
+				<div class="titleWrapper">
+					<i class='bx bxs-battery-charging big'></i>
+					<h3 class="card-title">State of Battery: <strong>
+							<%= @battery_state %>
+						</strong></h3>
+				</div>
+				<strong>Current state of Charge: </strong>
+				<%= @current_charge %> <br>
+					<strong>Charge one hour ago: </strong>
+					<%= @past_charge %> <br>
+						<br>
+						<div class="battery-container">
+							<div class="battery">
+								<div class="battery-head">
+								</div>
+								<div class="battery-body">
+									<% if @battery_state=="Charging" %>
+										<i class="fas fa-bolt"></i>
+										<div class="charge"></div>
+										<h3 class="z-index-3 position-relative">
+											<%= @current_charge %> %
 										</h3>
-									</div>
+										<% elsif @battery_state=="Discharging" %>
+											<div class="discharge"></div>
+											<h3 class="z-index-3 position-absolute top-50 start-50 translate-middle">
+												<%= @current_charge %> %
+											</h3>
+											<% else %>
+												<div class="nocharge"></div>
+												<h3
+													class="z-index-1 position-absolute top-50 start-50 translate-middle">
+													<%= @current_charge %> %
+												</h3>
+												<% end %>
 								</div>
 							</div>
 						</div>
-						<!--Row 2: End-->
-						<!--Row 3: Overview Start-->
-						<div class="row gy-3 m-0 d-flex flex-row">
-							<div class="col">
-								<div id="overview-card" class="card">
-									<div class="card-body overview">
-										<h3 class="card-title">Daily Overview</h3>
-										<div class="row gy-3 m-0">
-											<!-- Electricity Generation Breakdown -->
-											<div class="col">
-												<a href="#elec-gen-card">
-													<div class="card p-3 h-100 overview-card">
-														<div class="card-body">
-															<div class="titleWrapper">
-																<i class='bx bx-plug small'></i>
-																<h5 class="card-title">Electricity Generation Breakdown
-																</h5>
-															</div>
-															<div id="elecGenOverview"></div>
-
-														</div>
-													</div>
-												</a>
-											</div>
-											<!-- Weather -->
-											<div class="col">
-												<a data-open-weather-key="<%= ENV['OPEN_WEATHER_API_KEY'] %>"
-													href="#map-card">
-													<div class="card p-3 h-100 overview-card">
-														<div class="card-body">
-															<div class="titleWrapper">
-																<i class='bx bx-sun small'></i>
-																<h5 class="card-title">Weather</h5>
-															</div>
-															<div class="d-flex flex-column">
-																<h3 id="location" class="my-2"></h3>
-																<div class="d-flex flex-row">
-																	<img src="" alt="" id="weatherIcon">
-																	<h2 id="temp" class="my-2"></h2>
-																</div>
-																<div id="weatherDescWrapper"
-																	class="d-flex flex-column align-items-start ps-3">
-																	<strong>
-																		<p id="weather"></p>
-																	</strong>
-																	<p id="feelsLike"></p>
-																	<p id="humidity"></p>
-																	<p id="windProfile"></p>
-																</div>
-															</div>
-														</div>
-													</div>
-												</a>
-											</div>
-											<!-- Battery & Savings -->
-											<div class="col d-flex flex-column">
-												<!-- Battery Percentage -->
-												<div class="row flex-grow-1 mb-3">
-													<div class="col">
-														<a href="#battery-card">
-															<div class="card p-3 h-100 overview-card">
-																<div class="card-body">
-																	<div class="titleWrapper">
-																		<i class='bx bxs-battery-charging small'></i>
-																		<h5 class="card-title">Battery Percentage</h5>
-																	</div>
-																	<h2>
-																		<%= @current_charge %> % <% if
-																				@battery_state=="Charging" %>
-																				<i class='bx bx-up-arrow-alt up'></i>
-																				<% elsif @battery_state=="Discharging"
-																					%>
-																					<i
-																						class='bx bx-down-arrow-alt down'></i>
-																					<% end %>
-																	</h2>
-																</div>
-															</div>
-														</a>
-													</div>
-												</div>
-												<!-- Savings -->
-												<div class="row flex-grow-1">
-													<div class="col">
-														<a href="#savings-card">
-															<div class="card p-3 h-100 overview-card">
-																<div class="card-body">
-																	<div class="titleWrapper">
-																		<i class='bx bx-gas-pump small'></i>
-																		<h5 class="card-title">Today's Savings</h5>
-																	</div>
-																	<h2>
-																		<%= number_with_precision(@current_daily_fuel_savings,
-																			:precision=> 1, :delimiter => ',') %> gal
-																	</h2>
-																</div>
-															</div>
-														</a>
-													</div>
-												</div>
-											</div>
-											<!-- Community Usage & Green Usage -->
-											<div class="col d-flex flex-column">
-												<!-- Community Electricity Usage -->
-												<div class="row flex-grow-1 mb-3">
-													<div class="col">
-														<a href="#usage-card">
-															<div class="card p-3 h-100 overview-card">
-																<div class="card-body">
-																	<div class="titleWrapper">
-																		<i class='bx bx-group small'></i>
-																		<h5 class="card-title">Community Usage</h5>
-																	</div>
-																	<h2>
-																		<%= @total_kwh %> kWh
-																	</h2>
-																</div>
-															</div>
-														</a>
-													</div>
-												</div>
-												<!-- Green Usage -->
-												<div class="row flex-grow-1">
-													<div class="col">
-														<a href="#green-card">
-															<div class="card p-3 h-100 overview-card">
-																<div class="card-body">
-																	<div class="titleWrapper">
-																		<i class='bx bx-leaf small'></i>
-																		<h5 class="card-title">Green Electricity Usage
-																		</h5>
-																	</div>
-																	<h2>
-																		36 %
-																	</h2>
-																</div>
-															</div>
-														</a>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- Row 3: End -->
-						<!-- Row 4: Features (all in one row)-->
-						<div class="row gy-3 m-0">
-							<!-- Map -->
-							<div class="col">
-								<div class="card p-3 h-100" id="map-card">
-									<div class="card-body">
-										<div class="titleWrapper">
-											<i class='bx bx-map big'></i>
-											<h3 class="card-title"> Kotzebue, Alaska</h3>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- Battery -->
-							<div class="col">
-								<div class="card p-3 h-100" id="battery-card">
-									<div class="card-body">
-										<div class="titleWrapper">
-											<i class='bx bxs-battery-charging big'></i>
-											<h3 class="card-title">State of Battery: <strong>
-													<%= @battery_state %>
-												</strong></h3>
-										</div>
-										<strong>Current state of Charge: </strong>
-										<%= @current_charge %> <br>
-											<strong>Charge one hour ago: </strong>
-											<%= @past_charge %> <br>
-												<br>
-												<div class="battery-container">
-													<div class="battery">
-														<div class="battery-head">
-														</div>
-														<div class="battery-body">
-															<% if @battery_state=="Charging" %>
-																<i class="fas fa-bolt"></i>
-																<div class="charge"></div>
-																<h3 class="z-index-3 position-relative">
-																	<%= @current_charge %> %
-																</h3>
-																<% elsif @battery_state=="Discharging" %>
-																	<div class="discharge"></div>
-																	<h3
-																		class="z-index-3 position-absolute top-50 start-50 translate-middle">
-																		<%= @current_charge %> %
-																	</h3>
-																	<% else %>
-																		<div class="nocharge"></div>
-																		<h3
-																			class="z-index-1 position-absolute top-50 start-50 translate-middle">
-																			<%= @current_charge %> %
-																		</h3>
-																		<% end %>
-														</div>
-													</div>
-												</div>
-									</div>
-									<!-- Button trigger modal -->
-									<div class="info-button">
-										<%= link_to 'Learn More' , modals_batterymodal_path, data: {
-											turbo_frame: "modal" }, class: "btn btn-primary" %>
-									</div>
-								</div>
-							</div>
-							<!-- Electricity Generation Breakdown Doughnut -->
-							<div class="col">
-								<div class="card p-3 h-100" id="elec-gen-card">
-									<div class="card-body" id="doughnut-card-body">
-										<div class="titleWrapper">
-											<i class='bx bx-plug big'></i>
-											<h3 class="card-title"> Electricity Generation Breakdown</h3>
-										</div>
-										<div class="col d-flex justify-content-center">
-											<div id="elecGenMain"></div>
-										</div>
-										<div class="col">
-											<div class="breakdown-table">
-												<table class="table table-hover">
-													<thead>
-														<tr>
-															<th scope="col" colspan="3"></th>
-															<th scope="col">Kilowatt-hour (kWh)</th>
-															<th scope="col">Percentage (%)</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td colspan="3"><strong>TOTAL</strong></td>
-															<td>
-																<%= @total_kwh %> kWh
-															</td>
-															<td>100.00 %</td>
-														</tr>
-														<tr class="non-renew">
-															<td></td>
-															<td colspan="2"><strong>Non Renewables</strong></td>
-															<td><strong>
-																	<%= @non_renew_kwh %> kWh
-																</strong></td>
-															<td><strong>
-																	<%= @non_renew_percent %> %
-																</strong></td>
-														</tr>
-														<tr>
-															<td></td>
-															<td></td>
-															<td>
-																<div class="diesel"></div>Diesel
-															</td>
-															<td>
-																<%= @diesel_kwh %> kWh
-															</td>
-															<td>
-																<%= @diesel_percent %> %
-															</td>
-														</tr>
-														<tr class="renew">
-															<td></td>
-															<td colspan="2"><strong>Renewables</strong></td>
-															<td><strong>
-																	<%=@renew_kwh %> kWh
-																</strong></td>
-															<td><strong>
-																	<%= @renew_percent %> %
-																</strong></td>
-														</tr>
-														<tr>
-															<td></td>
-															<td></td>
-															<td>
-																<div class="wind"></div> Wind
-															</td>
-															<td>
-																<%= @wind_kwh %> kWh
-															</td>
-															<% if @wind_percent==0.0 && @wind_kwh> 0.0 %> <td>
-																	<0.01 %</td>
-																		<% else %>
-																<td>
-																	<%= @wind_percent %> %
-																</td>
-																<% end %>
-														</tr>
-														<tr>
-															<td></td>
-															<td></td>
-															<td>
-																<div class="solar"></div> Solar
-															</td>
-															<td>
-																<%= @solar_kwh %> kWh
-															</td>
-															<% if @solar_percent==0.0 && @solar_kwh> 0.0 %> <td>~<0.01
-																		%</td>
-																		<% else %>
-																<td>
-																	<%= @solar_percent %> %
-																</td>
-																<% end %>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</div>
-									<!-- Button trigger modal -->
-									<div class="info-button">
-										<%= link_to 'Learn More' , modals_elec_gen_modal_path, data: {
-											turbo_frame: "modal" }, class: "btn btn-primary" %>
-									</div>
-								</div>
-							</div>
-							<!-- Diesel Savings -->
-							<div class="col">
-								<div class="card p-3 h-100" id="savings-card">
-									<div class="card-body">
-										<div class="titleWrapper">
-											<i class='bx bx-gas-pump big'></i>
-											<h3 class="card-title">Fuel Savings</h3>
-										</div>
-										<div class="savings-chart-area">
-											<div id="savingsChart"></div>
-										</div>
-										<br>
-										<br>
-										<br>
-										<div class="date-selector">
-											<strong>From: </strong>
-											<input type="text" class="datepicker" id="startdate"
-												value="2021-01-01 00:00:00">
-											<br>
-											<strong>To:</strong>
-											<input type="text" class="datepicker" id="enddate"
-												value="<%= @current_date %>">
-										</div>
-										<br>
-										<div class="savings-table">
-											<table class="table table-hover">
-												<thead>
-													<tr>
-														<th scope="col" colspan="3">Time Period</th>
-														<th scope="col">Gallons Saved</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td colspan="3">This year - <%= @current_year %>
-														</td>
-														<td>
-															<%= number_with_precision(@cumulative_savings.last(),
-																:precision=> 2, :delimiter => ',
-																') %> gal
-														</td>
-													</tr>
-													<tr class="curr-month">
-														<td colspan="3">This month - <%= @current_month_str %>
-														</td>
-														<td>
-															<%= number_with_precision(@current_month_fuel_savings,
-																:precision=> 2,
-																:delimiter => ', ') %> gal
-														</td>
-													</tr>
-													<tr class="curr-day">
-														<td colspan="3">Today - <%= @day_format %>
-														</td>
-														<td>
-															<%= number_with_precision(@current_daily_fuel_savings,
-																:precision=> 2,
-																:delimiter => ', ') %> gal
-														</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
-									<!-- Button trigger modal -->
-									<div class="info-button">
-										<%= link_to 'Learn More' , modals_savingsmodal_path, data: {
-											turbo_frame: "modal" }, class: "btn btn-primary" %>
-									</div>
-								</div>
-							</div>
-							<!-- Community Usage Chart -->
-							<div class="col">
-								<div class="card p-3 h-100" id="usage-card">
-									<div class="titleWrapper">
-										<i class='bx bx-group big'></i>
-										<h3 class="card-title">Community Usage Chart</h3>
-									</div>
-									<div class="card-body">
-										<div id="heatmap"></div>
-									</div>
-									<!-- Button trigger modal -->
-									<div class="info-button">
-										<%= link_to 'Learn More' , modals_com_usage_modal_path, data: {
-											turbo_frame: "modal" }, class: "btn btn-primary" %>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- Row 4: End -->
+			</div>
+			<!-- Button trigger modal -->
+			<div class="info-button">
+				<%= link_to 'Learn More' , modals_batterymodal_path, data: { turbo_frame: "modal" },
+					class: "btn btn-primary" %>
+			</div>
+		</div>
+	</div>
+	<!-- Electricity Generation Breakdown Doughnut -->
+	<div class="col">
+		<div class="card p-3 h-100" id="elec-gen-card">
+			<div class="card-body" id="doughnut-card-body">
+				<div class="titleWrapper">
+					<i class='bx bx-plug big'></i>
+					<h3 class="card-title"> Electricity Generation Breakdown</h3>
+				</div>
+				<div class="col d-flex justify-content-center">
+					<div id="elecGenMain"></div>
+				</div>
+				<div class="col">
+					<div class="breakdown-table">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th scope="col" colspan="3"></th>
+									<th scope="col">Kilowatt-hour (kWh)</th>
+									<th scope="col">Percentage (%)</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td colspan="3"><strong>TOTAL</strong></td>
+									<td>
+										<%= @total_kwh %> kWh
+									</td>
+									<td>100.00 %</td>
+								</tr>
+								<tr class="non-renew">
+									<td></td>
+									<td colspan="2"><strong>Non Renewables</strong></td>
+									<td><strong>
+											<%= @non_renew_kwh %> kWh
+										</strong></td>
+									<td><strong>
+											<%= @non_renew_percent %> %
+										</strong></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td>
+										<div class="diesel"></div>Diesel
+									</td>
+									<td>
+										<%= @diesel_kwh %> kWh
+									</td>
+									<td>
+										<%= @diesel_percent %> %
+									</td>
+								</tr>
+								<tr class="renew">
+									<td></td>
+									<td colspan="2"><strong>Renewables</strong></td>
+									<td><strong>
+											<%=@renew_kwh %> kWh
+										</strong></td>
+									<td><strong>
+											<%= @renew_percent %> %
+										</strong></td>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td>
+										<div class="wind"></div> Wind
+									</td>
+									<td>
+										<%= @wind_kwh %> kWh
+									</td>
+									<% if @wind_percent==0.0 && @wind_kwh> 0.0 %> <td>
+											<0.01 %</td>
+												<% else %>
+										<td>
+											<%= @wind_percent %> %
+										</td>
+										<% end %>
+								</tr>
+								<tr>
+									<td></td>
+									<td></td>
+									<td>
+										<div class="solar"></div> Solar
+									</td>
+									<td>
+										<%= @solar_kwh %> kWh
+									</td>
+									<% if @solar_percent==0.0 && @solar_kwh> 0.0 %> <td>~<0.01 %</td>
+												<% else %>
+										<td>
+											<%= @solar_percent %> %
+										</td>
+										<% end %>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<!-- Button trigger modal -->
+			<div class="info-button">
+				<%= link_to 'Learn More' , modals_elec_gen_modal_path, data: { turbo_frame: "modal" },
+					class: "btn btn-primary" %>
+			</div>
+		</div>
+	</div>
+	<!-- Diesel Savings -->
+	<div class="col">
+		<div class="card p-3 h-100" id="savings-card">
+			<div class="card-body">
+				<div class="titleWrapper">
+					<i class='bx bx-gas-pump big'></i>
+					<h3 class="card-title">Fuel Savings</h3>
+				</div>
+				<div class="savings-chart-area">
+					<div id="savingsChart"></div>
+				</div>
+				<br>
+				<br>
+				<br>
+				<div class="date-selector">
+					<strong>From: </strong>
+					<input type="text" class="datepicker" id="startdate" value="2021-01-01 00:00:00">
+					<br>
+					<strong>To:</strong>
+					<input type="text" class="datepicker" id="enddate" value="<%= @current_date %>">
+				</div>
+				<br>
+				<div class="savings-table">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col" colspan="3">Time Period</th>
+								<th scope="col">Gallons Saved</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="3">This year - <%= @current_year %>
+								</td>
+								<td>
+									<%= number_with_precision(@cumulative_savings.last(), :precision=> 2, :delimiter =>
+										',
+										') %> gal
+								</td>
+							</tr>
+							<tr class="curr-month">
+								<td colspan="3">This month - <%= @current_month_str %>
+								</td>
+								<td>
+									<%= number_with_precision(@current_month_fuel_savings, :precision=> 2,
+										:delimiter => ', ') %> gal
+								</td>
+							</tr>
+							<tr class="curr-day">
+								<td colspan="3">Today - <%= @day_format %>
+								</td>
+								<td>
+									<%= number_with_precision(@current_daily_fuel_savings, :precision=> 2,
+										:delimiter => ', ') %> gal
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- Button trigger modal -->
+			<div class="info-button">
+				<%= link_to 'Learn More' , modals_savingsmodal_path, data: { turbo_frame: "modal" },
+					class: "btn btn-primary" %>
+			</div>
+		</div>
+	</div>
+	<!-- Community Usage Chart -->
+	<div class="col">
+		<div class="card p-3 h-100" id="usage-card">
+			<div class="titleWrapper">
+				<i class='bx bx-group big'></i>
+				<h3 class="card-title">Community Usage Chart</h3>
+			</div>
+			<div class="card-body">
+				<div id="heatmap"></div>
+			</div>
+			<!-- Button trigger modal -->
+			<div class="info-button">
+				<%= link_to 'Learn More' , modals_com_usage_modal_path, data: { turbo_frame: "modal" },
+					class: "btn btn-primary" %>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Row 4: End -->
