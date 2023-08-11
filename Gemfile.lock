@@ -68,7 +68,6 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
-    apexcharts (0.2.0)
     autoprefixer-rails (10.4.13.0)
       execjs (~> 2)
     bindex (0.8.1)
@@ -112,12 +111,11 @@ GEM
       request_store (>= 1.0)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
-    importmap-rails (1.1.5)
-      actionpack (>= 6.0.0)
-      railties (>= 6.0.0)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    jsbundling-rails (1.1.2)
+      railties (>= 6.0.0)
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -243,7 +241,6 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  apexcharts
   bootsnap
   bootstrap (~> 5.0)
   capybara
@@ -252,8 +249,8 @@ DEPENDENCIES
   dockerfile-rails (>= 1.2)
   dotenv-rails
   gon
-  importmap-rails
   jbuilder
+  jsbundling-rails
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.4.2)
