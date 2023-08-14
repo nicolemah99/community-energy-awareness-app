@@ -21557,23 +21557,6 @@
     });
   })();
 
-  // app/javascript/dashboardCharts.js
-  document.addEventListener("turbo:load", (event) => {
-    const rootPath = "/";
-    const url = new URL(event.detail.url);
-    if (url.pathname == rootPath) {
-      const elecGenMainChart2 = document.getElementById("elecGenMainChart");
-      const elecGenOverviewChart2 = document.getElementById(
-        "elecGenOverviewChart"
-      );
-      if (elecGenMainChart2 && elecGenOverviewChart2) {
-        loadCharts();
-      }
-    }
-  });
-  window.addEventListener("resize", () => {
-  });
-
   // app/javascript/savings.js
   var import_apexcharts = __toESM(require_apexcharts_common());
   var savings_datapoints;
@@ -21697,7 +21680,7 @@
     window.savingsChartObj = new import_apexcharts.default(savingsChart, options);
     window.savingsChartObj.render();
   }
-  function loadCharts2() {
+  function loadCharts() {
     getChartData().then((result) => {
       if (result.success) {
         drawSavingsChart();
@@ -21712,7 +21695,7 @@
     if (url.pathname == rootPath) {
       const savingsChart = document.getElementById("savingsChart");
       if (savingsChart) {
-        loadCharts2();
+        loadCharts();
         setUpDatePickers();
       }
     }
@@ -26965,6 +26948,7 @@
   // app/javascript/elecGenBreakdown.js
   var import_jquery = __toESM(require_jquery());
   var import_apexcharts2 = __toESM(require_apexcharts_common());
+  var DATA_URL = "/dashboard_data.json";
   var labels = ["Solar", "Wind", "Diesel"];
   var windColor = "#0095ffb3";
   var solarColor = "#8b7f00b3";
@@ -26976,7 +26960,7 @@
   var overviewChart;
   function getChartData2(callback) {
     return import_jquery.default.ajax({
-      url: "/dashboard_data.json",
+      url: DATA_URL,
       dataType: "json"
     }).done(function(json) {
       windKwh = json.wind_kwh;

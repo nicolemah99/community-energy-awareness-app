@@ -14551,6 +14551,7 @@
   // app/javascript/elecGenBreakdown.js
   var import_jquery = __toESM(require_jquery());
   var import_apexcharts = __toESM(require_apexcharts_common());
+  var DATA_URL = "/dashboard_data.json";
   var labels = ["Solar", "Wind", "Diesel"];
   var windColor = "#0095ffb3";
   var solarColor = "#8b7f00b3";
@@ -14562,7 +14563,7 @@
   var overviewChart;
   function getChartData(callback) {
     return import_jquery.default.ajax({
-      url: "/dashboard_data.json",
+      url: DATA_URL,
       dataType: "json"
     }).done(function(json) {
       windKwh = json.wind_kwh;

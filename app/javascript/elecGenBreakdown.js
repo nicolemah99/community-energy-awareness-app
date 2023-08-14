@@ -12,7 +12,7 @@ let mainChart, overviewChart;
 // Fetch Data from API using jQuery ajax
 function getChartData(callback) {
     return $.ajax({
-        url: "/dashboard_data.json",
+        url: DATA_URL,
         dataType: "json"
     })
         .done(function (json) {
