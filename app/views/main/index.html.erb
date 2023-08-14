@@ -9,8 +9,8 @@
 <div class="row m-0">
 	<div class="col">
 		<div class="card p-3">
-			<div class="titleWrapper">
-				<i class='bx bxs-watch big'></i>
+			<div class="title-wrapper">
+				<i class='bx bxs-watch large'></i>
 				<h3 class="card-title">
 					<%= @last_updated %>
 				</h3>
@@ -31,7 +31,7 @@
 						<a href="#elec-gen-card">
 							<div class="card p-3 h-100 overview-card">
 								<div class="card-body">
-									<div class="titleWrapper">
+									<div class="title-wrapper">
 										<i class='bx bx-plug small'></i>
 										<h5 class="card-title">Electricity Generation Breakdown
 										</h5>
@@ -49,7 +49,7 @@
 						<a data-open-weather-key="<%= ENV['OPEN_WEATHER_API_KEY'] %>" href="#map-card">
 							<div class="card p-3 h-100 overview-card">
 								<div class="card-body">
-									<div class="titleWrapper">
+									<div class="title-wrapper">
 										<i class='bx bx-sun small'></i>
 										<h5 class="card-title">Weather</h5>
 									</div>
@@ -80,7 +80,7 @@
 								<a href="#battery-card">
 									<div class="card p-3 h-100 overview-card">
 										<div class="card-body">
-											<div class="titleWrapper">
+											<div class="title-wrapper">
 												<i class='bx bxs-battery-charging small'></i>
 												<h5 class="card-title">Battery Percentage</h5>
 											</div>
@@ -102,7 +102,7 @@
 								<a href="#savings-card">
 									<div class="card p-3 h-100 overview-card">
 										<div class="card-body">
-											<div class="titleWrapper">
+											<div class="title-wrapper">
 												<i class='bx bx-gas-pump small'></i>
 												<h5 class="card-title">Today's Savings</h5>
 											</div>
@@ -124,7 +124,7 @@
 								<a href="#usage-card">
 									<div class="card p-3 h-100 overview-card">
 										<div class="card-body">
-											<div class="titleWrapper">
+											<div class="title-wrapper">
 												<i class='bx bx-group small'></i>
 												<h5 class="card-title">Community Usage</h5>
 											</div>
@@ -142,7 +142,7 @@
 								<a href="#green-card">
 									<div class="card p-3 h-100 overview-card">
 										<div class="card-body">
-											<div class="titleWrapper">
+											<div class="title-wrapper">
 												<i class='bx bx-leaf small'></i>
 												<h5 class="card-title">Green Electricity Usage
 												</h5>
@@ -168,8 +168,8 @@
 	<div class="col">
 		<div class="card p-3 h-100" id="map-card">
 			<div class="card-body">
-				<div class="titleWrapper">
-					<i class='bx bx-map big'></i>
+				<div class="title-wrapper">
+					<i class='bx bx-map large'></i>
 					<h3 class="card-title"> Kotzebue, Alaska</h3>
 				</div>
 			</div>
@@ -179,8 +179,8 @@
 	<div class="col">
 		<div class="card p-3 h-100" id="battery-card">
 			<div class="card-body">
-				<div class="titleWrapper">
-					<i class='bx bxs-battery-charging big'></i>
+				<div class="title-wrapper">
+					<i class='bx bxs-battery-charging large'></i>
 					<h3 class="card-title">State of Battery: <strong>
 							<%= @battery_state %>
 						</strong></h3>
@@ -207,7 +207,7 @@
 												<%= @current_charge %> %
 											</h3>
 											<% else %>
-												<div class="nocharge"></div>
+												<div class="no-charge"></div>
 												<h3
 													class="z-index-1 position-absolute top-50 start-50 translate-middle">
 													<%= @current_charge %> %
@@ -228,8 +228,8 @@
 	<div class="col">
 		<div class="card p-3 h-100" id="elec-gen-card">
 			<div class="card-body" id="doughnut-card-body">
-				<div class="titleWrapper">
-					<i class='bx bx-plug big'></i>
+				<div class="title-wrapper">
+					<i class='bx bx-plug large'></i>
 					<h3 class="card-title"> Electricity Generation Breakdown</h3>
 				</div>
 				<div class="col d-flex justify-content-center">
@@ -335,11 +335,11 @@
 	<div class="col">
 		<div class="card p-3 h-100" id="savings-card">
 			<div class="card-body">
-				<div class="titleWrapper">
-					<i class='bx bx-gas-pump big'></i>
+				<div class="title-wrapper">
+					<i class='bx bx-gas-pump large'></i>
 					<h3 class="card-title">Fuel Savings</h3>
 				</div>
-				<div class="savings-chart-area">
+				<div class="savings-chart-wrapper">
 					<div id="savingsChart"></div>
 				</div>
 				<br>
@@ -347,10 +347,10 @@
 				<br>
 				<div class="date-selector">
 					<strong>From: </strong>
-					<input type="text" class="datepicker" id="startdate" value="2021-01-01 00:00:00">
+					<input type="text" class="date-picker" id="startdate" value="2021-01-01 00:00:00">
 					<br>
 					<strong>To:</strong>
-					<input type="text" class="datepicker" id="enddate" value="<%= @current_date %>">
+					<input type="text" class="date-picker" id="enddate" value="<%= @current_date %>">
 				</div>
 				<br>
 				<div class="savings-table">
@@ -401,8 +401,8 @@
 	<!-- Community Usage Chart -->
 	<div class="col">
 		<div class="card p-3 h-100" id="usage-card">
-			<div class="titleWrapper">
-				<i class='bx bx-group big'></i>
+			<div class="title-wrapper">
+				<i class='bx bx-group large'></i>
 				<h3 class="card-title">Community Usage Chart</h3>
 			</div>
 			<div class="card-body">

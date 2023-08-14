@@ -1,70 +1,117 @@
 /* Stylesheet for Battery Feature */
 
-:root{
-  --red:#ff0000;
-  --orange:#ff9100;
-  --yellow:#fff200;
-  --yellow-green:#d7fc03;
-  --green:#33b864;
-  --black:#000000;
-  --gray:#9e9e9e;
-  --white:#ffffff;
-
-}
- 
-@keyframes battery-bolt{
-  50%{transform: scale(1.3);}
-  100%{transform: scale(1);}
-}
-@keyframes battery-charge{
-  0%{width: 50%; background: var(--yellow-green);}
-  50%{width: 70%; background: var(--yellow-green);}
-  75%{width: 85%; background: var(--green);}
-  100%{width: 100%; background: var(--green);}
-}
-@keyframes battery-discharge{
-  0%{width: 60%; background: var(--yellow);}
-  25%{width: 50%; background: var(--yellow);}
-  50%{width: 30%; background: var(--orange);}
-  100%{width: 0%; background: var(--red);}
-}
-@keyframes battery-nocharge{
-  0%{width: 75%; background: var(--green);}
-  50%{width: 75%; background: var(--green);}
-  75%{width: 75%; background: var(--green);}
-  100%{width: 75%; background: var(--green);}
+@keyframes battery-bolt {
+  50% {
+    transform: scale(1.3);
   }
 
-.battery{
-  position: relative;
-  height: 100px;
-  width: 210px; /* increased width to accommodate the battery head */
+  100% {
+    transform: scale(1);
+  }
 }
 
-.battery-head{
+@keyframes battery-charge {
+  0% {
+    width: 50%;
+    background: var(--yellow-green);
+  }
+
+  50% {
+    width: 70%;
+    background: var(--yellow-green);
+  }
+
+  75% {
+    width: 85%;
+    background: var(--green);
+  }
+
+  100% {
+    width: 100%;
+    background: var(--green);
+  }
+}
+
+@keyframes battery-discharge {
+  0% {
+    width: 60%;
+    background: var(--yellow);
+  }
+
+  25% {
+    width: 50%;
+    background: var(--yellow);
+  }
+
+  50% {
+    width: 30%;
+    background: var(--orange);
+  }
+
+  100% {
+    width: 0%;
+    background: var(--red);
+  }
+}
+
+@keyframes battery-no-charge {
+  0% {
+    width: 75%;
+    background: var(--green);
+  }
+
+  50% {
+    width: 75%;
+    background: var(--green);
+  }
+
+  75% {
+    width: 75%;
+    background: var(--green);
+  }
+
+  100% {
+    width: 75%;
+    background: var(--green);
+  }
+}
+
+.battery {
+  position: relative;
+  height: 100px;
+  width: 210px;
+  /* increased width to accommodate the battery head */
+}
+
+.battery-head {
   width: 10px;
   height: 30px;
   background: var(--black);
-  position: absolute; /* changed to absolute */
-  right: 0; /* adjusted to right */
-  top: 50%; /* to make it in the middle */
-  transform: translateY(-50%); /* to perfectly center it */
+  position: absolute;
+  /* changed to absolute */
+  right: 0;
+  /* adjusted to right */
+  top: 50%;
+  /* to make it in the middle */
+  transform: translateY(-50%);
+  /* to perfectly center it */
   border: 4px solid var(--black);
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
 }
 
-.battery-body{
+.battery-body {
   width: 200px;
   height: 100px;
   background: transparent;
-  position: relative; /* changed to relative */
+  position: relative;
+  /* changed to relative */
   border: 3px solid var(--black);
   border-radius: 18px;
-  overflow: hidden; 
+  overflow: hidden;
 }
-  
-i.fa-bolt{
+
+i.fa-bolt {
   color: var(--white);
   font-size: 40px;
   position: absolute;
@@ -74,33 +121,30 @@ i.fa-bolt{
   animation: battery-bolt 2s linear infinite;
 }
 
-.charge, .discharge, .nocharge {
+.charge,
+.discharge,
+.no-charge {
   height: 100%;
   position: absolute;
   bottom: 0;
   border-radius: 14px;
 }
 
-.charge{
-    animation:battery-charge 6s linear infinite;
-    z-index: 0;
-}
-
-.discharge{
-  animation-fill-mode:backwards;
-  animation:battery-discharge 6s linear infinite;
+.charge {
+  animation: battery-charge 6s linear infinite;
   z-index: 0;
 }
 
-.nocharge{
+.discharge {
+  animation-fill-mode: backwards;
+  animation: battery-discharge 6s linear infinite;
+  z-index: 0;
+}
+
+.no-charge {
   animation-fill-mode: none;
-  animation:battery-nocharge 6s linear infinite;
+  animation: battery-no-charge 6s linear infinite;
   z-index: 0;
-}
-
-.battpercent{
-  z-index: 3;
-  text-align: center;
 }
 
 .battery-container {
