@@ -428,24 +428,30 @@
 										<h3 class="card-title">kWh Calculator</h3>
 									</div>
 									<div class="card-body">
-									<div class="card-content" id="card-content">
-										<button onclick="changeContent('content-phone')" type="button" class="btn btn-primary" id="kwh_btn">
-											<i class='bx bx-phone big' ></i>
-										</button>
-										<button onclick="changeContent('content-shower')" type="button" class="btn btn-primary" id="kwh_btn">
-											<i class='bx bx-shower big' ></i>
-										</button>
-										<button onclick="changeContent('content-bulb')" type="button" class="btn btn-primary" id="kwh_btn">
-											<i class='bx bx-bulb big' ></i>
-										</button>
-										<button onclick="changeContent('content-washer')" type="button" class="btn btn-primary" id="kwh_btn">
-											<i class='bx bxs-washer big' ></i>
-										</button>
-  									</div>
-									
-									<input type="range" min="1" max="100" value="50" id="slider" oninput="updateSliderValue(this.value)">
-  									<span id="slider-value">50</span>
-
+										<div class="card-content" id="card-content">
+											<button data-content-type="content-phone" type="button" class="btn btn-primary btn-content-change" id="kwh_btn">
+												<i class='bx bx-phone big' ></i>
+											</button>
+											<button data-content-type="content-shower" type="button" class="btn btn-primary btn-content-change" id="kwh_btn">
+												<i class='bx bx-shower big' ></i>
+											</button>
+											<button data-content-type="content-bulb" type="button" class="btn btn-primary btn-content-change" id="kwh_btn">
+												<i class='bx bx-bulb big' ></i>
+											</button>
+											<button data-content-type="content-washer" type="button" class="btn btn-primary btn-content-change" id="kwh_btn">
+												<i class='bx bxs-washer big' ></i>
+											</button>
+										</div>
+										
+										<div class="container" id="utility-description">
+											<strong>How much energy does it take to charge a phone?</strong><br>
+											Charging your phone one time requires <strong>5 Wh</strong>.<br>
+											If you were to charge your phone once a day for a month, you would use <strong>0.15 kWh</strong><br>
+											If you charge your phone once a day for a year, you would use <strong>1.83 kWh</strong>.
+										</div>
+																			
+										<input type="range" min="1" max="100" value="50" id="slider">
+										<span id="slider-value">50</span>
 									</div>
 								</div>
 							</div>

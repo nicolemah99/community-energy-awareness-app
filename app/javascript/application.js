@@ -5,6 +5,7 @@ import "./api_OpenWeather"
 import "./cards"
 import "./dashboardCharts"
 import "./heatmap"
+import "./kwh_calc"
 import "./savings"
 import "./sidebar"
 import 'bootstrap';
