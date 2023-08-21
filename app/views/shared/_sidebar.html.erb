@@ -21,6 +21,12 @@
                         <% end %>
                 </li>
                 <li class="nav-link">
+                    <%= link_to energy101_path, class: "#{'active' if current_page?(energy101_path)}" do %>
+                            <i class='bx bx-book-bookmark icon'></i>
+                        <span class="text">Energy 101</span>
+                        <% end %>
+                </li>
+                <li class="nav-link">
                     <%= link_to about_path, class: "#{'active' if current_page?(about_path)}" do %> <i
                             class='bx bx-group icon'></i>
                         <span class="text">About</span>
