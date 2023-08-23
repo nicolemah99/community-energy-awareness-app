@@ -1,9 +1,10 @@
+import $ from 'jquery';
 import ApexCharts from 'apexcharts';
 
+const DATA_URL = "/dashboard_data.json"
 let savings_datapoints;
-let startPicker;
-let endPicker;
 
+// Making data points accumulative
 function accumulate(data) {
   let sum = 0;
   return data.map(item => {
@@ -38,27 +39,26 @@ function setUpDatePickers() {
 	});
 }
 
-// Using fetch API for simplicity
-function getChartData() {
-	return fetch("/dashboard_data.json")
-		.then((response) => {
-			if (!response.ok) {
-				throw new Error(`HTTP error! status: ${response.status}`);
-			}
-			return response.json();
-		})
-		.then((json) => {
-      savings_datapoints = json.savings_datapoints;
-			return { success: true };
-		})
-		.catch((e) => {
-			console.log("There was a problem with the fetch operation: " + e.message);
-			return { success: false, error: e.message };
-		});
+function getChartData(callback) {
+  return $.ajax({
+      url: DATA_URL,
+      dataType: "json"
+  })
+      .done(function (json) {
+        savings_datapoints = json.savings_datapoints;
+          if (typeof callback === "function") {
+              callback();
+          }
+          return { success: true };
+      })
+      .fail(function (jqXHR, textStatus, errorThrown) {
+          console.log("There was a problem with the fetch operation: " + errorThrown);
+          return { success: false, error: errorThrown };
+      });
 }
 
 function drawSavingsChart() {
-	const savingsChart = document.getElementById("savingsChart");
+	const savingsChart = $("#savingsChart")[0];
 	var options = {
     series: [{
     name: 'Savings',
@@ -76,10 +76,10 @@ function drawSavingsChart() {
           else if(startIndex > 0 && 0 < endIndex && endIndex < savings_datapoints.length) {
             let visibleData = savings_datapoints.slice(startIndex, endIndex + 1);
             let accumulatedVisibleData = accumulate(visibleData);
-            window.savingsChartObj.updateSeries([{ data: accumulatedVisibleData }]);
+            savingsChartObj.updateSeries([{ data: accumulatedVisibleData }]);
           }
           else{
-            window.savingsChartObj.updateSeries([{ data: accumulate(savings_datapoints) }]);
+            savingsChartObj.updateSeries([{ data: accumulate(savings_datapoints) }]);
           }
         }
       },
@@ -132,11 +132,11 @@ function drawSavingsChart() {
   };
   
 	// If charts already exist, destroy them to prevent multiple instances
-	if (window.savingsChartObj) window.savingsChartObj.destroy();
+	if (savingsChartObj) savingsChartObj.destroy();
   
 	// Draw new chart
-	window.savingsChartObj = new ApexCharts(savingsChart, options);
-  window.savingsChartObj.render();
+	savingsChartObj = new ApexCharts(savingsChart, options);
+  savingsChartObj.render();
   }
 function loadCharts() {
 	getChartData().then((result) => {
@@ -147,32 +147,29 @@ function loadCharts() {
 		}
 	});
 }
-document.addEventListener("turbo:load", (event) => {
-	const rootPath = "/";
-	const url = new URL(event.detail.url);
 
-	//If user clicked on root link
-	if (url.pathname == rootPath) {
-		const savingsChart = document.getElementById("savingsChart");
-		if (savingsChart) {
-			loadCharts();
-			setUpDatePickers();
-		}
-	}
+// Start process once document is ready
+document.addEventListener("turbo:load", function () {
+  // If we are on the home page, then process the data
+  if (window.location.pathname === "/") {
+    loadCharts();
+    setUpDatePickers();
+  }
 });
 
-function filterData(){
-  const startdateValue = new Date(document.getElementById('startdate').value).getTime();
-  const enddateValue = new Date(document.getElementById('enddate').value).getTime();
+// Get the data selected by the date pickers
+function filterData() {
+  const startdateValue = new Date($('#startdate').val()).getTime();
+  const enddateValue = new Date($('#enddate').val()).getTime();
 
   const filteredData = savings_datapoints.filter(item => {
       const itemDate = new Date(item.x).getTime();
       return itemDate >= startdateValue && itemDate <= enddateValue;
   });
-  
+
   if (filteredData.length) {
       const accumulatedData = accumulate(filteredData);
-      window.savingsChartObj.updateSeries([{ data: accumulatedData }]);
-    }
-  };
+      savingsChartObj.updateSeries([{ data: accumulatedData }]); 
+  }
+};
   
