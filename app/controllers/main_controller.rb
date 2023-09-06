@@ -10,7 +10,7 @@ class MainController < ApplicationController
         current_time = DateTime.now
         current_hour = current_time.strftime "2021-%m-%d %H:00:00"
         past_hour = (Time.parse(current_hour) - 60 * 60).strftime "%2021-%m-%d %H:00:00"
-        @last_updated = current_time.strftime("%B #{current_time.day.ordinalize}, %Y at %l:00 %P AKST")
+        @last_updated = current_time.strftime("%B #{current_time.day.ordinalize}, %Y at %l:00 %P AKDT")
 
         ## Generation Breakdown Feature
 
